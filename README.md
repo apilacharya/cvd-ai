@@ -17,7 +17,7 @@ A modern, AI-powered web application for cardiovascular disease risk assessment 
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React 19, TypeScript, Vite
+- **Frontend**: React 19, TypeScript & Vite
 - **Styling**: Tailwind CSS, Shadcn/UI
 - **Animations**: Framer Motion
 - **Forms**: React Hook Form + Yup validation
