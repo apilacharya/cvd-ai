@@ -43,26 +43,35 @@ function App() {
         return <HistoricalDataPage />;
       case "home":
       default:
-        return <HomePage />;
+        return (
+          <HomePage
+            onNavigateToSignUp={() => setCurrentPage("signup")}
+            onNavigateToSignIn={() => setCurrentPage("signin")}
+          />
+        );
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navigation */}
-      {currentPage !== "signin" && currentPage !== "signup" && (
-        <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">CVD</span>
-                </div>
-                <span className="font-bold text-xl bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
-                  Health Predictor
-                </span>
+      <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <button
+              onClick={() => setCurrentPage("home")}
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            >
+              <div className="h-8 w-8 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">CVD</span>
               </div>
+              <span className="font-bold text-xl bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+                Health Predictor
+              </span>
+            </button>
 
+            {/* Navigation for non-auth pages */}
+            {currentPage !== "signin" && currentPage !== "signup" && (
               <div className="flex items-center gap-6">
                 <button
                   onClick={() => setCurrentPage("home")}
@@ -120,10 +129,31 @@ function App() {
                   </div>
                 )}
               </div>
-            </div>
+            )}
+
+            {/* Navigation for auth pages */}
+            {(currentPage === "signin" || currentPage === "signup") && (
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-600">
+                  {currentPage === "signin"
+                    ? "New to CVD Health?"
+                    : "Already have an account?"}
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentPage(
+                      currentPage === "signin" ? "signup" : "signin"
+                    )
+                  }
+                  className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                >
+                  {currentPage === "signin" ? "Create Account" : "Sign In"}
+                </button>
+              </div>
+            )}
           </div>
-        </nav>
-      )}
+        </div>
+      </nav>
 
       {/* Main Content */}
       <main className="flex-1">{renderPage()}</main>

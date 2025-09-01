@@ -186,7 +186,7 @@ export function AIHealthAssistant({
 
       <CardContent className="h-full flex flex-col p-4">
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
+        <div className="flex-1 overflow-y-auto space-y-3 mb-6 pr-2">
           <AnimatePresence>
             {messages.map((message) => (
               <motion.div

@@ -48,7 +48,15 @@ const mockPredictionAPI = async (_data: any) => {
   };
 };
 
-export function HomePage() {
+interface HomePageProps {
+  onNavigateToSignUp?: () => void;
+  onNavigateToSignIn?: () => void;
+}
+
+export function HomePage({
+  onNavigateToSignUp,
+  onNavigateToSignIn,
+}: HomePageProps = {}) {
   const [predictionResults, setPredictionResults] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -109,6 +117,34 @@ export function HomePage() {
               risk and provide personalized health insights
             </motion.p>
 
+            {/* Get Started CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="mb-8"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto border border-white/20">
+                <p className="text-lg mb-4 text-yellow-200">
+                  🏥 Get Started to get historical record of your predictions
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button
+                    onClick={onNavigateToSignUp}
+                    className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-lg min-w-[160px]"
+                  >
+                    Get Started
+                  </button>
+                  <button
+                    onClick={onNavigateToSignIn}
+                    className="bg-white/20 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-white/30 transition-all transform hover:scale-105 border border-white/30 min-w-[160px]"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Feature Highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -143,13 +179,13 @@ export function HomePage() {
 
       {/* Main Content */}
       <section className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
           {/* Form Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-2"
+            className="lg:col-span-4"
           >
             <CVDPredictionForm
               onSubmit={handleFormSubmit}
@@ -162,19 +198,19 @@ export function HomePage() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="space-y-6"
+            className="lg:col-span-2 space-y-8"
           >
+            {/* AI Health Assistant */}
+            <AIHealthAssistant
+              predictionResults={predictionResults}
+              isEnabled={!!predictionResults}
+            />
+
             {/* Prediction Results */}
             <PredictionResult
               results={predictionResults}
               isLoading={isLoading}
               error={error || undefined}
-            />
-
-            {/* AI Health Assistant */}
-            <AIHealthAssistant
-              predictionResults={predictionResults}
-              isEnabled={!!predictionResults}
             />
           </motion.div>
         </div>
@@ -240,18 +276,30 @@ export function HomePage() {
             Get started with your personalized cardiovascular risk assessment
             and receive AI-powered health insights.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              document.querySelector("form")?.scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
-            className="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200"
-          >
-            Start Your Assessment
-          </motion.button>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                document.querySelector("form")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+              className="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200"
+            >
+              Start Your Assessment
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onNavigateToSignUp}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-600 transition-all duration-200"
+            >
+              Create Account for History
+            </motion.button>
+          </div>
         </div>
       </motion.section>
     </div>

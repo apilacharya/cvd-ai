@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Heart, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
+import { Heart, Mail, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -75,222 +75,230 @@ export function SignUpPage({ onSignUp, onNavigateToSignIn }: SignUpPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="text-center pb-6">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="mx-auto mb-4"
-            >
-              <Heart className="h-16 w-16 text-red-500 mx-auto heart-pulse" />
-            </motion.div>
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
-              Create Account
-            </CardTitle>
-            <p className="text-muted-foreground mt-2">
-              Join our cardiovascular health platform
-            </p>
-          </CardHeader>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50">
+      {/* Main Content */}
+      <div className="flex items-center justify-center px-6 py-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="w-full max-w-md"
+        >
+          <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
+            <CardHeader className="text-center pb-6">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                className="mx-auto mb-4"
+              >
+                <Heart className="h-16 w-16 text-red-500 mx-auto heart-pulse" />
+              </motion.div>
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+                Create Account
+              </CardTitle>
+              <p className="text-muted-foreground mt-2">
+                Join our cardiovascular health platform
+              </p>
+            </CardHeader>
 
-          <CardContent>
-            <form
-              onSubmit={handleSubmit(handleFormSubmit)}
-              className="space-y-6"
-            >
-              {/* Name Fields */}
-              <div className="grid grid-cols-2 gap-4">
+            <CardContent>
+              <form
+                onSubmit={handleSubmit(handleFormSubmit)}
+                className="space-y-6"
+              >
+                {/* Name Fields */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="firstName"
+                      className="text-sm font-medium flex items-center gap-2"
+                    >
+                      <User className="h-4 w-4 text-blue-600" />
+                      First Name
+                    </Label>
+                    <Input
+                      id="firstName"
+                      placeholder="John"
+                      {...register("firstName")}
+                      className="h-11"
+                    />
+                    {errors.firstName && (
+                      <p className="text-sm text-destructive">
+                        {errors.firstName.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName" className="text-sm font-medium">
+                      Last Name
+                    </Label>
+                    <Input
+                      id="lastName"
+                      placeholder="Doe"
+                      {...register("lastName")}
+                      className="h-11"
+                    />
+                    {errors.lastName && (
+                      <p className="text-sm text-destructive">
+                        {errors.lastName.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Email */}
                 <div className="space-y-2">
                   <Label
-                    htmlFor="firstName"
+                    htmlFor="email"
                     className="text-sm font-medium flex items-center gap-2"
                   >
-                    <User className="h-4 w-4 text-blue-600" />
-                    First Name
+                    <Mail className="h-4 w-4 text-green-600" />
+                    Email Address
                   </Label>
                   <Input
-                    id="firstName"
-                    placeholder="John"
-                    {...register("firstName")}
+                    id="email"
+                    type="email"
+                    placeholder="john.doe@example.com"
+                    {...register("email")}
                     className="h-11"
                   />
-                  {errors.firstName && (
+                  {errors.email && (
                     <p className="text-sm text-destructive">
-                      {errors.firstName.message}
+                      {errors.email.message}
                     </p>
                   )}
                 </div>
 
+                {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-sm font-medium">
-                    Last Name
+                  <Label
+                    htmlFor="password"
+                    className="text-sm font-medium flex items-center gap-2"
+                  >
+                    <Lock className="h-4 w-4 text-purple-600" />
+                    Password
                   </Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Doe"
-                    {...register("lastName")}
-                    className="h-11"
-                  />
-                  {errors.lastName && (
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      {...register("password")}
+                      className="h-11 pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                  {errors.password && (
                     <p className="text-sm text-destructive">
-                      {errors.lastName.message}
+                      {errors.password.message}
                     </p>
                   )}
                 </div>
-              </div>
 
-              {/* Email */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="email"
-                  className="text-sm font-medium flex items-center gap-2"
-                >
-                  <Mail className="h-4 w-4 text-green-600" />
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  {...register("email")}
-                  className="h-11"
-                />
-                {errors.email && (
+                {/* Confirm Password */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="confirmPassword"
+                    className="text-sm font-medium"
+                  >
+                    Confirm Password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      {...register("confirmPassword")}
+                      className="h-11 pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                  {errors.confirmPassword && (
+                    <p className="text-sm text-destructive">
+                      {errors.confirmPassword.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Terms and Conditions */}
+                <div className="flex items-start space-x-2">
+                  <input
+                    type="checkbox"
+                    id="agreeToTerms"
+                    {...register("agreeToTerms")}
+                    className="mt-1"
+                  />
+                  <label
+                    htmlFor="agreeToTerms"
+                    className="text-sm text-gray-600"
+                  >
+                    I agree to the{" "}
+                    <a href="#" className="text-blue-600 hover:underline">
+                      Terms of Service
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="text-blue-600 hover:underline">
+                      Privacy Policy
+                    </a>
+                  </label>
+                </div>
+                {errors.agreeToTerms && (
                   <p className="text-sm text-destructive">
-                    {errors.email.message}
+                    {errors.agreeToTerms.message}
                   </p>
                 )}
-              </div>
 
-              {/* Password */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="password"
-                  className="text-sm font-medium flex items-center gap-2"
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isLoading || isSubmitting}
+                  className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
                 >
-                  <Lock className="h-4 w-4 text-purple-600" />
-                  Password
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    {...register("password")}
-                    className="h-11 pr-10"
-                  />
+                  {isLoading || isSubmitting
+                    ? "Creating Account..."
+                    : "Create Account"}
+                </Button>
+
+                {/* Sign In Link */}
+                <div className="text-center text-sm text-gray-600">
+                  Already have an account?{" "}
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={onNavigateToSignIn}
+                    className="text-blue-600 hover:underline font-medium"
                   >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
+                    Sign in here
                   </button>
                 </div>
-                {errors.password && (
-                  <p className="text-sm text-destructive">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Confirm Password */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="confirmPassword"
-                  className="text-sm font-medium"
-                >
-                  Confirm Password
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    {...register("confirmPassword")}
-                    className="h-11 pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-                {errors.confirmPassword && (
-                  <p className="text-sm text-destructive">
-                    {errors.confirmPassword.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Terms and Conditions */}
-              <div className="flex items-start space-x-2">
-                <input
-                  type="checkbox"
-                  id="agreeToTerms"
-                  {...register("agreeToTerms")}
-                  className="mt-1"
-                />
-                <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
-                  I agree to the{" "}
-                  <a href="#" className="text-blue-600 hover:underline">
-                    Terms of Service
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-blue-600 hover:underline">
-                    Privacy Policy
-                  </a>
-                </label>
-              </div>
-              {errors.agreeToTerms && (
-                <p className="text-sm text-destructive">
-                  {errors.agreeToTerms.message}
-                </p>
-              )}
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={isLoading || isSubmitting}
-                className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
-              >
-                {isLoading || isSubmitting
-                  ? "Creating Account..."
-                  : "Create Account"}
-              </Button>
-
-              {/* Sign In Link */}
-              <div className="text-center text-sm text-gray-600">
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  onClick={onNavigateToSignIn}
-                  className="text-blue-600 hover:underline font-medium"
-                >
-                  Sign in here
-                </button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </motion.div>
+              </form>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
     </div>
   );
 }
