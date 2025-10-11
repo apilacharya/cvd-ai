@@ -37,7 +37,7 @@ export function SignInPage() {
   const handleFormSubmit = async (data: any) => {
     try {
       await login(data);
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Log in error:", error);
     }

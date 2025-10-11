@@ -24,7 +24,7 @@ export const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <Link
-            to="/home"
+            to={user ? "/dashboard" : "/home"}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <div className="h-8 w-8 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center">
@@ -38,28 +38,53 @@ export const Navigation = () => {
           {/* Navigation for non-auth pages */}
           {!isAuthPage && (
             <div className="flex items-center gap-6">
-              <Link
-                to="/home"
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === "/home"
-                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-              >
-                Home
-              </Link>
-
-              {user && (
+              {user ? (
                 <Link
-                  to="/history"
+                  to="/dashboard"
                   className={`text-sm font-medium transition-colors ${
-                    location.pathname === "/history"
+                    location.pathname === "/dashboard"
                       ? "text-blue-600 border-b-2 border-blue-600 pb-1"
                       : "text-gray-600 hover:text-blue-600"
                   }`}
                 >
-                  Health History
+                  Dashboard
                 </Link>
+              ) : (
+                <Link
+                  to="/home"
+                  className={`text-sm font-medium transition-colors ${
+                    location.pathname === "/home"
+                      ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+                      : "text-gray-600 hover:text-blue-600"
+                  }`}
+                >
+                  Home
+                </Link>
+              )}
+
+              {user && (
+                <>
+                  <Link
+                    to="/analyze"
+                    className={`text-sm font-medium transition-colors ${
+                      location.pathname === "/analyze"
+                        ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    Analyze
+                  </Link>
+                  <Link
+                    to="/history"
+                    className={`text-sm font-medium transition-colors ${
+                      location.pathname === "/history"
+                        ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    Health History
+                  </Link>
+                </>
               )}
 
               {user ? (

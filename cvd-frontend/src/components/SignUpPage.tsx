@@ -59,7 +59,7 @@ export function SignUpPage() {
   const handleFormSubmit = async (data: any) => {
     try {
       await registerUser(data);
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Sign up error:", error);
     }
