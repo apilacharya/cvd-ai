@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, Heart, Loader2 } from "lucide-react";
+import { Send, Bot, User, Heart, Loader2, Crown, Lock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 interface Message {
   id: string;
@@ -14,13 +16,12 @@ interface Message {
 
 interface AIHealthAssistantProps {
   predictionResults?: any;
-  isEnabled?: boolean;
 }
 
 export function AIHealthAssistant({
   predictionResults,
-  isEnabled = false,
 }: AIHealthAssistantProps) {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +49,7 @@ export function AIHealthAssistant({
   }, [predictionResults, messages.length]);
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim() || isLoading || !isEnabled) return;
+    if (!inputValue.trim() || isLoading || !user) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -146,24 +147,47 @@ export function AIHealthAssistant({
     return `That's a great question about cardiovascular health! While I can provide general health information, it's always best to consult with your healthcare provider for personalized medical advice. I'm here to help you understand general heart health principles and lifestyle recommendations. Is there a specific aspect of cardiovascular health you'd like to know more about?`;
   };
 
-  if (!isEnabled) {
+  if (!user) {
     return (
-      <Card className="w-full h-96 bg-gradient-to-br from-gray-50 to-slate-100 border-0 shadow-lg">
+      <Card className="w-full h-96 bg-gradient-to-br from-amber-50 to-orange-100 border-2 border-amber-200 shadow-lg">
         <CardContent className="h-full flex flex-col items-center justify-center p-8">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-center space-y-4"
+            className="text-center space-y-6"
           >
-            <Bot className="h-16 w-16 text-gray-400 mx-auto" />
-            <h3 className="text-xl font-semibold text-gray-600">
-              AI Health Assistant
-            </h3>
-            <p className="text-gray-500 max-w-sm">
-              Complete your health assessment to unlock personalized AI-powered
-              health guidance and insights.
-            </p>
+            <div className="relative">
+              <Bot className="h-16 w-16 text-amber-500 mx-auto" />
+              <Crown className="h-6 w-6 text-yellow-500 absolute -top-1 -right-1" />
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-amber-800 flex items-center justify-center gap-2">
+                <Lock className="h-5 w-5" />
+                Premium AI Health Assistant
+              </h3>
+              <p className="text-amber-700 font-medium text-lg">
+                Premium AI powered chat assistant available to Logged in users
+              </p>
+              <p className="text-amber-600 max-w-sm text-sm">
+                Get personalized health insights, recommendations, and 24/7
+                support from our advanced AI assistant.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center">
+              <Link
+                to="/signup"
+                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+              >
+                Sign Up Now
+              </Link>
+              <Link
+                to="/login"
+                className="bg-white text-amber-700 border-2 border-amber-300 px-6 py-2 rounded-lg font-semibold hover:bg-amber-50 transition-all duration-300"
+              >
+                Log In
+              </Link>
+            </div>
           </motion.div>
         </CardContent>
       </Card>
