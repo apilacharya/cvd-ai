@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "../hooks/useAuth";
 
 const signUpSchema = yup.object({
   firstName: yup
@@ -28,168 +30,164 @@ const signUpSchema = yup.object({
     .min(8, "Password must be at least 8 characters")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+      "Password must contain uppercase, lowercase, and number"
     ),
   confirmPassword: yup
     .string()
     .required("Please confirm your password")
     .oneOf([yup.ref("password")], "Passwords must match"),
-  agreeToTerms: yup
+  terms: yup
     .boolean()
-    .required()
-    .oneOf([true], "You must agree to the terms and conditions"),
+    .oneOf([true], "You must accept the terms and conditions"),
 });
 
-type SignUpFormData = yup.InferType<typeof signUpSchema>;
-
-interface SignUpPageProps {
-  onSignUp?: (data: any) => void;
-  onNavigateToSignIn?: () => void;
-}
-
-export function SignUpPage({ onSignUp, onNavigateToSignIn }: SignUpPageProps) {
+export function SignUpPage() {
+  const navigate = useNavigate();
+  const { register: registerUser, loading, error } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>({
+  } = useForm({
     resolver: yupResolver(signUpSchema),
     mode: "onChange",
   });
 
   const handleFormSubmit = async (data: any) => {
-    setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      onSignUp?.(data);
+      await registerUser(data);
+      navigate("/home");
     } catch (error) {
       console.error("Sign up error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-4">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
         className="w-full max-w-md"
       >
-        <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="text-center pb-6">
+        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm">
+          <CardHeader className="text-center space-y-6 pb-8">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="mx-auto mb-4"
+              className="mx-auto h-16 w-16 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center"
             >
-              <Heart className="h-16 w-16 text-red-500 mx-auto heart-pulse" />
+              <Heart className="h-8 w-8 text-white" />
             </motion.div>
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
-              Create Account
-            </CardTitle>
-            <p className="text-muted-foreground mt-2">
-              Join our cardiovascular health platform
-            </p>
+            <div>
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+                Join CVD Health
+              </CardTitle>
+              <p className="text-gray-600 mt-2">
+                Create your account for personalized health insights
+              </p>
+            </div>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="space-y-6">
             <form
               onSubmit={handleSubmit(handleFormSubmit)}
-              className="space-y-6"
+              className="space-y-4"
             >
-              {/* Name Fields */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label
                     htmlFor="firstName"
-                    className="text-sm font-medium flex items-center gap-2"
+                    className="text-sm font-medium text-gray-700"
                   >
-                    <User className="h-4 w-4 text-blue-600" />
                     First Name
                   </Label>
-                  <Input
-                    id="firstName"
-                    placeholder="John"
-                    {...register("firstName")}
-                    className="h-11"
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="firstName"
+                      {...register("firstName")}
+                      className="pl-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="John"
+                    />
+                  </div>
                   {errors.firstName && (
-                    <p className="text-sm text-destructive">
+                    <p className="text-sm text-red-600">
                       {errors.firstName.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-sm font-medium">
+                  <Label
+                    htmlFor="lastName"
+                    className="text-sm font-medium text-gray-700"
+                  >
                     Last Name
                   </Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Doe"
-                    {...register("lastName")}
-                    className="h-11"
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="lastName"
+                      {...register("lastName")}
+                      className="pl-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="Doe"
+                    />
+                  </div>
                   {errors.lastName && (
-                    <p className="text-sm text-destructive">
+                    <p className="text-sm text-red-600">
                       {errors.lastName.message}
                     </p>
                   )}
                 </div>
               </div>
 
-              {/* Email */}
               <div className="space-y-2">
                 <Label
                   htmlFor="email"
-                  className="text-sm font-medium flex items-center gap-2"
+                  className="text-sm font-medium text-gray-700"
                 >
-                  <Mail className="h-4 w-4 text-green-600" />
                   Email Address
                 </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  {...register("email")}
-                  className="h-11"
-                />
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register("email")}
+                    className="pl-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="john@example.com"
+                  />
+                </div>
                 {errors.email && (
-                  <p className="text-sm text-destructive">
-                    {errors.email.message}
-                  </p>
+                  <p className="text-sm text-red-600">{errors.email.message}</p>
                 )}
               </div>
 
-              {/* Password */}
               <div className="space-y-2">
                 <Label
                   htmlFor="password"
-                  className="text-sm font-medium flex items-center gap-2"
+                  className="text-sm font-medium text-gray-700"
                 >
-                  <Lock className="h-4 w-4 text-purple-600" />
                   Password
                 </Label>
                 <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
                     {...register("password")}
-                    className="h-11 pr-10"
+                    className="pl-10 pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="Create a strong password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -199,32 +197,32 @@ export function SignUpPage({ onSignUp, onNavigateToSignIn }: SignUpPageProps) {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-sm text-red-600">
                     {errors.password.message}
                   </p>
                 )}
               </div>
 
-              {/* Confirm Password */}
               <div className="space-y-2">
                 <Label
                   htmlFor="confirmPassword"
-                  className="text-sm font-medium"
+                  className="text-sm font-medium text-gray-700"
                 >
                   Confirm Password
                 </Label>
                 <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
                     id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
                     {...register("confirmPassword")}
-                    className="h-11 pr-10"
+                    className="pl-10 pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="Confirm your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showConfirmPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -234,60 +232,76 @@ export function SignUpPage({ onSignUp, onNavigateToSignIn }: SignUpPageProps) {
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-sm text-red-600">
                     {errors.confirmPassword.message}
                   </p>
                 )}
               </div>
 
-              {/* Terms and Conditions */}
               <div className="flex items-start space-x-2">
                 <input
+                  id="terms"
                   type="checkbox"
-                  id="agreeToTerms"
-                  {...register("agreeToTerms")}
-                  className="mt-1"
+                  {...register("terms")}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
                 />
-                <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
+                <Label
+                  htmlFor="terms"
+                  className="text-sm text-gray-600 leading-relaxed"
+                >
                   I agree to the{" "}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <a
+                    href="#"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
                     Terms of Service
                   </a>{" "}
                   and{" "}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <a
+                    href="#"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
                     Privacy Policy
                   </a>
-                </label>
+                </Label>
               </div>
-              {errors.agreeToTerms && (
-                <p className="text-sm text-destructive">
-                  {errors.agreeToTerms.message}
-                </p>
+              {errors.terms && (
+                <p className="text-sm text-red-600">{errors.terms.message}</p>
               )}
 
-              {/* Submit Button */}
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
+
               <Button
                 type="submit"
-                disabled={isLoading || isSubmitting}
-                className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
+                disabled={loading || isSubmitting}
+                className="w-full bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
               >
-                {isLoading || isSubmitting
-                  ? "Creating Account..."
-                  : "Create Account"}
+                {loading || isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Creating Account...
+                  </div>
+                ) : (
+                  "Create Account"
+                )}
               </Button>
-
-              {/* Sign In Link */}
-              <div className="text-center text-sm text-gray-600">
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  onClick={onNavigateToSignIn}
-                  className="text-blue-600 hover:underline font-medium"
-                >
-                  Sign in here
-                </button>
-              </div>
             </form>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Log in here
+                </Link>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </motion.div>

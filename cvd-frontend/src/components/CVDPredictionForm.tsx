@@ -147,7 +147,7 @@ export function CVDPredictionForm({
       transition={{ duration: 0.5 }}
     >
       <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-white to-blue-50">
-        <CardHeader className="text-center pb-6">
+        <CardHeader className="text-center pb-8">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -167,242 +167,569 @@ export function CVDPredictionForm({
           </p>
         </CardHeader>
 
-        <CardContent>
-          <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
-            {/* Gender */}
-            <motion.div
-              variants={fieldVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.1 }}
-              className="space-y-3"
-            >
-              <Label className="text-base font-semibold flex items-center gap-2">
-                <User className="h-5 w-5 text-blue-600" />
-                What is your gender?
-              </Label>
-              <RadioGroup
-                onValueChange={(value) => setValue("gender", value)}
-                className="flex gap-6"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="male" id="male" />
-                  <Label htmlFor="male">Male</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="female" id="female" />
-                  <Label htmlFor="female">Female</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="other" id="other" />
-                  <Label htmlFor="other">Other</Label>
-                </div>
-              </RadioGroup>
-              {errors.gender && (
-                <p className="text-sm text-destructive">
-                  {errors.gender.message}
-                </p>
-              )}
-            </motion.div>
-
-            {/* Age */}
-            <motion.div
-              variants={fieldVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.2 }}
-              className="space-y-3"
-            >
-              <Label
-                htmlFor="age"
-                className="text-base font-semibold flex items-center gap-2"
-              >
-                <Timer className="h-5 w-5 text-green-600" />
-                What is your age?
-              </Label>
-              <Input
-                id="age"
-                type="number"
-                placeholder="Enter your age"
-                {...register("age", { valueAsNumber: true })}
-                className="text-lg py-3"
-              />
-              {errors.age && (
-                <p className="text-sm text-destructive">{errors.age.message}</p>
-              )}
-            </motion.div>
-
-            {/* Education Level */}
-            <motion.div
-              variants={fieldVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.3 }}
-              className="space-y-3"
-            >
-              <Label className="text-base font-semibold flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-purple-600" />
-                Education Level
-              </Label>
-              <select
-                {...register("education")}
-                className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-lg ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                <option value="">Select education level</option>
-                {educationOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {errors.education && (
-                <p className="text-sm text-destructive">
-                  {errors.education.message}
-                </p>
-              )}
-            </motion.div>
-
-            {/* Health Status Questions */}
-            {[
-              {
-                key: "currentSmoker",
-                label: "Are you a current smoker?",
-                icon: Cigarette,
-                color: "text-orange-600",
-              },
-              {
-                key: "bpMeds",
-                label: "Are you on blood pressure medication?",
-                icon: Pill,
-                color: "text-blue-600",
-              },
-              {
-                key: "prevalentStroke",
-                label: "Have you ever had a stroke?",
-                icon: Zap,
-                color: "text-red-600",
-              },
-              {
-                key: "prevalentHyp",
-                label: "Do you have hypertension?",
-                icon: TrendingUp,
-                color: "text-yellow-600",
-              },
-              {
-                key: "diabetes",
-                label: "Do you have diabetes?",
-                icon: TestTube,
-                color: "text-indigo-600",
-              },
-            ].map((field, index) => (
+        <CardContent className="p-8 pt-10">
+          <form
+            onSubmit={handleSubmit(handleFormSubmit)}
+            className="space-y-10"
+          >
+            {/* Row 1: Gender (Radio) and Age (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
-                key={field.key}
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.4 + index * 0.1 }}
-                className="space-y-3"
+                transition={{ delay: 0.1 }}
+                className="space-y-4"
               >
-                <Label
-                  className={`text-base font-semibold flex items-center gap-2`}
-                >
-                  <field.icon className={`h-5 w-5 ${field.color}`} />
-                  {field.label}
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <User className="h-6 w-6 text-blue-600" />
+                  What is your gender?
                 </Label>
                 <RadioGroup
-                  onValueChange={(value) =>
-                    setValue(field.key as keyof FormData, value)
-                  }
-                  className="flex gap-6"
+                  onValueChange={(value) => setValue("gender", value)}
+                  className="flex gap-6 pt-2"
                 >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="yes" id={`${field.key}-yes`} />
-                    <Label htmlFor={`${field.key}-yes`}>Yes</Label>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="male"
+                      id="male"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="male"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Male
+                    </Label>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="no" id={`${field.key}-no`} />
-                    <Label htmlFor={`${field.key}-no`}>No</Label>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="female"
+                      id="female"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="female"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Female
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="other"
+                      id="other"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="other"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Other
+                    </Label>
                   </div>
                 </RadioGroup>
-                {errors[field.key as keyof FormData] && (
+                {errors.gender && (
                   <p className="text-sm text-destructive">
-                    {errors[field.key as keyof FormData]?.message}
+                    {errors.gender.message}
                   </p>
                 )}
               </motion.div>
-            ))}
 
-            {/* Numeric Health Metrics */}
-            {[
-              {
-                key: "totChol",
-                label: "What is your total cholesterol? (mg/dL)",
-                icon: Droplets,
-                color: "text-red-500",
-              },
-              {
-                key: "sysBP",
-                label: "What is your systolic BP? (mmHg)",
-                icon: TrendingUp,
-                color: "text-orange-500",
-              },
-              {
-                key: "diaBP",
-                label: "What is your diastolic BP? (mmHg)",
-                icon: Activity,
-                color: "text-blue-500",
-              },
-              {
-                key: "bmi",
-                label: "What is your BMI?",
-                icon: Scale,
-                color: "text-green-500",
-              },
-              {
-                key: "heartRate",
-                label: "What is your heart rate? (bpm)",
-                icon: Heart,
-                color: "text-red-500",
-              },
-              {
-                key: "glucose",
-                label: "What is your glucose level? (mg/dL)",
-                icon: TestTube,
-                color: "text-purple-500",
-              },
-            ].map((field, index) => (
               <motion.div
-                key={field.key}
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.9 + index * 0.1 }}
-                className="space-y-3"
+                transition={{ delay: 0.2 }}
+                className="space-y-4"
               >
                 <Label
-                  htmlFor={field.key}
-                  className={`text-base font-semibold flex items-center gap-2`}
+                  htmlFor="age"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
                 >
-                  <field.icon className={`h-5 w-5 ${field.color}`} />
-                  {field.label}
+                  <Timer className="h-6 w-6 text-green-600" />
+                  What is your age?
                 </Label>
                 <Input
-                  id={field.key}
+                  id="age"
                   type="number"
-                  step="0.1"
-                  placeholder={`Enter ${field.label.toLowerCase()}`}
-                  {...register(field.key as keyof FormData, {
-                    valueAsNumber: true,
-                  })}
-                  className="text-lg py-3"
+                  placeholder="Enter your age"
+                  {...register("age", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
                 />
-                {errors[field.key as keyof FormData] && (
+                {errors.age && (
                   <p className="text-sm text-destructive">
-                    {errors[field.key as keyof FormData]?.message}
+                    {errors.age.message}
                   </p>
                 )}
               </motion.div>
-            ))}
+            </div>
+
+            {/* Row 2: Education (Select) and Cholesterol (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.3 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <BookOpen className="h-6 w-6 text-purple-600" />
+                  What is your education level?
+                </Label>
+                <select
+                  {...register("education")}
+                  className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-blue-500 focus:ring-4 focus:ring-blue-200 focus:outline-none"
+                >
+                  <option value="">Select your education level</option>
+                  {educationOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                {errors.education && (
+                  <p className="text-sm text-destructive">
+                    {errors.education.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.4 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="totChol"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <Droplets className="h-6 w-6 text-red-500" />
+                  Total cholesterol (mg/dL)
+                </Label>
+                <Input
+                  id="totChol"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter total cholesterol"
+                  {...register("totChol", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.totChol && (
+                  <p className="text-sm text-destructive">
+                    {errors.totChol.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 3: Current Smoker (Radio) and Systolic BP (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.5 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <Cigarette className="h-6 w-6 text-orange-600" />
+                  Are you a current smoker?
+                </Label>
+                <RadioGroup
+                  onValueChange={(value) => setValue("currentSmoker", value)}
+                  className="flex gap-8 pt-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="yes"
+                      id="currentSmoker-yes"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="currentSmoker-yes"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="no"
+                      id="currentSmoker-no"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="currentSmoker-no"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+                {errors.currentSmoker && (
+                  <p className="text-sm text-destructive">
+                    {errors.currentSmoker.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.6 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="sysBP"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <TrendingUp className="h-6 w-6 text-orange-500" />
+                  Systolic BP (mmHg)
+                </Label>
+                <Input
+                  id="sysBP"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter systolic BP"
+                  {...register("sysBP", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.sysBP && (
+                  <p className="text-sm text-destructive">
+                    {errors.sysBP.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 4: BP Medication (Radio) and Diastolic BP (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.7 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <Pill className="h-6 w-6 text-blue-600" />
+                  Are you on BP medication?
+                </Label>
+                <RadioGroup
+                  onValueChange={(value) => setValue("bpMeds", value)}
+                  className="flex gap-8 pt-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="yes"
+                      id="bpMeds-yes"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="bpMeds-yes"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="no"
+                      id="bpMeds-no"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="bpMeds-no"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+                {errors.bpMeds && (
+                  <p className="text-sm text-destructive">
+                    {errors.bpMeds.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.8 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="diaBP"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <Activity className="h-6 w-6 text-blue-500" />
+                  Diastolic BP (mmHg)
+                </Label>
+                <Input
+                  id="diaBP"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter diastolic BP"
+                  {...register("diaBP", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.diaBP && (
+                  <p className="text-sm text-destructive">
+                    {errors.diaBP.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 5: Stroke History (Radio) and BMI (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.9 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <Zap className="h-6 w-6 text-red-600" />
+                  Have you ever had a stroke?
+                </Label>
+                <RadioGroup
+                  onValueChange={(value) => setValue("prevalentStroke", value)}
+                  className="flex gap-8 pt-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="yes"
+                      id="prevalentStroke-yes"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="prevalentStroke-yes"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="no"
+                      id="prevalentStroke-no"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="prevalentStroke-no"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+                {errors.prevalentStroke && (
+                  <p className="text-sm text-destructive">
+                    {errors.prevalentStroke.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 1.0 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="bmi"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <Scale className="h-6 w-6 text-green-500" />
+                  BMI
+                </Label>
+                <Input
+                  id="bmi"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter BMI"
+                  {...register("bmi", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.bmi && (
+                  <p className="text-sm text-destructive">
+                    {errors.bmi.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 6: Hypertension (Radio) and Heart Rate (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 1.1 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <TrendingUp className="h-6 w-6 text-yellow-600" />
+                  Do you have hypertension?
+                </Label>
+                <RadioGroup
+                  onValueChange={(value) => setValue("prevalentHyp", value)}
+                  className="flex gap-8 pt-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="yes"
+                      id="prevalentHyp-yes"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="prevalentHyp-yes"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="no"
+                      id="prevalentHyp-no"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="prevalentHyp-no"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+                {errors.prevalentHyp && (
+                  <p className="text-sm text-destructive">
+                    {errors.prevalentHyp.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 1.2 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="heartRate"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <Heart className="h-6 w-6 text-red-500" />
+                  Heart Rate (bpm)
+                </Label>
+                <Input
+                  id="heartRate"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter heart rate"
+                  {...register("heartRate", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.heartRate && (
+                  <p className="text-sm text-destructive">
+                    {errors.heartRate.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 7: Diabetes (Radio) and Glucose (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 1.3 }}
+                className="space-y-4"
+              >
+                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
+                  <TestTube className="h-6 w-6 text-indigo-600" />
+                  Do you have diabetes?
+                </Label>
+                <RadioGroup
+                  onValueChange={(value) => setValue("diabetes", value)}
+                  className="flex gap-8 pt-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="yes"
+                      id="diabetes-yes"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="diabetes-yes"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value="no"
+                      id="diabetes-no"
+                      className="h-5 w-5 border-2"
+                    />
+                    <Label
+                      htmlFor="diabetes-no"
+                      className="text-base font-medium text-gray-600 cursor-pointer"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+                {errors.diabetes && (
+                  <p className="text-sm text-destructive">
+                    {errors.diabetes.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 1.4 }}
+                className="space-y-4"
+              >
+                <Label
+                  htmlFor="glucose"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <TestTube className="h-6 w-6 text-purple-500" />
+                  Glucose level (mg/dL)
+                </Label>
+                <Input
+                  id="glucose"
+                  type="number"
+                  step="0.1"
+                  placeholder="Enter glucose level"
+                  {...register("glucose", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.glucose && (
+                  <p className="text-sm text-destructive">
+                    {errors.glucose.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
 
             {/* Submit Button */}
             <motion.div
