@@ -8,11 +8,17 @@ export interface UserDocument extends Omit<UserType, "_id">, Document {
 
 const userSchema = new Schema<UserDocument>(
   {
-    name: {
+    firstName: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, "First name is required"],
       trim: true,
-      maxlength: [50, "Name cannot be more than 50 characters"],
+      maxlength: [50, "First name cannot be more than 50 characters"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "Last name is required"],
+      trim: true,
+      maxlength: [50, "Last name cannot be more than 50 characters"],
     },
     email: {
       type: String,
@@ -30,15 +36,14 @@ const userSchema = new Schema<UserDocument>(
       minlength: [6, "Password must be at least 6 characters"],
       select: false,
     },
+    // Optional fields that can be added later for CVD analysis
     age: {
       type: Number,
-      required: [true, "Age is required"],
       min: [1, "Age must be at least 1"],
       max: [120, "Age cannot be more than 120"],
     },
     gender: {
       type: String,
-      required: [true, "Gender is required"],
       enum: ["male", "female", "other"],
     },
     isActive: {

@@ -1,10 +1,11 @@
 export interface User {
   _id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  age: number;
-  gender: "male" | "female" | "other";
+  age?: number; // Optional - will be collected during CVD analysis
+  gender?: "male" | "female" | "other"; // Optional - will be collected during CVD analysis
   isActive: boolean;
   lastLogin: Date;
   createdAt: Date;
@@ -12,11 +13,10 @@ export interface User {
 }
 
 export interface UserCreateInput {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  age: number;
-  gender: "male" | "female" | "other";
 }
 
 export interface UserLoginInput {

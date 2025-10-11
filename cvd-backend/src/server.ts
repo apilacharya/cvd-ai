@@ -6,12 +6,12 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 
 // Import routes
-import authRoutes from "./routes/auth";
-import reportRoutes from "./routes/reports";
+import authRoutes from "./routes/auth.js";
+import reportRoutes from "./routes/reports.js";
 
 // Import middleware
-import { errorHandler } from "./middleware/errorHandler";
-import { authenticateToken } from "./middleware/auth";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { authenticateToken } from "./middleware/auth.js";
 
 // Load environment variables
 dotenv.config();

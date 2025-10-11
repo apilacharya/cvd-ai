@@ -21,7 +21,7 @@ router.post(
   "/register",
   validateRegistration,
   asyncHandler(async (req: Request, res: express.Response<ApiResponse>) => {
-    const { name, email, password, age, gender }: UserCreateInput = req.body;
+    const { firstName, lastName, email, password }: UserCreateInput = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -35,11 +35,10 @@ router.post(
 
     // Create new user
     const user = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       password,
-      age,
-      gender,
     });
 
     // Create and send token
