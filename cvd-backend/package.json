@@ -7,8 +7,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon --watch src --ext ts,json --exec \"node --loader ts-node/esm src/server.ts\"",
+    "dev": "nodemon --watch src --ext ts,json --exec \"node --loader ts-node/esm src/server.ts\"",  //for sandesh "dev": "tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "keywords": [
     "cvd",
@@ -21,6 +22,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ai-sdk/google": "^2.0.23",
+    "@ai-sdk/openai": "^2.0.53",
+    "ai": "^5.0.76",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -39,6 +43,7 @@
     "@types/node": "^24.9.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

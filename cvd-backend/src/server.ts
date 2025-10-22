@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 // Import routes
 import authRoutes from "./routes/auth.js";
 import reportRoutes from "./routes/reports.js";
+import aiRoutes from "./routes/ai.js";
 
 // Import middleware
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Protected route for getting current user
 app.get("/api/auth/me", authenticateToken, (req: any, res) => {
@@ -90,8 +92,11 @@ const connectDB = async (): Promise<void> => {
   }
 };
 
-// Connect to database
-await connectDB();
+// Connect to database - temporarily disabled for AI testing
+// await connectDB();
+console.warn(
+  "MongoDB connection disabled - AI routes will work but auth routes need database"
+);
 
 const PORT = process.env.PORT || 3001;
 
