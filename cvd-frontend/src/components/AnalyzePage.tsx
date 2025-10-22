@@ -123,7 +123,7 @@ export function AnalyzePage() {
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 AI Health Assistant
               </h2>
-              <AIHealthAssistant predictionResults={predictionResults} />
+              <AIHealthAssistant />
             </div>
 
             {/* Prediction Results */}

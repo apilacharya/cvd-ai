@@ -14,13 +14,7 @@ interface Message {
   timestamp: Date;
 }
 
-interface AIHealthAssistantProps {
-  predictionResults?: any;
-}
-
-export function AIHealthAssistant({
-  predictionResults,
-}: AIHealthAssistantProps) {
+export function AIHealthAssistant() {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -35,19 +29,18 @@ export function AIHealthAssistant({
     scrollToBottom();
   }, [messages]);
 
+  // Simple welcome message
   useEffect(() => {
-    if (predictionResults && messages.length === 0) {
-      // Add welcome message when prediction results are available
+    if (user && messages.length === 0) {
       const welcomeMessage: Message = {
         id: "welcome",
         type: "assistant",
-        content: `Hello! I'm your AI Health Assistant. I've analyzed your cardiovascular risk assessment results. I'm here to help you understand your results and provide health guidance. Feel free to ask me any questions about your cardiovascular health!`,
+        content: `Hello ${user.firstName}! I'm your CVD Health Assistant specialized in cardiovascular health. Ask me about heart disease, blood pressure, cholesterol, or heart-healthy lifestyle tips! ❤️`,
         timestamp: new Date(),
       };
       setMessages([welcomeMessage]);
     }
-  }, [predictionResults, messages.length]);
-
+  }, [user, messages.length]);
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading || !user) return;
 
@@ -59,92 +52,73 @@ export function AIHealthAssistant({
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const messageContent = inputValue.trim();
     setInputValue("");
     setIsLoading(true);
 
+    // Create AI message with empty content for streaming
+    const aiMessageId = (Date.now() + 1).toString();
+    const aiMessage: Message = {
+      id: aiMessageId,
+      type: "assistant",
+      content: "",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, aiMessage]);
+
     try {
-      // Simulate AI response (replace with actual Gemini API call)
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Stream AI response
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:3001/api/ai/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message: messageContent }),
+      });
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: "assistant",
-        content: generateAIResponse(userMessage.content, predictionResults),
-        timestamp: new Date(),
-      };
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
 
-      setMessages((prev) => [...prev, aiMessage]);
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error("No response stream");
+      }
+
+      let streamedContent = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = new TextDecoder().decode(value);
+        streamedContent += chunk;
+
+        // Update the AI message content with streaming animation
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === aiMessageId ? { ...msg, content: streamedContent } : msg
+          )
+        );
+      }
     } catch (error) {
       console.error("Error getting AI response:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: "assistant",
-        content:
-          "I apologize, but I'm having trouble processing your request right now. Please try again later.",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === aiMessageId
+            ? {
+                ...msg,
+                content:
+                  "I apologize, but I'm having trouble processing your request right now. Please try again later.",
+              }
+            : msg
+        )
+      );
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const generateAIResponse = (userInput: string, results: any): string => {
-    const lowerInput = userInput.toLowerCase();
-
-    if (lowerInput.includes("risk") || lowerInput.includes("result")) {
-      if (!results)
-        return "I don't have your prediction results yet. Please complete the health assessment first.";
-
-      return `Based on your assessment, your cardiovascular risk level appears to be in a specific range. This assessment considers multiple factors including your age, lifestyle, blood pressure, cholesterol levels, and other health indicators. Remember, this is a prediction tool and should not replace professional medical advice.`;
-    }
-
-    if (
-      lowerInput.includes("diet") ||
-      lowerInput.includes("food") ||
-      lowerInput.includes("eat")
-    ) {
-      return `For heart health, I recommend following a Mediterranean-style diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats like olive oil. Limit processed foods, excess sodium, and saturated fats. Consider foods like salmon, nuts, berries, and leafy greens.`;
-    }
-
-    if (
-      lowerInput.includes("exercise") ||
-      lowerInput.includes("workout") ||
-      lowerInput.includes("activity")
-    ) {
-      return `Regular physical activity is crucial for cardiovascular health. Aim for at least 150 minutes of moderate-intensity aerobic exercise per week, or 75 minutes of vigorous exercise. Include strength training twice a week. Start gradually and consult your doctor before beginning any new exercise program.`;
-    }
-
-    if (
-      lowerInput.includes("medication") ||
-      lowerInput.includes("medicine") ||
-      lowerInput.includes("drug")
-    ) {
-      return `If you're taking medications for blood pressure, cholesterol, or diabetes, it's important to take them as prescribed by your doctor. Never stop or change medications without consulting your healthcare provider. These medications play a crucial role in managing cardiovascular risk factors.`;
-    }
-
-    if (
-      lowerInput.includes("stress") ||
-      lowerInput.includes("anxiety") ||
-      lowerInput.includes("mental")
-    ) {
-      return `Stress management is vital for heart health. Chronic stress can contribute to cardiovascular problems. Try relaxation techniques like deep breathing, meditation, yoga, or regular exercise. Ensure adequate sleep and consider talking to a counselor if stress becomes overwhelming.`;
-    }
-
-    if (lowerInput.includes("smoking") || lowerInput.includes("tobacco")) {
-      return `Smoking is one of the most significant risk factors for cardiovascular disease. If you smoke, quitting is the single most important thing you can do for your heart health. There are many resources available to help you quit, including medications, counseling, and support groups.`;
-    }
-
-    if (
-      lowerInput.includes("doctor") ||
-      lowerInput.includes("physician") ||
-      lowerInput.includes("medical")
-    ) {
-      return `It's important to have regular check-ups with your healthcare provider, especially if you have elevated cardiovascular risk factors. They can monitor your blood pressure, cholesterol, blood sugar, and other important markers. Don't hesitate to discuss any concerns about your heart health.`;
-    }
-
-    // Default response
-    return `That's a great question about cardiovascular health! While I can provide general health information, it's always best to consult with your healthcare provider for personalized medical advice. I'm here to help you understand general heart health principles and lifestyle recommendations. Is there a specific aspect of cardiovascular health you'd like to know more about?`;
   };
 
   if (!user) {
