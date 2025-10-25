@@ -13,9 +13,8 @@ import { getRiskLevel } from "@/lib/utils";
 
 interface ModelResult {
   name: string;
-  accuracy: number;
   prediction: number;
-  confidence: number;
+  probabilities: number[];
 }
 
 interface PredictionResultProps {
@@ -121,14 +120,11 @@ export function PredictionResult({
     );
   }
 
-  // Find the best performing model
-  const bestModel = results.reduce((best, current) =>
-    current.accuracy > best.accuracy ? current : best
-  );
-
-  const averagePrediction =
-    results.reduce((sum, model) => sum + model.prediction, 0) / results.length;
-  const riskInfo = getRiskLevel(averagePrediction);
+  // Use Random Forest as the primary model for risk calculation (best model by default)
+  const randomForestModel =
+    results.find((model) => model.name === "Random Forest") || results[0];
+  const primaryRiskProbability = randomForestModel.probabilities[1];
+  const riskInfo = getRiskLevel(primaryRiskProbability);
 
   return (
     <motion.div
@@ -151,12 +147,15 @@ export function PredictionResult({
           <CardTitle className="text-2xl font-bold">
             Cardiovascular Risk Assessment
           </CardTitle>
+          <p className="text-sm text-gray-600">
+            Based on Random Forest (Best Model)
+          </p>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Risk Level Display */}
           <div className="text-center">
             <div className={`text-6xl font-bold ${riskInfo.color} mb-2`}>
-              {(averagePrediction * 100).toFixed(1)}%
+              {(primaryRiskProbability * 100).toFixed(1)}%
             </div>
             <div className={`text-2xl font-semibold ${riskInfo.color} mb-2`}>
               {riskInfo.level} Risk
@@ -169,18 +168,18 @@ export function PredictionResult({
             <div className="w-full bg-gray-200 rounded-full h-4">
               <motion.div
                 className={`h-4 rounded-full ${
-                  averagePrediction >= 0.8
+                  primaryRiskProbability >= 0.8
                     ? "bg-red-500"
-                    : averagePrediction >= 0.6
+                    : primaryRiskProbability >= 0.6
                     ? "bg-orange-500"
-                    : averagePrediction >= 0.4
+                    : primaryRiskProbability >= 0.4
                     ? "bg-yellow-500"
-                    : averagePrediction >= 0.2
+                    : primaryRiskProbability >= 0.2
                     ? "bg-blue-500"
                     : "bg-green-500"
                 }`}
                 initial={{ width: 0 }}
-                animate={{ width: `${averagePrediction * 100}%` }}
+                animate={{ width: `${primaryRiskProbability * 100}%` }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
               />
             </div>
@@ -192,28 +191,85 @@ export function PredictionResult({
         </CardContent>
       </Card>
 
-      {/* Best Model Highlight */}
-      <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-0 shadow-lg">
+      {/* Random Forest - Best Model Highlight */}
+      {(() => {
+        const randomForestResult = results.find(
+          (model) => model.name === "Random Forest"
+        );
+        if (!randomForestResult) return null;
+
+        return (
+          <Card className="bg-gradient-to-br from-emerald-50 to-green-100 border-2 border-emerald-300 shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold flex items-center gap-2">
+                <Award className="h-6 w-6 text-emerald-600" />
+                Best Model Recommendation: Random Forest
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div
+                    className={`text-3xl font-bold ${
+                      randomForestResult.prediction === 1
+                        ? "text-red-600"
+                        : "text-green-600"
+                    } mb-2`}
+                  >
+                    {randomForestResult.prediction === 1
+                      ? "CVD Risk Detected"
+                      : "No CVD Risk"}
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    Risk Probability:{" "}
+                    <span className="font-semibold">
+                      {(randomForestResult.probabilities[1] * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Random Forest achieved the highest accuracy in our testing
+                    and is our most trusted model for CVD prediction.
+                  </p>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div
+                    className={`h-3 rounded-full ${
+                      randomForestResult.probabilities[1] >= 0.8
+                        ? "bg-red-500"
+                        : randomForestResult.probabilities[1] >= 0.6
+                        ? "bg-orange-500"
+                        : randomForestResult.probabilities[1] >= 0.4
+                        ? "bg-yellow-500"
+                        : randomForestResult.probabilities[1] >= 0.2
+                        ? "bg-blue-500"
+                        : "bg-green-500"
+                    }`}
+                    style={{
+                      width: `${randomForestResult.probabilities[1] * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
+
+      {/* Model Consensus */}
+      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg">
         <CardHeader>
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
-            <Award className="h-6 w-6 text-green-600" />
-            Most Accurate Model: {bestModel.name}
+            <Target className="h-6 w-6 text-blue-600" />
+            Model Consensus
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {(bestModel.accuracy * 100).toFixed(1)}%
-              </div>
-              <p className="text-sm text-gray-600">Accuracy</p>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">
+              {results.filter((model) => model.prediction === 1).length} /{" "}
+              {results.length}
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {(bestModel.confidence * 100).toFixed(1)}%
-              </div>
-              <p className="text-sm text-gray-600">Confidence</p>
-            </div>
+            <p className="text-sm text-gray-600">Models predict CVD risk</p>
           </div>
         </CardContent>
       </Card>
@@ -235,45 +291,58 @@ export function PredictionResult({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className={`p-4 rounded-lg border-2 ${
-                  model.name === bestModel.name
-                    ? "border-green-500 bg-green-50"
-                    : "border-gray-200 bg-gray-50"
+                  model.name === "Random Forest"
+                    ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-200"
+                    : model.prediction === 1
+                    ? "border-red-500 bg-red-50"
+                    : "border-green-500 bg-green-50"
                 }`}
               >
                 <div className="flex justify-between items-center">
                   <div>
                     <h4 className="font-semibold text-lg flex items-center gap-2">
                       {model.name}
-                      {model.name === bestModel.name && (
+                      {model.name === "Random Forest" && (
+                        <Award className="h-5 w-5 text-emerald-600" />
+                      )}
+                      {model.prediction === 0 ? (
                         <CheckCircle className="h-5 w-5 text-green-600" />
+                      ) : (
+                        <AlertTriangle className="h-5 w-5 text-red-600" />
                       )}
                     </h4>
                     <p className="text-sm text-gray-600">
-                      Risk: {(model.prediction * 100).toFixed(1)}%
+                      Prediction:{" "}
+                      {model.prediction === 1 ? "CVD Risk" : "No CVD Risk"}
+                      {model.name === "Random Forest" && (
+                        <span className="ml-2 text-emerald-600 font-medium">
+                          (Best Model)
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold">
-                      {(model.accuracy * 100).toFixed(1)}%
+                      {(model.probabilities[1] * 100).toFixed(1)}%
                     </div>
-                    <p className="text-xs text-gray-500">Accuracy</p>
+                    <p className="text-xs text-gray-500">Risk Probability</p>
                   </div>
                 </div>
                 <div className="mt-2">
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className={`h-2 rounded-full ${
-                        model.prediction >= 0.8
+                        model.probabilities[1] >= 0.8
                           ? "bg-red-500"
-                          : model.prediction >= 0.6
+                          : model.probabilities[1] >= 0.6
                           ? "bg-orange-500"
-                          : model.prediction >= 0.4
+                          : model.probabilities[1] >= 0.4
                           ? "bg-yellow-500"
-                          : model.prediction >= 0.2
+                          : model.probabilities[1] >= 0.2
                           ? "bg-blue-500"
                           : "bg-green-500"
                       }`}
-                      style={{ width: `${model.prediction * 100}%` }}
+                      style={{ width: `${model.probabilities[1] * 100}%` }}
                     />
                   </div>
                 </div>

@@ -119,9 +119,9 @@ export const authApi = {
       method: "POST",
       body: JSON.stringify(credentials),
     });
-
-    if (response.data?.token) {
-      setToken(response.data.token);
+    console.log(response);
+    if (response.token) {
+      setToken(response.token);
     }
 
     return response;
@@ -200,11 +200,94 @@ export const cvdReportsApi = {
   },
 };
 
-// CVD Prediction API (placeholder - will be implemented by Python backend)
+// ML Model Prediction Types
+interface ModelPredictionInput {
+  male: number;
+  age: number;
+  education: number;
+  currentSmoker: number;
+  cigsPerDay: number;
+  BPMeds: number;
+  prevalentStroke: number;
+  prevalentHyp: number;
+  diabetes: number;
+  totChol: number;
+  sysBP: number;
+  diaBP: number;
+  BMI: number;
+  heartRate: number;
+  glucose: number;
+}
+
+interface ModelPredictionOutput {
+  prediction: number;
+  probabilities: number[];
+}
+
+interface ModelResult {
+  name: string;
+  prediction: number;
+  probabilities: number[];
+}
+
+// Python ML API Base URL
+const ML_API_BASE_URL = "http://localhost:8000";
+
+// CVD Prediction API
 export const cvdPredictionApi = {
-  // Predict CVD risk
-  predict: async (healthData: HealthDataInput): Promise<ApiResponse<any>> => {
-    // This will be implemented when the Python backend is ready
-    throw new Error("CVD prediction API not yet implemented");
+  // Predict using a specific model
+  predictWithModel: async (
+    modelName: string,
+    data: ModelPredictionInput
+  ): Promise<ModelPredictionOutput> => {
+    const response = await fetch(`${ML_API_BASE_URL}/predict/${modelName}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`ML API Error: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+
+  // Predict using all models
+  predictWithAllModels: async (
+    data: ModelPredictionInput
+  ): Promise<ModelResult[]> => {
+    const models = [
+      { name: "decision-tree", displayName: "Decision Tree" },
+      { name: "random-forest", displayName: "Random Forest" },
+      { name: "logistic-regression", displayName: "Logistic Regression" },
+      { name: "svm", displayName: "Support Vector Machine" },
+      { name: "knn", displayName: "K-Nearest Neighbors" },
+    ];
+
+    const results = await Promise.all(
+      models.map(async (model) => {
+        const prediction = await cvdPredictionApi.predictWithModel(
+          model.name,
+          data
+        );
+        return {
+          name: model.displayName,
+          prediction: prediction.prediction, // 0 or 1 (no CVD risk / CVD risk)
+          probabilities: prediction.probabilities, // [no_risk_prob, risk_prob]
+        };
+      })
+    );
+
+    return results;
+  },
+
+  // Legacy method for backward compatibility
+  predict: async (_healthData: HealthDataInput): Promise<ApiResponse<any>> => {
+    // This method is kept for compatibility but not used
+    // Use predictWithAllModels instead
+    throw new Error("Use predictWithAllModels method instead");
   },
 };

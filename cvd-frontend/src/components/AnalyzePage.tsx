@@ -3,45 +3,11 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CVDPredictionForm } from "@/components/CVDPredictionForm";
+import type { ModelPredictionInput } from "@/components/CVDPredictionForm";
 import { PredictionResult } from "@/components/PredictionResult";
 import { AIHealthAssistant } from "@/components/AIHealthAssistant";
 import { useAuth } from "../hooks/useAuth";
-
-// Mock API response for demonstration
-const mockPredictionAPI = async (_data: any) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate API delay
-
-  // Mock results from different models
-  return {
-    success: true,
-    results: [
-      {
-        name: "Random Forest",
-        accuracy: 0.89,
-        prediction: Math.random() * 0.3 + 0.1, // Random prediction between 0.1-0.4
-        confidence: 0.92,
-      },
-      {
-        name: "Logistic Regression",
-        accuracy: 0.85,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.88,
-      },
-      {
-        name: "Support Vector Machine",
-        accuracy: 0.87,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.9,
-      },
-      {
-        name: "Neural Network",
-        accuracy: 0.91,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.94,
-      },
-    ],
-  };
-};
+import { cvdPredictionApi } from "@/services/api";
 
 export function AnalyzePage() {
   const { user } = useAuth();
@@ -49,15 +15,19 @@ export function AnalyzePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleFormSubmit = async (formData: any) => {
+  const handleFormSubmit = async (formData: ModelPredictionInput) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await mockPredictionAPI(formData);
-      setPredictionResults(response.results);
+      console.log("Submitting form data:", formData);
+      const results = await cvdPredictionApi.predictWithAllModels(formData);
+      console.log("Prediction results:", results);
+      setPredictionResults(results);
     } catch (err) {
-      setError("Failed to analyze your data. Please try again.");
+      setError(
+        "Failed to analyze your data. Please check your connection and try again."
+      );
       console.error("Prediction error:", err);
     } finally {
       setIsLoading(false);
@@ -123,7 +93,7 @@ export function AnalyzePage() {
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 AI Health Assistant
               </h2>
-              <AIHealthAssistant />
+              <AIHealthAssistant cvdResults={predictionResults} />
             </div>
 
             {/* Prediction Results */}

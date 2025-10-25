@@ -1,0 +1,499 @@
+INFO:     Will watch for changes in these directories: ['/Users/apil/Documents/cvd-final-year-ai/python']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [42361] using WatchFiles
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator SVC from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2742: UserWarning: X has feature names, but SVC was fitted without feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator RandomForestClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator KNeighborsClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+INFO:     Started server process [42443]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:51905 - "POST /predict/random-forest HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52153 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52349 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52352 - "POST /predict/random-forest HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52354 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52356 - "POST /predict/svm HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52362 - "POST /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:52442 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:53394 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:53396 - "POST /predict/random-forest HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:53398 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53400 - "POST /predict/svm HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:53402 - "POST /predict/knn HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54148 - "GET /health HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'server/schemas/model_input.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [42443]
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator SVC from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2742: UserWarning: X has feature names, but SVC was fitted without feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator RandomForestClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator KNeighborsClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+INFO:     Started server process [46083]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'server/utils/model_evaluation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46083]
+WARNING:  WatchFiles detected changes in 'server/schemas/model_input.py', 'server/controllers/randomForestController.py', 'server/controllers/decisionTreeController.py', 'server/controllers/logisticRegressionController.py'. Reloading...
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator SVC from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2742: UserWarning: X has feature names, but SVC was fitted without feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator RandomForestClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator KNeighborsClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+INFO:     Started server process [46176]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController.py', 'server/controllers/svmController.py'. Reloading...
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator SVC from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2742: UserWarning: X has feature names, but SVC was fitted without feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator RandomForestClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator KNeighborsClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+INFO:     Started server process [46238]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator SVC from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2742: UserWarning: X has feature names, but SVC was fitted without feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator DecisionTreeClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator RandomForestClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/base.py:442: InconsistentVersionWarning: Trying to unpickle estimator KNeighborsClassifier from version 1.7.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+INFO:     Started server process [46241]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49455 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59380 - "OPTIONS /predict/decision-tree HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59382 - "OPTIONS /predict/random-forest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59383 - "OPTIONS /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59385 - "OPTIONS /predict/svm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59386 - "OPTIONS /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59383 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59385 - "POST /predict/svm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59386 - "POST /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59382 - "POST /predict/random-forest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59380 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59939 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59941 - "POST /predict/svm HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59936 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59942 - "POST /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:59938 - "POST /predict/random-forest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64541 - "OPTIONS /predict/decision-tree HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64542 - "OPTIONS /predict/random-forest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64544 - "OPTIONS /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64547 - "OPTIONS /predict/svm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64548 - "OPTIONS /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:64544 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64541 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64547 - "POST /predict/svm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64548 - "POST /predict/knn HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:64542 - "POST /predict/random-forest HTTP/1.1" 200 OK
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LogisticRegression was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but KNeighborsClassifier was fitted with feature names
+  warnings.warn(
+/Users/apil/.pyenv/versions/3.11.8/lib/python3.11/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+INFO:     127.0.0.1:64541 - "POST /predict/svm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64547 - "POST /predict/logistic-regression HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64548 - "POST /predict/random-forest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64542 - "POST /predict/decision-tree HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64544 - "POST /predict/knn HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46241]
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/decisionTreeController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/svmController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/decisionTreeController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/decisionTreeController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/svmController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/schemas/model_input.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/decisionTreeController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/svmController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/randomForestController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/logisticRegressionController_clean.py', 'server/controllers/logisticRegressionController.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/svmController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/svmController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+WARNING:  WatchFiles detected changes in 'server/controllers/knnController_clean.py', 'server/controllers/knnController.py', 'server/controllers/svmController.py', 'server/controllers/svmController_clean.py'. Reloading...
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x00000002096520c0 (most recent call first):
+  <no Python frame>
+INFO:     Stopping reloader process [42361]

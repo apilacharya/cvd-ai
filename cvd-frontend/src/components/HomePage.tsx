@@ -12,46 +12,19 @@ import {
 import { CVDPredictionForm } from "@/components/CVDPredictionForm";
 import { PredictionResult } from "@/components/PredictionResult";
 import { AIHealthAssistant } from "@/components/AIHealthAssistant";
+import { cvdPredictionApi } from "@/services/api";
 
-// Mock API response for demonstration
-const mockPredictionAPI = async (_data: any) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate API delay
-
-  // Mock results from different models
-  return {
-    success: true,
-    results: [
-      {
-        name: "Random Forest",
-        accuracy: 0.89,
-        prediction: Math.random() * 0.3 + 0.1, // Random prediction between 0.1-0.4
-        confidence: 0.92,
-      },
-      {
-        name: "Logistic Regression",
-        accuracy: 0.85,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.88,
-      },
-      {
-        name: "Support Vector Machine",
-        accuracy: 0.87,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.9,
-      },
-      {
-        name: "Neural Network",
-        accuracy: 0.91,
-        prediction: Math.random() * 0.3 + 0.1,
-        confidence: 0.94,
-      },
-    ],
-  };
-};
+interface ModelResult {
+  name: string;
+  prediction: number;
+  probabilities: number[];
+}
 
 export function HomePage() {
   const [showForm] = useState(false);
-  const [predictionResults, setPredictionResults] = useState<any>(null);
+  const [predictionResults, setPredictionResults] = useState<
+    ModelResult[] | null
+  >(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,10 +33,22 @@ export function HomePage() {
     setError(null);
 
     try {
-      const response = await mockPredictionAPI(formData);
-      setPredictionResults(response.results);
+      console.log("Submitting form data:", formData);
+      const results = await cvdPredictionApi.predictWithAllModels(formData);
+      console.log("Prediction results:", results);
+
+      // Set Random Forest as the best model by reordering results
+      const reorderedResults = results.sort((a, b) => {
+        if (a.name === "Random Forest") return -1;
+        if (b.name === "Random Forest") return 1;
+        return 0;
+      });
+
+      setPredictionResults(reorderedResults);
     } catch (err) {
-      setError("Failed to analyze your data. Please try again.");
+      setError(
+        "Failed to analyze your data. Please check your connection and try again."
+      );
       console.error("Prediction error:", err);
     } finally {
       setIsLoading(false);
@@ -212,7 +197,7 @@ export function HomePage() {
 
             {/* Prediction Results */}
             <PredictionResult
-              results={predictionResults}
+              results={predictionResults || undefined}
               isLoading={isLoading}
               error={error || undefined}
             />

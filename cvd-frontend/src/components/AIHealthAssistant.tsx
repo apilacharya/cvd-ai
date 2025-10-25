@@ -11,44 +11,61 @@ interface Message {
   id: string;
   type: "user" | "assistant";
   content: string;
-  timestamp: Date;
 }
 
-export function AIHealthAssistant() {
+interface CVDResult {
+  name: string;
+  prediction: number;
+  probabilities: number[];
+}
+
+interface AIHealthAssistantProps {
+  cvdResults?: CVDResult[];
+}
+
+export function AIHealthAssistant({ cvdResults }: AIHealthAssistantProps) {
+  console.log(cvdResults, "cvdResults in AIHealthAssistant");
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Only scroll when not loading (after streaming is complete)
+    if (!isLoading) {
+      scrollToBottom();
+    }
+  }, [messages, isLoading]);
 
-  // Simple welcome message
+  // Welcome message with CVD context if available
   useEffect(() => {
     if (user && messages.length === 0) {
+      const welcomeContent = `Hi welcome! 👋`;
+
       const welcomeMessage: Message = {
         id: "welcome",
         type: "assistant",
-        content: `Hello ${user.firstName}! I'm your CVD Health Assistant specialized in cardiovascular health. Ask me about heart disease, blood pressure, cholesterol, or heart-healthy lifestyle tips! ❤️`,
-        timestamp: new Date(),
+        content: welcomeContent,
       };
       setMessages([welcomeMessage]);
     }
-  }, [user, messages.length]);
+  }, [user, messages.length, cvdResults]);
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading || !user) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `user-${messages.length}`,
       type: "user",
       content: inputValue.trim(),
-      timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -57,16 +74,29 @@ export function AIHealthAssistant() {
     setIsLoading(true);
 
     // Create AI message with empty content for streaming
-    const aiMessageId = (Date.now() + 1).toString();
     const aiMessage: Message = {
-      id: aiMessageId,
+      id: `ai-${messages.length}`,
       type: "assistant",
       content: "",
-      timestamp: new Date(),
     };
     setMessages((prev) => [...prev, aiMessage]);
+    const aiMessageId = aiMessage.id;
 
     try {
+      // Prepare context with CVD results if available
+      let contextMessage = messageContent;
+      if (cvdResults && cvdResults.length > 0) {
+        // Always use Random Forest as the best model (default choice)
+        const randomForestModel =
+          cvdResults.find((model) => model.name === "Random Forest") ||
+          cvdResults[0];
+
+        contextMessage = `CVD Risk: ${
+          randomForestModel.prediction === 1 ? "High Risk" : "Low Risk"
+        } (${(randomForestModel.probabilities[1] * 100).toFixed(1)}%)
+Question: ${messageContent}`;
+      }
+
       // Stream AI response
       const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:3001/api/ai/chat", {
@@ -75,7 +105,7 @@ export function AIHealthAssistant() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ message: messageContent }),
+        body: JSON.stringify({ message: contextMessage }),
       });
 
       if (!response.ok) {
@@ -96,7 +126,7 @@ export function AIHealthAssistant() {
         const chunk = new TextDecoder().decode(value);
         streamedContent += chunk;
 
-        // Update the AI message content with streaming animation
+        // Update the AI message content
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === aiMessageId ? { ...msg, content: streamedContent } : msg
@@ -169,8 +199,8 @@ export function AIHealthAssistant() {
   }
 
   return (
-    <Card className="w-full h-96 bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg">
-      <CardHeader className="pb-3">
+    <Card className="w-full h-[500px] bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg flex flex-col">
+      <CardHeader className="pb-3 flex-shrink-0">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -182,9 +212,12 @@ export function AIHealthAssistant() {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="h-full flex flex-col p-4">
+      <CardContent className="flex-1 flex flex-col p-4 relative overflow-hidden">
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto space-y-3 mb-6 pr-2">
+        <div
+          ref={messagesContainerRef}
+          className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2 scroll-smooth"
+        >
           <AnimatePresence>
             {messages.map((message) => (
               <motion.div
@@ -197,7 +230,7 @@ export function AIHealthAssistant() {
                 }`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
+                  className={`max-w-[80%] p-3 rounded-lg break-words overflow-hidden ${
                     message.type === "user"
                       ? "bg-blue-600 text-white"
                       : "bg-white text-gray-800 shadow-sm"
@@ -210,7 +243,7 @@ export function AIHealthAssistant() {
                     {message.type === "user" && (
                       <User className="h-4 w-4 text-white mt-0.5 flex-shrink-0" />
                     )}
-                    <div className="text-sm leading-relaxed">
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap word-break break-words min-w-0 flex-1">
                       {message.content}
                     </div>
                   </div>
@@ -238,7 +271,7 @@ export function AIHealthAssistant() {
         </div>
 
         {/* Input Section */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-shrink-0">
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

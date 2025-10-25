@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
-import type { CVDReport as CVDReportType } from "../types/index.js";
+import type { CVDReport as CVDReportType } from "../types/index";
 
 export interface CVDReportDocument
   extends Omit<CVDReportType, "_id" | "user">,
