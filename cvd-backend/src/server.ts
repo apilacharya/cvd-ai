@@ -6,13 +6,13 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 
 // Import routes
-import authRoutes from "./routes/auth.js";
-import reportRoutes from "./routes/reports.js";
-import aiRoutes from "./routes/ai.js";
+import authRoutes from "./routes/auth";
+import reportRoutes from "./routes/reports";
+import aiRoutes from "./routes/ai";
 
 // Import middleware
-import { errorHandler } from "./middleware/errorHandler.js";
-import { authenticateToken } from "./middleware/auth.js";
+import { errorHandler } from "./middleware/errorHandler";
+import { authenticateToken } from "./middleware/auth";
 
 // Load environment variables
 dotenv.config();
@@ -91,16 +91,27 @@ const connectDB = async (): Promise<void> => {
     process.exit(1);
   }
 };
-
-// Connect to database - temporarily disabled for AI testing
-// await connectDB();
-console.warn(
-  "MongoDB connection disabled - AI routes will work but auth routes need database"
-);
-
+// Start server and connect to DB if configured
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
-});
+const startServer = async () => {
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+    } else {
+      console.warn(
+        "MongoDB connection disabled - AI routes will work but auth routes need database"
+      );
+    }
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

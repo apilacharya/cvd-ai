@@ -7,9 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon --watch src --ext ts,json --exec \"node --loader ts-node/esm src/server.ts\"",  //for sandesh "dev": "tsx watch src/server.ts",
+    "dev": "nodemon --watch src --ext ts,json --exec \"tsx src/server.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
-
   },
   "keywords": [
     "cvd",
