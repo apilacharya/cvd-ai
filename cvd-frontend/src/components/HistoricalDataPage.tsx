@@ -30,51 +30,6 @@ interface HistoricalRecord {
   heartRate: number;
 }
 
-const mockHistoricalData: HistoricalRecord[] = [
-  {
-    id: "1",
-    date: new Date("2024-08-15"),
-    riskLevel: 0.25,
-    accuracy: 0.92,
-    bestModel: "Neural Network",
-    age: 45,
-    gender: "Male",
-    systolicBP: 130,
-    diastolicBP: 85,
-    cholesterol: 195,
-    bmi: 26.5,
-    heartRate: 72,
-  },
-  {
-    id: "2",
-    date: new Date("2024-07-20"),
-    riskLevel: 0.18,
-    accuracy: 0.89,
-    bestModel: "Random Forest",
-    age: 45,
-    gender: "Male",
-    systolicBP: 125,
-    diastolicBP: 80,
-    cholesterol: 185,
-    bmi: 25.8,
-    heartRate: 68,
-  },
-  {
-    id: "3",
-    date: new Date("2024-06-10"),
-    riskLevel: 0.32,
-    accuracy: 0.87,
-    bestModel: "SVM",
-    age: 44,
-    gender: "Male",
-    systolicBP: 140,
-    diastolicBP: 90,
-    cholesterol: 210,
-    bmi: 27.2,
-    heartRate: 78,
-  },
-];
-
 export function HistoricalDataPage() {
   const [records, setRecords] = useState<HistoricalRecord[]>([]);
   const [filteredRecords, setFilteredRecords] = useState<HistoricalRecord[]>(
@@ -83,15 +38,23 @@ export function HistoricalDataPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "risk" | "accuracy">("date");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate API call
+    // TODO: Replace with actual API call to fetch user's historical CVD reports
     const fetchData = async () => {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setRecords(mockHistoricalData);
-      setFilteredRecords(mockHistoricalData);
-      setIsLoading(false);
+      try {
+        // This should call reportsApi.getReports() when backend is ready
+        throw new Error("Historical data API not implemented yet");
+      } catch (err) {
+        console.error("Failed to fetch historical data:", err);
+        setError("Failed to load historical data. Please try again later.");
+        setRecords([]);
+        setFilteredRecords([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();

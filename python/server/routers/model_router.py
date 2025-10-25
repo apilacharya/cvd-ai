@@ -8,17 +8,21 @@ from server.controllers.knnController import predict_knn
 
 router = APIRouter(prefix="/predict", tags=["Prediction Models"])
 
+
 @router.post("/decision-tree", response_model=ModelOutput)
 def decision_tree_predict(input_data: ModelInput):
     return predict_decision_tree(input_data)
+
 
 @router.post("/svm", response_model=ModelOutput)
 def svm_predict(input_data: ModelInput):
     return predict_svm(input_data)
 
+
 @router.post("/logistic-regression", response_model=ModelOutput)
 def logistic_regression_predict(input_data: ModelInput):
     return predict_logistic_regression(input_data)
+
 
 @router.post("/random-forest", response_model=ModelOutput)
 def random_forest_predict(input_data: ModelInput):

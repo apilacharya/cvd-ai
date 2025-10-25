@@ -37,6 +37,19 @@ const formSchema = yup.object({
   currentSmoker: yup
     .string()
     .required("Please specify if you are a current smoker"),
+  cigsPerDay: yup
+    .number()
+    .nullable()
+    .default(0)
+    .when("currentSmoker", {
+      is: "yes",
+      then: (schema) =>
+        schema
+          .required("Cigarettes per day is required for smokers")
+          .min(0, "Cigarettes per day cannot be negative")
+          .max(100, "Cigarettes per day seems too high"),
+      otherwise: (schema) => schema.transform(() => 0),
+    }),
   bpMeds: yup
     .string()
     .required("Please specify if you are on blood pressure medication"),
@@ -87,6 +100,24 @@ const formSchema = yup.object({
 
 type FormData = yup.InferType<typeof formSchema>;
 
+export interface ModelPredictionInput {
+  male: number;
+  age: number;
+  education: number;
+  currentSmoker: number;
+  cigsPerDay: number;
+  BPMeds: number;
+  prevalentStroke: number;
+  prevalentHyp: number;
+  diabetes: number;
+  totChol: number;
+  sysBP: number;
+  diaBP: number;
+  BMI: number;
+  heartRate: number;
+  glucose: number;
+}
+
 interface CVDFormProps {
   onSubmit: (data: any) => void;
   isLoading?: boolean;
@@ -115,18 +146,25 @@ export function CVDPredictionForm({
 
   const handleFormSubmit = async (data: FormData) => {
     try {
-      // Convert string values to appropriate types for API
+      // Convert form data to API schema format
       const formattedData = {
-        ...data,
-        gender: data.gender === "male" ? 1 : data.gender === "female" ? 0 : 2,
+        male: data.gender === "male" ? 1 : 0, // API expects 'male' field (0 or 1)
+        age: data.age,
         education: educationOptions.findIndex(
           (opt) => opt.value === data.education
         ),
         currentSmoker: data.currentSmoker === "yes" ? 1 : 0,
-        bpMeds: data.bpMeds === "yes" ? 1 : 0,
+        cigsPerDay: data.cigsPerDay || 0,
+        BPMeds: data.bpMeds === "yes" ? 1 : 0, // API expects 'BPMeds'
         prevalentStroke: data.prevalentStroke === "yes" ? 1 : 0,
         prevalentHyp: data.prevalentHyp === "yes" ? 1 : 0,
         diabetes: data.diabetes === "yes" ? 1 : 0,
+        totChol: data.totChol,
+        sysBP: data.sysBP,
+        diaBP: data.diaBP,
+        BMI: data.bmi, // API expects 'BMI'
+        heartRate: data.heartRate,
+        glucose: data.glucose,
       };
 
       await onSubmit(formattedData);
@@ -326,7 +364,7 @@ export function CVDPredictionForm({
               </motion.div>
             </div>
 
-            {/* Row 3: Current Smoker (Radio) and Systolic BP (Input) */}
+            {/* Row 3: Current Smoker (Radio) and Cigarettes Per Day (Input) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
@@ -385,6 +423,37 @@ export function CVDPredictionForm({
                 className="space-y-4"
               >
                 <Label
+                  htmlFor="cigsPerDay"
+                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                >
+                  <Cigarette className="h-6 w-6 text-red-600" />
+                  Cigarettes per day
+                </Label>
+                <Input
+                  id="cigsPerDay"
+                  type="number"
+                  placeholder="Enter cigarettes per day (0 if non-smoker)"
+                  {...register("cigsPerDay", { valueAsNumber: true })}
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                />
+                {errors.cigsPerDay && (
+                  <p className="text-sm text-destructive">
+                    {errors.cigsPerDay.message}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Row 4: Systolic BP (Input) and BP Medication (Radio) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <motion.div
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: 0.7 }}
+                className="space-y-4"
+              >
+                <Label
                   htmlFor="sysBP"
                   className="text-lg font-semibold flex items-center gap-3 text-gray-700"
                 >
@@ -405,15 +474,12 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
-            </div>
 
-            {/* Row 4: BP Medication (Radio) and Diastolic BP (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.7 }}
+                transition={{ delay: 0.8 }}
                 className="space-y-4"
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
@@ -457,12 +523,15 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
+            </div>
 
+            {/* Row 5: Diastolic BP (Input) and Stroke History (Radio) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.9 }}
                 className="space-y-4"
               >
                 <Label
@@ -486,15 +555,12 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
-            </div>
 
-            {/* Row 5: Stroke History (Radio) and BMI (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.9 }}
+                transition={{ delay: 1.0 }}
                 className="space-y-4"
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
@@ -538,12 +604,15 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
+            </div>
 
+            {/* Row 6: BMI (Input) and Hypertension (Radio) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 1.0 }}
+                transition={{ delay: 1.1 }}
                 className="space-y-4"
               >
                 <Label
@@ -567,15 +636,12 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
-            </div>
 
-            {/* Row 6: Hypertension (Radio) and Heart Rate (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 1.1 }}
+                transition={{ delay: 1.2 }}
                 className="space-y-4"
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
@@ -619,12 +685,15 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
+            </div>
 
+            {/* Row 7: Heart Rate (Input) and Diabetes (Radio) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 1.2 }}
+                transition={{ delay: 1.3 }}
                 className="space-y-4"
               >
                 <Label
@@ -648,15 +717,12 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
-            </div>
 
-            {/* Row 7: Diabetes (Radio) and Glucose (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 1.3 }}
+                transition={{ delay: 1.4 }}
                 className="space-y-4"
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
@@ -700,12 +766,15 @@ export function CVDPredictionForm({
                   </p>
                 )}
               </motion.div>
+            </div>
 
+            {/* Row 8: Glucose (Input) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 1.4 }}
+                transition={{ delay: 1.5 }}
                 className="space-y-4"
               >
                 <Label
@@ -735,7 +804,7 @@ export function CVDPredictionForm({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5 }}
+              transition={{ delay: 1.6 }}
               className="pt-6"
             >
               <Button

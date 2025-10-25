@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 
+
 class ModelInput(BaseModel):
     male: float
     age: float
@@ -17,6 +18,7 @@ class ModelInput(BaseModel):
     BMI: float
     heartRate: float
     glucose: float
+
 
 class ModelOutput(BaseModel):
     prediction: int
