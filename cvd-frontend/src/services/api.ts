@@ -5,8 +5,6 @@ import type {
   CVDReport,
   CVDReportCreateInput,
   ApiResponse,
-  PaginationResult,
-  HealthDataInput,
 } from "../types/auth";
 
 const API_BASE_URL =
@@ -142,51 +140,22 @@ export const authApi = {
   getProfile: async (): Promise<ApiResponse<User>> => {
     return apiRequest<ApiResponse<User>>("/auth/profile");
   },
-
-  // Update user profile
-  updateProfile: async (
-    userData: Partial<User>
-  ): Promise<ApiResponse<User>> => {
-    return apiRequest<ApiResponse<User>>("/users/profile", {
-      method: "PUT",
-      body: JSON.stringify(userData),
-    });
-  },
-
-  // Change password
-  changePassword: async (
-    currentPassword: string,
-    newPassword: string
-  ): Promise<ApiResponse<void>> => {
-    return apiRequest<ApiResponse<void>>("/auth/change-password", {
-      method: "PUT",
-      body: JSON.stringify({ currentPassword, newPassword }),
-    });
-  },
 };
 
 // CVD Reports API
 export const cvdReportsApi = {
-  // Get user's CVD reports
-  getReports: async (
-    page = 1,
-    limit = 10
-  ): Promise<ApiResponse<PaginationResult<CVDReport>>> => {
-    return apiRequest<ApiResponse<PaginationResult<CVDReport>>>(
-      `/cvd-reports?page=${page}&limit=${limit}`
+  // Get user's CVD report history
+  getHistory: async (): Promise<ApiResponse<{ reports: CVDReport[] }>> => {
+    return apiRequest<ApiResponse<{ reports: CVDReport[] }>>(
+      `/reports/history`
     );
-  },
-
-  // Get single CVD report
-  getReport: async (reportId: string): Promise<ApiResponse<CVDReport>> => {
-    return apiRequest<ApiResponse<CVDReport>>(`/cvd-reports/${reportId}`);
   },
 
   // Create new CVD report
   createReport: async (
     reportData: CVDReportCreateInput
   ): Promise<ApiResponse<CVDReport>> => {
-    return apiRequest<ApiResponse<CVDReport>>("/cvd-reports", {
+    return apiRequest<ApiResponse<CVDReport>>("/reports", {
       method: "POST",
       body: JSON.stringify(reportData),
     });
@@ -194,7 +163,7 @@ export const cvdReportsApi = {
 
   // Delete CVD report
   deleteReport: async (reportId: string): Promise<ApiResponse<void>> => {
-    return apiRequest<ApiResponse<void>>(`/cvd-reports/${reportId}`, {
+    return apiRequest<ApiResponse<void>>(`/reports/${reportId}`, {
       method: "DELETE",
     });
   },
@@ -282,12 +251,5 @@ export const cvdPredictionApi = {
     );
 
     return results;
-  },
-
-  // Legacy method for backward compatibility
-  predict: async (_healthData: HealthDataInput): Promise<ApiResponse<any>> => {
-    // This method is kept for compatibility but not used
-    // Use predictWithAllModels instead
-    throw new Error("Use predictWithAllModels method instead");
   },
 };

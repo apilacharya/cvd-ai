@@ -10,19 +10,19 @@
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 346 77% 49%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 138 76% 97%;
+    --secondary: 138 14.3% 95.9%;
+    --secondary-foreground: 142 39.3% 11%;
+    --muted: 138 14.3% 95.9%;
+    --muted-foreground: 138 8.9% 46.1%;
+    --accent: 138 14.3% 95.9%;
+    --accent-foreground: 142 39.3% 11%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 346 77% 49%;
+    --border: 138 13% 91%;
+    --input: 138 13% 91%;
+    --ring: 142 76% 36%;
     --radius: 0.5rem;
   }
 
@@ -33,8 +33,8 @@
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
-    --primary: 346 77% 49%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 138 76% 97%;
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
@@ -45,7 +45,7 @@
     --destructive-foreground: 210 20% 98%;
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
-    --ring: 346 77% 49%;
+    --ring: 142 76% 36%;
   }
 
   * {
@@ -67,11 +67,11 @@
   .medical-gradient {
     background: linear-gradient(
       135deg,
-      #e53e3e 0%,
-      #dd6b20 25%,
-      #d69e2e 50%,
-      #38a169 75%,
-      #3182ce 100%
+      #10b981 0%,
+      #059669 25%,
+      #047857 50%,
+      #065f46 75%,
+      #064e3b 100%
     );
   }
 

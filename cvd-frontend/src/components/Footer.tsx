@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import {
-  Heart,
   Mail,
   Phone,
   MapPin,
@@ -26,10 +25,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="col-span-1 md:col-span-2"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <Heart className="h-8 w-8 text-red-500 heart-pulse" />
-              <h3 className="text-2xl font-bold">CVD Prediction System</h3>
-            </div>
+            <h3 className="text-2xl font-bold mb-6">CVD Prediction System</h3>
             <p className="text-gray-300 mb-6 max-w-md">
               Advanced AI-powered cardiovascular disease prediction system
               providing personalized health insights and risk assessments to
@@ -47,7 +43,7 @@ export function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-gray-800 rounded-full hover:bg-red-600 transition-colors duration-200"
+                  className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors duration-200"
                   aria-label={social.label}
                 >
                   <social.icon className="h-5 w-5" />

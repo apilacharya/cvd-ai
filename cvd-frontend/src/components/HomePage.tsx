@@ -64,106 +64,171 @@ export function HomePage() {
 
   // Default homepage for non-authenticated users (original hero section)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="bg-gradient-to-r from-red-500 via-pink-500 to-blue-600 text-white"
+        className="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 text-white relative overflow-hidden"
       >
-        <div className="container mx-auto px-6 py-16">
-          <div className="text-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="mb-6"
-            >
-              <Heart className="h-20 w-20 mx-auto mb-4 heart-pulse" />
-            </motion.div>
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
-            >
-              Cardiovascular Disease
-              <br />
-              <span className="text-yellow-300">Prediction System</span>
-            </motion.h1>
+        <div className="container mx-auto px-6 py-16 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Text content */}
+            <div className="text-center lg:text-left">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                className="mb-6 lg:hidden"
+              >
+                <Heart className="h-20 w-20 mx-auto mb-4 heart-pulse" />
+              </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
-            >
-              Advanced AI-powered analysis to assess your cardiovascular health
-              risk and provide personalized health insights with our Premium AI
-              Health Assistant
-            </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              >
+                Cardiovascular Disease
+                <br />
+                <span className="text-emerald-100">Prediction System</span>
+              </motion.h1>
 
-            {/* Get Started CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="mb-8"
-            >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto border border-white/20">
-                <p className="text-lg mb-2 text-yellow-200">
-                  🏥 Get Started to get historical record of your predictions
-                </p>
-                <p className="text-lg mb-4 text-amber-200 font-semibold">
-                  🤖 Premium AI powered chat assistant available to Logged in
-                  users
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    to="/signup"
-                    className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-lg min-w-[160px]"
-                  >
-                    Get Started
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="bg-white/20 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-white/30 transition-all transform hover:scale-105 border border-white/30 min-w-[160px]"
-                  >
-                    Log In
-                  </Link>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-lg md:text-xl mb-8 max-w-2xl mx-auto lg:mx-0"
+              >
+                Advanced AI-powered analysis to assess your cardiovascular
+                health risk and provide personalized health insights with our
+                Premium AI Health Assistant
+              </motion.p>
+
+              {/* Get Started CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="mb-8"
+              >
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                  <p className="text-lg mb-2 text-emerald-100">
+                    🏥 Get Started to get historical record of your predictions
+                  </p>
+                  <p className="text-lg mb-4 text-green-100 font-semibold">
+                    🤖 Premium AI powered chat assistant available to Logged in
+                    users
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Link
+                      to="/signup"
+                      className="bg-white text-green-700 px-8 py-3 rounded-full font-bold text-lg hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-lg min-w-[160px]"
+                    >
+                      Get Started
+                    </Link>
+                    <Link
+                      to="/login"
+                      className="bg-white/20 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-white/30 transition-all transform hover:scale-105 border border-white/30 min-w-[160px]"
+                    >
+                      Log In
+                    </Link>
+                  </div>
                 </div>
+              </motion.div>
+
+              {/* Feature Highlights */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6"
+              >
+                {[
+                  {
+                    icon: Activity,
+                    label: "4 AI Models",
+                    desc: "Multi-model analysis",
+                  },
+                  {
+                    icon: Users,
+                    label: "Personalized",
+                    desc: "Tailored insights",
+                  },
+                  { icon: Shield, label: "Secure", desc: "Privacy protected" },
+                  { icon: Award, label: "Accurate", desc: "90%+ precision" },
+                ].map((feature, index) => (
+                  <div key={index} className="text-center">
+                    <feature.icon className="h-8 w-8 mx-auto mb-2 text-emerald-100" />
+                    <div className="font-semibold">{feature.label}</div>
+                    <div className="text-sm opacity-90">{feature.desc}</div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right side - Heart Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="hidden lg:flex justify-center items-center"
+            >
+              <div className="relative">
+                {/* Glowing effect behind heart */}
+                <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-3xl scale-110 animate-pulse"></div>
+
+                {/* Heart Image */}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="relative z-10"
+                >
+                  <img
+                    src="/heart.svg"
+                    alt="Heart Health"
+                    className="w-96 h-96 drop-shadow-2xl"
+                  />
+                </motion.div>
+
+                {/* Floating health icons around heart */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -top-8 -right-8 bg-white/90 p-3 rounded-full shadow-lg"
+                >
+                  <Activity className="h-6 w-6 text-green-600" />
+                </motion.div>
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -bottom-8 -left-8 bg-white/90 p-3 rounded-full shadow-lg"
+                >
+                  <Shield className="h-6 w-6 text-emerald-600" />
+                </motion.div>
               </div>
-            </motion.div>
-
-            {/* Feature Highlights */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
-            >
-              {[
-                {
-                  icon: Activity,
-                  label: "4 AI Models",
-                  desc: "Multi-model analysis",
-                },
-                {
-                  icon: Users,
-                  label: "Personalized",
-                  desc: "Tailored insights",
-                },
-                { icon: Shield, label: "Secure", desc: "Privacy protected" },
-                { icon: Award, label: "Accurate", desc: "90%+ precision" },
-              ].map((feature, index) => (
-                <div key={index} className="text-center">
-                  <feature.icon className="h-8 w-8 mx-auto mb-2 text-yellow-300" />
-                  <div className="font-semibold">{feature.label}</div>
-                  <div className="text-sm opacity-90">{feature.desc}</div>
-                </div>
-              ))}
             </motion.div>
           </div>
         </div>
@@ -238,8 +303,8 @@ export function HomePage() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <stat.icon className="h-12 w-12 mx-auto mb-4 text-red-400" />
-                <div className="text-4xl font-bold text-red-400 mb-2">
+                <stat.icon className="h-12 w-12 mx-auto mb-4 text-emerald-400" />
+                <div className="text-4xl font-bold text-emerald-400 mb-2">
                   {stat.number}
                 </div>
                 <div className="text-lg">{stat.label}</div>
@@ -255,7 +320,7 @@ export function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16"
+        className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-16"
       >
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-6">
@@ -275,7 +340,7 @@ export function HomePage() {
                   behavior: "smooth",
                 });
               }}
-              className="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200"
+              className="bg-white text-green-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-emerald-50 transition-colors duration-200"
             >
               Start Your Assessment
             </motion.button>
@@ -286,7 +351,7 @@ export function HomePage() {
               onClick={() => {
                 window.location.href = "/signup";
               }}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-600 transition-all duration-200"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-all duration-200"
             >
               Create Account for History
             </motion.button>

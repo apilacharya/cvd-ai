@@ -1,10 +1,11 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
-import type { CVDReport as CVDReportType } from "../types/index";
+import type { CVDReport as CVDReportType, HealthData } from "../types/index";
 
 export interface CVDReportDocument
   extends Omit<CVDReportType, "_id" | "user">,
     Document {
   user: Types.ObjectId;
+  healthData: HealthData;
 }
 
 const cvdReportSchema = new Schema<CVDReportDocument>(
@@ -29,6 +30,32 @@ const cvdReportSchema = new Schema<CVDReportDocument>(
       required: true,
       enum: ["male", "female", "other"],
     },
+    healthData: {
+      sysBP: {
+        type: Number,
+        required: true,
+      },
+      diaBP: {
+        type: Number,
+        required: true,
+      },
+      BMI: {
+        type: Number,
+        required: true,
+      },
+      heartRate: {
+        type: Number,
+        required: true,
+      },
+      glucose: {
+        type: Number,
+        required: true,
+      },
+      totChol: {
+        type: Number,
+        required: true,
+      },
+    },
     predictionResult: {
       riskLevel: {
         type: String,
@@ -40,12 +67,6 @@ const cvdReportSchema = new Schema<CVDReportDocument>(
         required: true,
         min: 0,
         max: 100,
-      },
-      confidence: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 1,
       },
       recommendations: [
         {

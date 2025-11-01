@@ -27,10 +27,18 @@ export interface UserLoginInput {
 export interface CVDPredictionResult {
   riskLevel: "low" | "medium" | "high";
   riskScore: number; // 0-100
-  confidence: number; // 0-1
   recommendations: string[];
   modelUsed: string;
   additionalInfo?: Record<string, any>;
+}
+
+export interface HealthData {
+  sysBP: number;
+  diaBP: number;
+  BMI: number;
+  heartRate: number;
+  glucose: number;
+  totChol: number;
 }
 
 export interface CVDReport {
@@ -39,6 +47,7 @@ export interface CVDReport {
   userName: string;
   userAge: number;
   userGender: "male" | "female" | "other";
+  healthData: HealthData;
   predictionResult: CVDPredictionResult;
   reportDate: Date;
   createdAt: Date;
@@ -46,6 +55,9 @@ export interface CVDReport {
 }
 
 export interface CVDReportCreateInput {
+  userAge?: number;
+  userGender?: "male" | "female" | "other";
+  healthData: HealthData;
   predictionResult: CVDPredictionResult;
 }
 
@@ -62,19 +74,4 @@ export interface ApiResponse<T = any> {
   data?: T;
   errors?: any[];
   token?: string;
-}
-
-export interface PaginationQuery {
-  page?: number;
-  limit?: number;
-}
-
-export interface PaginationResult<T> {
-  data: T[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    pages: number;
-  };
 }

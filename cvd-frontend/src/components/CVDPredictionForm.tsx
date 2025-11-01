@@ -184,7 +184,7 @@ export function CVDPredictionForm({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-white to-blue-50">
+      <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-white to-green-50">
         <CardHeader className="text-center pb-8">
           <motion.div
             initial={{ scale: 0 }}
@@ -193,11 +193,11 @@ export function CVDPredictionForm({
             className="mx-auto mb-4"
           >
             <div className="relative">
-              <Heart className="h-16 w-16 text-red-500 mx-auto heart-pulse" />
-              <Activity className="h-8 w-8 text-blue-500 absolute -bottom-2 -right-2 animate-bounce" />
+              <Heart className="h-16 w-16 text-emerald-500 mx-auto heart-pulse" />
+              <Activity className="h-8 w-8 text-green-500 absolute -bottom-2 -right-2 animate-bounce" />
             </div>
           </motion.div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
             User Recent Health Data
           </CardTitle>
           <p className="text-muted-foreground mt-2">
@@ -293,7 +293,7 @@ export function CVDPredictionForm({
                   type="number"
                   placeholder="Enter your age"
                   {...register("age", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.age && (
                   <p className="text-sm text-destructive">
@@ -318,7 +318,7 @@ export function CVDPredictionForm({
                 </Label>
                 <select
                   {...register("education")}
-                  className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-blue-500 focus:ring-4 focus:ring-blue-200 focus:outline-none"
+                  className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-green-500 focus:ring-4 focus:ring-green-200 focus:outline-none"
                 >
                   <option value="">Select your education level</option>
                   {educationOptions.map((option) => (
@@ -354,7 +354,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter total cholesterol"
                   {...register("totChol", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.totChol && (
                   <p className="text-sm text-destructive">
@@ -434,7 +434,7 @@ export function CVDPredictionForm({
                   type="number"
                   placeholder="Enter cigarettes per day (0 if non-smoker)"
                   {...register("cigsPerDay", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.cigsPerDay && (
                   <p className="text-sm text-destructive">
@@ -466,7 +466,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter systolic BP"
                   {...register("sysBP", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.sysBP && (
                   <p className="text-sm text-destructive">
@@ -547,7 +547,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter diastolic BP"
                   {...register("diaBP", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.diaBP && (
                   <p className="text-sm text-destructive">
@@ -628,7 +628,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter BMI"
                   {...register("bmi", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.bmi && (
                   <p className="text-sm text-destructive">
@@ -709,7 +709,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter heart rate"
                   {...register("heartRate", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.heartRate && (
                   <p className="text-sm text-destructive">
@@ -790,7 +790,7 @@ export function CVDPredictionForm({
                   step="0.1"
                   placeholder="Enter glucose level"
                   {...register("glucose", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 rounded-lg font-medium bg-white"
+                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
                 />
                 {errors.glucose && (
                   <p className="text-sm text-destructive">
@@ -810,7 +810,7 @@ export function CVDPredictionForm({
               <Button
                 type="submit"
                 disabled={isLoading || isSubmitting}
-                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 transform transition-all duration-200 hover:scale-105 disabled:transform-none"
+                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transform transition-all duration-200 hover:scale-105 disabled:transform-none"
               >
                 {isLoading || isSubmitting ? (
                   <motion.div

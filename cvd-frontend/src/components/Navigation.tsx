@@ -27,10 +27,10 @@ export const Navigation = () => {
             to={user ? "/dashboard" : "/home"}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="h-8 w-8 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center">
+            <div className="h-8 w-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-sm">CVD</span>
             </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="font-bold text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Health Predictor
             </span>
           </Link>
@@ -43,8 +43,8 @@ export const Navigation = () => {
                   to="/dashboard"
                   className={`text-sm font-medium transition-colors ${
                     location.pathname === "/dashboard"
-                      ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                      : "text-gray-600 hover:text-blue-600"
+                      ? "text-green-600 border-b-2 border-green-600 pb-1"
+                      : "text-gray-600 hover:text-green-600"
                   }`}
                 >
                   Dashboard
@@ -54,8 +54,8 @@ export const Navigation = () => {
                   to="/home"
                   className={`text-sm font-medium transition-colors ${
                     location.pathname === "/home"
-                      ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                      : "text-gray-600 hover:text-blue-600"
+                      ? "text-green-600 border-b-2 border-green-600 pb-1"
+                      : "text-gray-600 hover:text-green-600"
                   }`}
                 >
                   Home
@@ -68,8 +68,8 @@ export const Navigation = () => {
                     to="/analyze"
                     className={`text-sm font-medium transition-colors ${
                       location.pathname === "/analyze"
-                        ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-green-600 border-b-2 border-green-600 pb-1"
+                        : "text-gray-600 hover:text-green-600"
                     }`}
                   >
                     Analyze
@@ -78,8 +78,8 @@ export const Navigation = () => {
                     to="/history"
                     className={`text-sm font-medium transition-colors ${
                       location.pathname === "/history"
-                        ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-green-600 border-b-2 border-green-600 pb-1"
+                        : "text-gray-600 hover:text-green-600"
                     }`}
                   >
                     Health History
@@ -105,13 +105,13 @@ export const Navigation = () => {
                 <div className="flex items-center gap-4">
                   <Link
                     to="/login"
-                    className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
+                    className="text-sm font-medium text-gray-600 hover:text-green-600 transition-colors"
                   >
                     Log In
                   </Link>
                   <Link
                     to="/signup"
-                    className="bg-gradient-to-r from-red-500 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-red-600 hover:to-blue-700 transition-all transform hover:scale-105"
+                    className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-emerald-600 hover:to-teal-700 transition-all transform hover:scale-105"
                   >
                     Get Started
                   </Link>
@@ -130,7 +130,7 @@ export const Navigation = () => {
               </span>
               <Link
                 to={location.pathname === "/login" ? "/signup" : "/login"}
-                className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                className="text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
               >
                 {location.pathname === "/login" ? "Create Account" : "Log In"}
               </Link>
