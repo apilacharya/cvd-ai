@@ -44,7 +44,7 @@ export function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -57,12 +57,12 @@ export function SignInPage() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="mx-auto h-16 w-16 bg-gradient-to-r from-red-500 to-blue-600 rounded-full flex items-center justify-center"
+              className="mx-auto h-16 w-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center"
             >
               <Heart className="h-8 w-8 text-white" />
             </motion.div>
             <div>
-              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Welcome Back
               </CardTitle>
               <p className="text-gray-600 mt-2">
@@ -89,7 +89,7 @@ export function SignInPage() {
                     id="email"
                     type="email"
                     {...register("email")}
-                    className="pl-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-10 border-gray-200 focus:border-green-500 focus:ring-green-500"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -111,7 +111,7 @@ export function SignInPage() {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     {...register("password")}
-                    className="pl-10 pr-10 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-10 pr-10 border-gray-200 focus:border-green-500 focus:ring-green-500"
                     placeholder="Enter your password"
                   />
                   <button
@@ -139,7 +139,7 @@ export function SignInPage() {
                     id="rememberMe"
                     type="checkbox"
                     {...register("rememberMe")}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-gray-300 text-green-600 focus:ring-green-500"
                   />
                   <Label htmlFor="rememberMe" className="text-sm text-gray-600">
                     Remember me
@@ -147,7 +147,7 @@ export function SignInPage() {
                 </div>
                 <button
                   type="button"
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-sm text-green-600 hover:text-green-700 font-medium"
                 >
                   Forgot password?
                 </button>
@@ -162,7 +162,7 @@ export function SignInPage() {
               <Button
                 type="submit"
                 disabled={loading || isSubmitting}
-                className="w-full bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
+                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
               >
                 {loading || isSubmitting ? (
                   <div className="flex items-center justify-center">
@@ -180,7 +180,7 @@ export function SignInPage() {
                 Don't have an account?{" "}
                 <Link
                   to="/signup"
-                  className="text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-green-600 hover:text-green-700 font-medium"
                 >
                   Create one now
                 </Link>

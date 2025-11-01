@@ -15,7 +15,7 @@ export function Dashboard() {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       <div className="container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -23,6 +23,28 @@ export function Dashboard() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
+          {/* Heart Image */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="mb-6"
+          >
+            <motion.img
+              src="/heart.svg"
+              alt="Heart"
+              className="h-24 w-24 mx-auto"
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Welcome back, {user?.firstName}!
           </h1>
@@ -38,9 +60,9 @@ export function Dashboard() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
         >
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-emerald-500">
             <div className="flex items-center">
-              <Heart className="h-8 w-8 text-blue-500 mr-3" />
+              <Heart className="h-8 w-8 text-emerald-500 mr-3" />
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
                   Health Analysis
@@ -60,9 +82,9 @@ export function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-teal-500">
             <div className="flex items-center">
-              <Star className="h-8 w-8 text-purple-500 mr-3" />
+              <Star className="h-8 w-8 text-teal-500 mr-3" />
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
                   AI Assistant
@@ -84,7 +106,7 @@ export function Dashboard() {
         >
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-              <Activity className="h-6 w-6 text-red-500 mr-2" />
+              <Activity className="h-6 w-6 text-emerald-500 mr-2" />
               CVD Risk Analysis
             </h3>
             <p className="text-gray-600 mb-6">
@@ -93,7 +115,7 @@ export function Dashboard() {
             </p>
             <Link
               to="/analyze"
-              className="w-full inline-block text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              className="w-full inline-block text-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
             >
               Start Health Analysis
             </Link>
@@ -101,7 +123,7 @@ export function Dashboard() {
 
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-              <Clock className="h-6 w-6 text-blue-500 mr-2" />
+              <Clock className="h-6 w-6 text-green-500 mr-2" />
               Previous Results
             </h3>
             <p className="text-gray-600 mb-6">
@@ -122,13 +144,13 @@ export function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg p-8"
+          className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl shadow-lg p-8"
         >
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
               Trusted by Healthcare Professionals
             </h2>
-            <p className="text-xl text-blue-100">
+            <p className="text-xl text-emerald-100">
               Our AI models are trained on extensive medical datasets
             </p>
           </div>
@@ -147,8 +169,8 @@ export function Dashboard() {
                 transition={{ delay: 0.4 + index * 0.1 }}
                 className="text-center"
               >
-                <stat.icon className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                <div className="text-4xl font-bold text-yellow-300 mb-2">
+                <stat.icon className="h-12 w-12 mx-auto mb-4 text-green-100" />
+                <div className="text-4xl font-bold text-white mb-2">
                   {stat.number}
                 </div>
                 <div className="text-lg">{stat.label}</div>

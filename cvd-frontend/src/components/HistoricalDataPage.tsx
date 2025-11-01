@@ -5,53 +5,71 @@ import {
   TrendingUp,
   Heart,
   Activity,
-  Filter,
   Download,
-  Eye,
   Trash2,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getRiskLevel } from "@/lib/utils";
+import { cvdReportsApi } from "@/services/api";
+import type { CVDReport } from "@/types/auth";
 
 interface HistoricalRecord {
   id: string;
   date: Date;
   riskLevel: number;
-  accuracy: number;
+  riskLevelCategory: "low" | "medium" | "high";
   bestModel: string;
   age: number;
   gender: string;
-  systolicBP: number;
-  diastolicBP: number;
-  cholesterol: number;
+  sysBP: number;
+  diaBP: number;
   bmi: number;
   heartRate: number;
+  glucose: number;
+  cholesterol: number;
 }
 
 export function HistoricalDataPage() {
   const [records, setRecords] = useState<HistoricalRecord[]>([]);
-  const [filteredRecords, setFilteredRecords] = useState<HistoricalRecord[]>(
-    []
-  );
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState<"date" | "risk" | "accuracy">("date");
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // TODO: Replace with actual API call to fetch user's historical CVD reports
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // This should call reportsApi.getReports() when backend is ready
-        throw new Error("Historical data API not implemented yet");
+        // Fetch historical reports from backend using dedicated history endpoint
+        const response = await cvdReportsApi.getHistory();
+        console.log("Fetched historical data:", response);
+
+        // Extract reports from response
+        const reportsData = response.data?.reports || [];
+
+        console.log("Reports data:", reportsData);
+
+        const transformedRecords: HistoricalRecord[] = reportsData.map(
+          (report: CVDReport) => ({
+            id: report._id,
+            date: new Date(report.reportDate),
+            riskLevel: report.predictionResult.riskScore / 100, // Convert to 0-1 scale
+            riskLevelCategory: report.predictionResult.riskLevel,
+            bestModel: report.predictionResult.modelUsed,
+            age: report.userAge,
+            gender: report.userGender,
+            sysBP: report.healthData.sysBP,
+            diaBP: report.healthData.diaBP,
+            bmi: report.healthData.BMI,
+            heartRate: report.healthData.heartRate,
+            glucose: report.healthData.glucose,
+            cholesterol: report.healthData.totChol,
+          })
+        );
+
+        console.log("Transformed records:", transformedRecords);
+        setRecords(transformedRecords);
       } catch (err) {
         console.error("Failed to fetch historical data:", err);
-        setError("Failed to load historical data. Please try again later.");
         setRecords([]);
-        setFilteredRecords([]);
       } finally {
         setIsLoading(false);
       }
@@ -60,43 +78,59 @@ export function HistoricalDataPage() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    let filtered = records.filter(
-      (record) =>
-        record.bestModel.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.date.toLocaleDateString().includes(searchTerm)
-    );
-
-    // Sort records
-    filtered = filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "date":
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        case "risk":
-          return b.riskLevel - a.riskLevel;
-        case "accuracy":
-          return b.accuracy - a.accuracy;
-        default:
-          return 0;
-      }
-    });
-
-    setFilteredRecords(filtered);
-  }, [records, searchTerm, sortBy]);
-
-  const handleViewDetails = (record: HistoricalRecord) => {
-    console.log("View details for record:", record.id);
-    // Implement view details functionality
-  };
-
-  const handleDeleteRecord = (recordId: string) => {
-    setRecords((prev) => prev.filter((record) => record.id !== recordId));
-    console.log("Delete record:", recordId);
+  const handleDeleteRecord = async (recordId: string) => {
+    try {
+      await cvdReportsApi.deleteReport(recordId);
+      setRecords((prev) => prev.filter((record) => record.id !== recordId));
+      console.log("Deleted record:", recordId);
+    } catch (err) {
+      console.error("Failed to delete record:", err);
+      alert("Failed to delete record. Please try again.");
+    }
   };
 
   const handleExportData = () => {
-    console.log("Export data functionality");
-    // Implement export functionality
+    // Export as CSV
+    const headers = [
+      "Date",
+      "Age",
+      "Gender",
+      "Systolic BP",
+      "Diastolic BP",
+      "BMI",
+      "Heart Rate",
+      "Glucose",
+      "Cholesterol",
+      "CVD Risk %",
+      "Risk Level",
+      "Model Used",
+    ];
+
+    const csvData = records.map((record) => [
+      record.date.toLocaleDateString(),
+      record.age,
+      record.gender,
+      record.sysBP,
+      record.diaBP,
+      record.bmi,
+      record.heartRate,
+      record.glucose,
+      record.cholesterol,
+      (record.riskLevel * 100).toFixed(1),
+      record.riskLevelCategory,
+      record.bestModel,
+    ]);
+
+    const csv = [headers, ...csvData].map((row) => row.join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `cvd-health-history-${
+      new Date().toISOString().split("T")[0]
+    }.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const calculateTrend = () => {
@@ -117,35 +151,34 @@ export function HistoricalDataPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center min-h-96"
-          >
-            <div className="text-center">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              >
-                <Activity className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              </motion.div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Loading Your Health History
-              </h3>
-              <p className="text-gray-600">
-                Retrieving your cardiovascular assessments...
-              </p>
-            </div>
-          </motion.div>
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6">
+        <div className="container mx-auto max-w-6xl flex items-center justify-center min-h-[60vh]">
+          <Card className="w-full max-w-md">
+            <CardContent className="p-12">
+              <div className="text-center">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="mb-6"
+                >
+                  <Activity className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                </motion.div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  Loading Your Health History
+                </h3>
+                <p className="text-gray-600">
+                  Retrieving your assessment records...
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <motion.div
@@ -155,7 +188,7 @@ export function HistoricalDataPage() {
         >
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
                 Health History
               </h1>
               <p className="text-gray-600 text-lg">
@@ -173,18 +206,18 @@ export function HistoricalDataPage() {
 
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-0">
+            <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-0">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-blue-600">
+                    <p className="text-sm font-medium text-emerald-600">
                       Total Assessments
                     </p>
-                    <p className="text-3xl font-bold text-blue-700">
+                    <p className="text-3xl font-bold text-emerald-700">
                       {records.length}
                     </p>
                   </div>
-                  <Heart className="h-12 w-12 text-blue-500" />
+                  <Heart className="h-12 w-12 text-emerald-500" />
                 </div>
               </CardContent>
             </Card>
@@ -207,13 +240,13 @@ export function HistoricalDataPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-0">
+            <Card className="bg-gradient-to-br from-teal-50 to-teal-100 border-0">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-purple-600">Trend</p>
+                    <p className="text-sm font-medium text-teal-600">Trend</p>
                     <div className="flex items-center gap-2">
-                      <p className="text-3xl font-bold text-purple-700">
+                      <p className="text-3xl font-bold text-teal-700">
                         {trend ? `${trend.percentage.toFixed(1)}%` : "N/A"}
                       </p>
                       {trend && (
@@ -227,58 +260,21 @@ export function HistoricalDataPage() {
                       )}
                     </div>
                   </div>
-                  <TrendingUp className="h-12 w-12 text-purple-500" />
+                  <TrendingUp className="h-12 w-12 text-teal-500" />
                 </div>
               </CardContent>
             </Card>
           </div>
         </motion.div>
 
-        {/* Filters and Search */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-6"
-        >
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4 items-center">
-                <div className="flex-1">
-                  <Input
-                    placeholder="Search by model or date..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="h-10"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4 text-gray-500" />
-                  <select
-                    value={sortBy}
-                    onChange={(e) =>
-                      setSortBy(e.target.value as "date" | "risk" | "accuracy")
-                    }
-                    className="h-10 px-3 rounded-md border border-input bg-background"
-                  >
-                    <option value="date">Sort by Date</option>
-                    <option value="risk">Sort by Risk Level</option>
-                    <option value="accuracy">Sort by Accuracy</option>
-                  </select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
         {/* Records List */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.2 }}
           className="space-y-4"
         >
-          {filteredRecords.length === 0 ? (
+          {records.length === 0 ? (
             <Card>
               <CardContent className="p-12 text-center">
                 <Heart className="h-16 w-16 text-gray-400 mx-auto mb-4" />
@@ -286,14 +282,12 @@ export function HistoricalDataPage() {
                   No Records Found
                 </h3>
                 <p className="text-gray-500">
-                  {searchTerm
-                    ? "Try adjusting your search criteria"
-                    : "Start by taking your first health assessment"}
+                  Start by taking your first health assessment
                 </p>
               </CardContent>
             </Card>
           ) : (
-            filteredRecords.map((record, index) => {
+            records.map((record, index) => {
               const riskInfo = getRiskLevel(record.riskLevel);
 
               return (
@@ -301,7 +295,7 @@ export function HistoricalDataPage() {
                   key={record.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                 >
                   <Card className="hover:shadow-lg transition-shadow duration-200">
                     <CardContent className="p-6">
@@ -354,7 +348,7 @@ export function HistoricalDataPage() {
                                 {record.bestModel}
                               </p>
                               <p className="text-xs text-gray-500">
-                                {(record.accuracy * 100).toFixed(1)}% accuracy
+                                {record.riskLevelCategory} risk
                               </p>
                             </div>
                             <div>
@@ -362,30 +356,52 @@ export function HistoricalDataPage() {
                                 Blood Pressure
                               </p>
                               <p className="text-lg font-semibold">
-                                {record.systolicBP}/{record.diastolicBP}
+                                {record.sysBP}/{record.diaBP}
                               </p>
                               <p className="text-xs text-gray-500">mmHg</p>
                             </div>
                             <div>
                               <p className="text-sm text-gray-600">BMI</p>
                               <p className="text-lg font-semibold">
-                                {record.bmi}
+                                {record.bmi.toFixed(1)}
                               </p>
                               <p className="text-xs text-gray-500">kg/m²</p>
+                            </div>
+                          </div>
+
+                          {/* Additional Health Metrics */}
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+                            <div>
+                              <p className="text-sm text-gray-600">
+                                Heart Rate
+                              </p>
+                              <p className="text-lg font-semibold">
+                                {record.heartRate}
+                              </p>
+                              <p className="text-xs text-gray-500">bpm</p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-600">
+                                Glucose Level
+                              </p>
+                              <p className="text-lg font-semibold">
+                                {record.glucose}
+                              </p>
+                              <p className="text-xs text-gray-500">mg/dL</p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-600">
+                                Cholesterol
+                              </p>
+                              <p className="text-lg font-semibold">
+                                {record.cholesterol}
+                              </p>
+                              <p className="text-xs text-gray-500">mg/dL</p>
                             </div>
                           </div>
                         </div>
 
                         <div className="flex flex-col gap-2 ml-4">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleViewDetails(record)}
-                            className="flex items-center gap-2"
-                          >
-                            <Eye className="h-4 w-4" />
-                            View
-                          </Button>
                           <Button
                             variant="outline"
                             size="sm"

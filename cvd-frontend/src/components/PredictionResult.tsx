@@ -35,14 +35,14 @@ export function PredictionResult({
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
       >
-        <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg">
+        <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-0 shadow-lg">
           <CardContent className="p-8">
             <div className="flex flex-col items-center justify-center space-y-4">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               >
-                <Activity className="h-12 w-12 text-blue-600" />
+                <Activity className="h-12 w-12 text-green-600" />
               </motion.div>
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -55,7 +55,7 @@ export function PredictionResult({
               <div className="w-full max-w-md">
                 <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-600"
+                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-600"
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ duration: 3, repeat: Infinity }}
@@ -133,7 +133,7 @@ export function PredictionResult({
       className="w-full space-y-6"
     >
       {/* Main Result Card */}
-      <Card className="bg-gradient-to-br from-white to-blue-50 border-0 shadow-xl">
+      <Card className="bg-gradient-to-br from-white to-green-50 border-0 shadow-xl">
         <CardHeader className="text-center pb-4">
           <motion.div
             initial={{ scale: 0 }}
@@ -256,16 +256,16 @@ export function PredictionResult({
       })()}
 
       {/* Model Consensus */}
-      <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg">
+      <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-0 shadow-lg">
         <CardHeader>
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
-            <Target className="h-6 w-6 text-blue-600" />
+            <Target className="h-6 w-6 text-green-600" />
             Model Consensus
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-green-600">
               {results.filter((model) => model.prediction === 1).length} /{" "}
               {results.length}
             </div>
@@ -278,7 +278,7 @@ export function PredictionResult({
       <Card className="border-0 shadow-lg">
         <CardHeader>
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
-            <TrendingUp className="h-6 w-6 text-blue-600" />
+            <TrendingUp className="h-6 w-6 text-green-600" />
             All Model Results
           </CardTitle>
         </CardHeader>

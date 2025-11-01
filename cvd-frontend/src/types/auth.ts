@@ -40,12 +40,22 @@ export interface CVDPredictionResult {
   additionalInfo?: Record<string, any>;
 }
 
+export interface HealthData {
+  sysBP: number;
+  diaBP: number;
+  BMI: number;
+  heartRate: number;
+  glucose: number;
+  totChol: number;
+}
+
 export interface CVDReport {
   _id: string;
   user: string;
   userName: string;
   userAge: number;
   userGender: "male" | "female" | "other";
+  healthData: HealthData;
   predictionResult: CVDPredictionResult;
   reportDate: string;
   createdAt: string;
@@ -53,29 +63,8 @@ export interface CVDReport {
 }
 
 export interface CVDReportCreateInput {
+  userAge: number;
+  userGender: "male" | "female" | "other";
+  healthData: HealthData;
   predictionResult: CVDPredictionResult;
-}
-
-export interface PaginationResult<T> {
-  data: T[];
-  pagination: {
-    current: number;
-    pages: number;
-    total: number;
-    limit: number;
-  };
-}
-
-export interface HealthDataInput {
-  age: number;
-  gender: "male" | "female" | "other";
-  chestPain: string;
-  restingBP: number;
-  cholesterol: number;
-  fastingBS: boolean;
-  restingECG: string;
-  maxHR: number;
-  exerciseAngina: boolean;
-  oldpeak: number;
-  stSlope: string;
 }
