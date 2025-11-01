@@ -89,6 +89,40 @@ export const validateCVDAnalysisData = [
 
 // CVD report validation
 export const validateCVDReport = [
+  body("userAge")
+    .optional()
+    .isInt({ min: 1, max: 120 })
+    .withMessage("Age must be between 1 and 120"),
+
+  body("userGender")
+    .optional()
+    .isIn(["male", "female", "other"])
+    .withMessage("Gender must be male, female, or other"),
+
+  body("healthData.sysBP")
+    .isFloat({ min: 70, max: 250 })
+    .withMessage("Systolic BP must be between 70 and 250"),
+
+  body("healthData.diaBP")
+    .isFloat({ min: 40, max: 150 })
+    .withMessage("Diastolic BP must be between 40 and 150"),
+
+  body("healthData.BMI")
+    .isFloat({ min: 10, max: 60 })
+    .withMessage("BMI must be between 10 and 60"),
+
+  body("healthData.heartRate")
+    .isFloat({ min: 40, max: 200 })
+    .withMessage("Heart rate must be between 40 and 200"),
+
+  body("healthData.glucose")
+    .isFloat({ min: 50, max: 400 })
+    .withMessage("Glucose level must be between 50 and 400"),
+
+  body("healthData.totChol")
+    .isFloat({ min: 100, max: 500 })
+    .withMessage("Total cholesterol must be between 100 and 500"),
+
   body("predictionResult.riskLevel")
     .isIn(["low", "medium", "high"])
     .withMessage("Risk level must be low, medium, or high"),
@@ -96,10 +130,6 @@ export const validateCVDReport = [
   body("predictionResult.riskScore")
     .isFloat({ min: 0, max: 100 })
     .withMessage("Risk score must be between 0 and 100"),
-
-  body("predictionResult.confidence")
-    .isFloat({ min: 0, max: 1 })
-    .withMessage("Confidence must be between 0 and 1"),
 
   body("predictionResult.recommendations")
     .isArray({ min: 1 })
