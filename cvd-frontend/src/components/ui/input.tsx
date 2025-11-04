@@ -7,6 +7,13 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
+    // Prevent scroll on number inputs
+    const handleWheel = (e: React.WheelEvent<HTMLInputElement>) => {
+      if (type === "number") {
+        e.currentTarget.blur();
+      }
+    };
+
     return (
       <input
         type={type}
@@ -15,6 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className
         )}
         ref={ref}
+        onWheel={handleWheel}
         {...props}
       />
     );
