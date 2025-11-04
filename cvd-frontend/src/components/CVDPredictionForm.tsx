@@ -130,6 +130,26 @@ const educationOptions = [
   { value: "higher", label: "Higher Education" },
 ];
 
+// Normalization ranges for min-max scaling to [-1, 1]
+// These values should match the expected input ranges from the training data
+const featureRanges = {
+  age: { min: 1, max: 120 },
+  cigsPerDay: { min: 0, max: 100 },
+  totChol: { min: 100, max: 500 },
+  sysBP: { min: 70, max: 250 },
+  diaBP: { min: 40, max: 150 },
+  bmi: { min: 10, max: 60 },
+  heartRate: { min: 40, max: 200 },
+  glucose: { min: 50, max: 400 },
+};
+
+// Function to normalize a value to [-1, 1] range
+const normalizeToRange = (value: number, min: number, max: number): number => {
+  // Min-max normalization to [0, 1] then scale to [-1, 1]
+  const normalized = (value - min) / (max - min); // [0, 1]
+  return normalized * 2 - 1; // [-1, 1]
+};
+
 export function CVDPredictionForm({
   onSubmit,
   isLoading = false,
@@ -146,26 +166,75 @@ export function CVDPredictionForm({
 
   const handleFormSubmit = async (data: FormData) => {
     try {
-      // Convert form data to API schema format
+      // Get education index (0-3)
+      const educationIndex = educationOptions.findIndex(
+        (opt) => opt.value === data.education
+      );
+
+      // Normalize education to [-1, 1] range
+      // 0 (no school) -> -1, 1 (primary) -> -0.33, 2 (secondary) -> 0.33, 3 (higher) -> 1
+      const normalizedEducation =
+        educationIndex === 0
+          ? -1
+          : educationIndex === 1
+          ? -0.33
+          : educationIndex === 2
+          ? 0.33
+          : 1;
+
+      // Convert form data to API schema format with normalization
       const formattedData = {
-        male: data.gender === "male" ? 1 : 0, // API expects 'male' field (0 or 1)
-        age: data.age,
-        education: educationOptions.findIndex(
-          (opt) => opt.value === data.education
+        male: data.gender === "male" ? 1 : 0, // Binary: 0 or 1
+        age: normalizeToRange(
+          data.age,
+          featureRanges.age.min,
+          featureRanges.age.max
         ),
-        currentSmoker: data.currentSmoker === "yes" ? 1 : 0,
-        cigsPerDay: data.cigsPerDay || 0,
-        BPMeds: data.bpMeds === "yes" ? 1 : 0, // API expects 'BPMeds'
-        prevalentStroke: data.prevalentStroke === "yes" ? 1 : 0,
-        prevalentHyp: data.prevalentHyp === "yes" ? 1 : 0,
-        diabetes: data.diabetes === "yes" ? 1 : 0,
-        totChol: data.totChol,
-        sysBP: data.sysBP,
-        diaBP: data.diaBP,
-        BMI: data.bmi, // API expects 'BMI'
-        heartRate: data.heartRate,
-        glucose: data.glucose,
+        education: normalizedEducation,
+        currentSmoker: data.currentSmoker === "yes" ? 1 : 0, // Binary: 0 or 1
+        cigsPerDay: normalizeToRange(
+          data.cigsPerDay || 0,
+          featureRanges.cigsPerDay.min,
+          featureRanges.cigsPerDay.max
+        ),
+        BPMeds: data.bpMeds === "yes" ? 1 : 0, // Binary: 0 or 1
+        prevalentStroke: data.prevalentStroke === "yes" ? 1 : 0, // Binary: 0 or 1
+        prevalentHyp: data.prevalentHyp === "yes" ? 1 : 0, // Binary: 0 or 1
+        diabetes: data.diabetes === "yes" ? 1 : 0, // Binary: 0 or 1
+        totChol: normalizeToRange(
+          data.totChol,
+          featureRanges.totChol.min,
+          featureRanges.totChol.max
+        ),
+        sysBP: normalizeToRange(
+          data.sysBP,
+          featureRanges.sysBP.min,
+          featureRanges.sysBP.max
+        ),
+        diaBP: normalizeToRange(
+          data.diaBP,
+          featureRanges.diaBP.min,
+          featureRanges.diaBP.max
+        ),
+        BMI: normalizeToRange(
+          data.bmi,
+          featureRanges.bmi.min,
+          featureRanges.bmi.max
+        ),
+        heartRate: normalizeToRange(
+          data.heartRate,
+          featureRanges.heartRate.min,
+          featureRanges.heartRate.max
+        ),
+        glucose: normalizeToRange(
+          data.glucose,
+          featureRanges.glucose.min,
+          featureRanges.glucose.max
+        ),
       };
+
+      console.log("Original form data:", data);
+      console.log("Normalized data (range: -1 to 1):", formattedData);
 
       await onSubmit(formattedData);
     } catch (error) {

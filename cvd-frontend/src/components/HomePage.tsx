@@ -156,8 +156,8 @@ export function HomePage() {
                           Premium AI Health Assistant
                         </h3>
                         <p className="text-sm text-gray-600">
-                          Get personalized insights and guidance with account
-                          (coming soon)
+                          Receive personalized health insights and
+                          recommendations from AI chat with free account
                         </p>
                       </div>
                     </div>
