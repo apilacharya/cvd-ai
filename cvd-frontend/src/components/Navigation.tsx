@@ -20,7 +20,7 @@ export const Navigation = () => {
     location.pathname === "/login" || location.pathname === "/signup";
 
   return (
-    <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <nav className="bg-emerald-50/40 shadow-sm border-b border-emerald-100 sticky top-0 z-50 backdrop-blur-sm">
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <Link

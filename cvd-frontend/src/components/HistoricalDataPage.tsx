@@ -151,7 +151,7 @@ export function HistoricalDataPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-6">
         <div className="container mx-auto max-w-6xl flex items-center justify-center min-h-[60vh]">
           <Card className="w-full max-w-md">
             <CardContent className="p-12">
@@ -178,7 +178,7 @@ export function HistoricalDataPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-6">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <motion.div

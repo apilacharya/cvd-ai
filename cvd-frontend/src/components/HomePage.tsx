@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  Heart,
-  Activity,
-  Users,
-  Shield,
-  TrendingUp,
-  Award,
-} from "lucide-react";
+import { Heart, Activity, Users, Shield, TrendingUp } from "lucide-react";
 import { CVDPredictionForm } from "@/components/CVDPredictionForm";
 import { PredictionResult } from "@/components/PredictionResult";
 import { AIHealthAssistant } from "@/components/AIHealthAssistant";
@@ -64,7 +57,7 @@ export function HomePage() {
 
   // Default homepage for non-authenticated users (original hero section)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
@@ -95,18 +88,22 @@ export function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
               >
-                Cardiovascular Disease
+                <span className="inline-block bg-gradient-to-r from-white via-emerald-50 to-white bg-clip-text text-transparent">
+                  Cardiovascular Disease
+                </span>
                 <br />
-                <span className="text-emerald-100">Prediction System</span>
+                <span className="inline-block bg-gradient-to-r from-emerald-100 via-teal-100 to-emerald-100 bg-clip-text text-transparent drop-shadow-lg">
+                  Prediction System
+                </span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="text-lg md:text-xl mb-8 max-w-2xl mx-auto lg:mx-0"
+                className="text-lg md:text-xl mb-8 max-w-2xl mx-auto lg:mx-0 text-white/95"
               >
                 Advanced AI-powered analysis to assess your cardiovascular
                 health risk and provide personalized health insights with our
@@ -120,58 +117,68 @@ export function HomePage() {
                 transition={{ delay: 0.8 }}
                 className="mb-8"
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                  <p className="text-lg mb-2 text-emerald-100">
-                    🏥 Get Started to get historical record of your predictions
-                  </p>
-                  <p className="text-lg mb-4 text-green-100 font-semibold">
-                    🤖 Premium AI powered chat assistant available to Logged in
-                    users
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Link
-                      to="/signup"
-                      className="bg-white text-green-700 px-8 py-3 rounded-full font-bold text-lg hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-lg min-w-[160px]"
-                    >
-                      Get Started
-                    </Link>
-                    <Link
-                      to="/login"
-                      className="bg-white/20 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-white/30 transition-all transform hover:scale-105 border border-white/30 min-w-[160px]"
-                    >
-                      Log In
-                    </Link>
+                <div className="bg-emerald-50/80 rounded-2xl p-8 shadow-xl border-2 border-emerald-200/50">
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-md">
+                        <span className="text-xl">❤️</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-bold text-gray-800 mb-1">
+                          Analyze Your Heart Health for Free
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Get instant cardiovascular risk assessment using
+                          advanced AI models
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-md">
+                        <span className="text-xl">📊</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-bold text-gray-800 mb-1">
+                          Save Your Health History
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Create a free account to track predictions and monitor
+                          progress over time
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-md">
+                        <span className="text-xl">🤖</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-bold text-gray-800 mb-1">
+                          Premium AI Health Assistant
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Get personalized insights and guidance with account
+                          (coming soon)
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
 
-              {/* Feature Highlights */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6"
-              >
-                {[
-                  {
-                    icon: Activity,
-                    label: "4 AI Models",
-                    desc: "Multi-model analysis",
-                  },
-                  {
-                    icon: Users,
-                    label: "Personalized",
-                    desc: "Tailored insights",
-                  },
-                  { icon: Shield, label: "Secure", desc: "Privacy protected" },
-                  { icon: Award, label: "Accurate", desc: "90%+ precision" },
-                ].map((feature, index) => (
-                  <div key={index} className="text-center">
-                    <feature.icon className="h-8 w-8 mx-auto mb-2 text-emerald-100" />
-                    <div className="font-semibold">{feature.label}</div>
-                    <div className="text-sm opacity-90">{feature.desc}</div>
-                  </div>
-                ))}
+                {/* Buttons outside card */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-6">
+                  <Link
+                    to="/signup"
+                    className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-10 py-4 rounded-full font-bold text-base hover:from-emerald-600 hover:to-teal-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  >
+                    Get Started Free
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center justify-center bg-white text-emerald-600 px-10 py-4 rounded-full font-semibold text-base hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-md border-2 border-white"
+                  >
+                    Log In
+                  </Link>
+                </div>
               </motion.div>
             </div>
 

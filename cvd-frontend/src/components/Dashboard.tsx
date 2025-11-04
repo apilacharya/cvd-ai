@@ -60,7 +60,7 @@ export function Dashboard() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
         >
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-emerald-500">
+          <div className="bg-emerald-50/60 rounded-xl shadow-md p-6 border-l-4 border-emerald-500">
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-emerald-500 mr-3" />
               <div>
@@ -71,7 +71,7 @@ export function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+          <div className="bg-green-50/60 rounded-xl shadow-md p-6 border-l-4 border-green-500">
             <div className="flex items-center">
               <BarChart3 className="h-8 w-8 text-green-500 mr-3" />
               <div>
@@ -82,7 +82,7 @@ export function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-teal-500">
+          <div className="bg-teal-50/60 rounded-xl shadow-md p-6 border-l-4 border-teal-500">
             <div className="flex items-center">
               <Star className="h-8 w-8 text-teal-500 mr-3" />
               <div>
@@ -104,7 +104,7 @@ export function Dashboard() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8"
         >
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-emerald-50/50 rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
               <Activity className="h-6 w-6 text-emerald-500 mr-2" />
               CVD Risk Analysis
@@ -121,7 +121,7 @@ export function Dashboard() {
             </Link>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-green-50/50 rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
               <Clock className="h-6 w-6 text-green-500 mr-2" />
               Previous Results

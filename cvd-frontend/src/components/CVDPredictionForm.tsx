@@ -184,7 +184,7 @@ export function CVDPredictionForm({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-white to-green-50">
+      <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-emerald-50/40 via-green-50/30 to-teal-50/40">
         <CardHeader className="text-center pb-8">
           <motion.div
             initial={{ scale: 0 }}

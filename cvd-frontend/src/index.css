@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 142 40% 96%;
     --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
+    --card: 140 35% 96%;
     --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
+    --popover: 140 35% 96%;
     --popover-foreground: 224 71.4% 4.1%;
     --primary: 142 76% 36%;
     --primary-foreground: 138 76% 97%;
@@ -56,6 +56,16 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Apply subtle green background to white elements */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    background-color: hsl(140 35% 95%) !important;
   }
 }
 

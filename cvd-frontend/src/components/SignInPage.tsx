@@ -44,14 +44,14 @@ export function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="w-full max-w-md"
       >
-        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm">
+        <Card className="border-0 shadow-2xl bg-emerald-50/40 backdrop-blur-sm">
           <CardHeader className="text-center space-y-6 pb-8">
             <motion.div
               initial={{ scale: 0 }}
