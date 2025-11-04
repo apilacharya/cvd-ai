@@ -94,14 +94,14 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-red-500 flex-shrink-0" />
                 <span className="text-gray-300">
-                  123 Health Street
+                  Amrit Science Campus (ASCOL)
                   <br />
-                  Medical District, MD 12345
+                  Thamel, Kathmandu, Nepal
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-red-500 flex-shrink-0" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+977-9840257756</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-red-500 flex-shrink-0" />
