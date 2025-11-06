@@ -13,25 +13,25 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className='bg-gray-900 text-white'>
       {/* Main Footer Content */}
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className='container mx-auto px-6 py-12'>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="col-span-1 md:col-span-2"
+            className='col-span-1 md:col-span-2'
           >
-            <h3 className="text-2xl font-bold mb-6">CVD Prediction System</h3>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <h3 className='text-2xl font-bold mb-6'>CVD Prediction System</h3>
+            <p className='text-gray-300 mb-6 max-w-md'>
               Advanced AI-powered cardiovascular disease prediction system
               providing personalized health insights and risk assessments to
               help you maintain optimal heart health.
             </p>
-            <div className="flex space-x-4">
+            <div className='flex space-x-4'>
               {[
                 { icon: Facebook, href: "#", label: "Facebook" },
                 { icon: Twitter, href: "#", label: "Twitter" },
@@ -43,10 +43,10 @@ export function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors duration-200"
+                  className='p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors duration-200'
                   aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5" />
+                  <social.icon className='h-5 w-5' />
                 </motion.a>
               ))}
             </div>
@@ -59,8 +59,8 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
-            <ul className="space-y-3">
+            <h4 className='text-lg font-semibold mb-6'>Quick Links</h4>
+            <ul className='space-y-3'>
               {[
                 "Home",
                 "About Us",
@@ -71,9 +71,9 @@ export function Footer() {
               ].map((link, index) => (
                 <motion.li key={link}>
                   <motion.a
-                    href="#"
+                    href='#'
                     whileHover={{ x: 5 }}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
+                    className='text-gray-300 hover:text-white transition-colors duration-200'
                   >
                     {link}
                   </motion.a>
@@ -89,23 +89,23 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-semibold mb-6">Contact Us</h4>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-red-500 flex-shrink-0" />
-                <span className="text-gray-300">
-                  123 Health Street
+            <h4 className='text-lg font-semibold mb-6'>Contact Us</h4>
+            <ul className='space-y-4'>
+              <li className='flex items-center gap-3'>
+                <MapPin className='h-5 w-5 text-red-500 flex-shrink-0' />
+                <span className='text-gray-300'>
+                  Amrit Science Campus
                   <br />
-                  Medical District, MD 12345
+                  Thamel, Kathmandu
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-red-500 flex-shrink-0" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+              <li className='flex items-center gap-3'>
+                <Phone className='h-5 w-5 text-red-500 flex-shrink-0' />
+                <span className='text-gray-300'>+977 9812345678</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-red-500 flex-shrink-0" />
-                <span className="text-gray-300">support@cvdprediction.com</span>
+              <li className='flex items-center gap-3'>
+                <Mail className='h-5 w-5 text-red-500 flex-shrink-0' />
+                <span className='text-gray-300'>support@cvdprediction.com</span>
               </li>
             </ul>
           </motion.div>
@@ -113,15 +113,15 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className='border-t border-gray-800'>
+        <div className='container mx-auto px-6 py-6'>
+          <div className='flex flex-col md:flex-row justify-between items-center gap-4'>
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-gray-400 text-sm"
+              className='text-gray-400 text-sm'
             >
               © {currentYear} CVD Prediction System. All rights reserved.
             </motion.p>
@@ -131,7 +131,7 @@ export function Footer() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-wrap gap-6 text-sm"
+              className='flex flex-wrap gap-6 text-sm'
             >
               {[
                 "Privacy Policy",
@@ -141,9 +141,9 @@ export function Footer() {
               ].map((link, index) => (
                 <motion.a
                   key={link}
-                  href="#"
+                  href='#'
                   whileHover={{ y: -1 }}
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  className='text-gray-400 hover:text-white transition-colors duration-200'
                 >
                   {link}
                 </motion.a>
@@ -154,16 +154,16 @@ export function Footer() {
       </div>
 
       {/* Medical Disclaimer */}
-      <div className="bg-red-900/20 border-t border-red-800/30">
-        <div className="container mx-auto px-6 py-4">
+      <div className='bg-red-900/20 border-t border-red-800/30'>
+        <div className='container mx-auto px-6 py-4'>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center"
+            className='text-center'
           >
-            <p className="text-red-200 text-sm">
+            <p className='text-red-200 text-sm'>
               <strong>Medical Disclaimer:</strong> This tool is for
               informational purposes only and should not replace professional
               medical advice. Always consult with healthcare professionals for
