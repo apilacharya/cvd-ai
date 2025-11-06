@@ -94,8 +94,8 @@ const formSchema = yup.object({
     .number()
     .required("Glucose level is required")
     .positive("Glucose level must be positive")
-    .min(50, "Glucose level seems too low")
-    .max(400, "Glucose level seems too high"),
+    .min(0, "Glucose level seems too low")
+    .max(1000, "Glucose level seems too high"),
 });
 
 type FormData = yup.InferType<typeof formSchema>;
@@ -253,91 +253,95 @@ export function CVDPredictionForm({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-emerald-50/40 via-green-50/30 to-teal-50/40">
-        <CardHeader className="text-center pb-8">
+      {/* <Card className='w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-emerald-50/40 via-green-50/30 to-teal-50/40'> */}
+      <Card
+        className='w-full max-w-2xl mx-auto shadow-xl border-0 bg-white'
+        id='assessment'
+      >
+        <CardHeader className='text-center pb-8'>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mx-auto mb-4"
+            className='mx-auto mb-4'
           >
-            <div className="relative">
-              <Heart className="h-16 w-16 text-emerald-500 mx-auto heart-pulse" />
-              <Activity className="h-8 w-8 text-green-500 absolute -bottom-2 -right-2 animate-bounce" />
+            <div className='relative'>
+              <Heart className='h-16 w-16 text-emerald-500 mx-auto heart-pulse' />
+              <Activity className='h-8 w-8 text-green-500 absolute -bottom-2 -right-2 animate-bounce' />
             </div>
           </motion.div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          <CardTitle className='text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent'>
             User Recent Health Data
           </CardTitle>
-          <p className="text-muted-foreground mt-2">
+          <p className='text-muted-foreground mt-2'>
             Please provide accurate information for the best prediction results
           </p>
         </CardHeader>
 
-        <CardContent className="p-8 pt-10">
+        <CardContent className='p-8 pt-10'>
           <form
             onSubmit={handleSubmit(handleFormSubmit)}
-            className="space-y-10"
+            className='space-y-10'
           >
             {/* Row 1: Gender (Radio) and Age (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.1 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <User className="h-6 w-6 text-blue-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <User className='h-6 w-6 ' />
                   What is your gender?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("gender", value)}
-                  className="flex gap-6 pt-2"
+                  className='flex gap-6 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="male"
-                      id="male"
-                      className="h-5 w-5 border-2"
+                      value='male'
+                      id='male'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="male"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='male'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Male
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="female"
-                      id="female"
-                      className="h-5 w-5 border-2"
+                      value='female'
+                      id='female'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="female"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='female'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Female
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="other"
-                      id="other"
-                      className="h-5 w-5 border-2"
+                      value='other'
+                      id='other'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="other"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='other'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Other
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.gender && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.gender.message}
                   </p>
                 )}
@@ -345,27 +349,27 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.2 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="age"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='age'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Timer className="h-6 w-6 text-green-600" />
+                  <Timer className='h-6 w-6' />
                   What is your age?
                 </Label>
                 <Input
-                  id="age"
-                  type="number"
-                  placeholder="Enter your age"
+                  id='age'
+                  type='number'
+                  placeholder='Enter your age'
                   {...register("age", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.age && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.age.message}
                   </p>
                 )}
@@ -373,23 +377,23 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 2: Education (Select) and Cholesterol (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.3 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <BookOpen className='h-6 w-6' />
                   What is your education level?
                 </Label>
                 <select
                   {...register("education")}
-                  className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-green-500 focus:ring-4 focus:ring-green-200 focus:outline-none"
+                  className='h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-green-500 focus:ring-4 focus:ring-green-200 focus:outline-none'
                 >
-                  <option value="">Select your education level</option>
+                  <option value=''>Select your education level</option>
                   {educationOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -397,7 +401,7 @@ export function CVDPredictionForm({
                   ))}
                 </select>
                 {errors.education && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.education.message}
                   </p>
                 )}
@@ -405,28 +409,28 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.4 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="totChol"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='totChol'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Droplets className="h-6 w-6 text-red-500" />
+                  <Droplets className='h-6 w-6' />
                   Total cholesterol (mg/dL)
                 </Label>
                 <Input
-                  id="totChol"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter total cholesterol"
+                  id='totChol'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter total cholesterol'
                   {...register("totChol", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.totChol && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.totChol.message}
                   </p>
                 )}
@@ -434,51 +438,51 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 3: Current Smoker (Radio) and Cigarettes Per Day (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.5 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <Cigarette className="h-6 w-6 text-orange-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <Cigarette className='h-6 w-6 ' />
                   Are you a current smoker?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("currentSmoker", value)}
-                  className="flex gap-8 pt-2"
+                  className='flex gap-8 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="yes"
-                      id="currentSmoker-yes"
-                      className="h-5 w-5 border-2"
+                      value='yes'
+                      id='currentSmoker-yes'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="currentSmoker-yes"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='currentSmoker-yes'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Yes
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="no"
-                      id="currentSmoker-no"
-                      className="h-5 w-5 border-2"
+                      value='no'
+                      id='currentSmoker-no'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="currentSmoker-no"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='currentSmoker-no'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       No
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.currentSmoker && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.currentSmoker.message}
                   </p>
                 )}
@@ -486,27 +490,27 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.6 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="cigsPerDay"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='cigsPerDay'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Cigarette className="h-6 w-6 text-red-600" />
+                  <Cigarette className='h-6 w-6 ' />
                   Cigarettes per day
                 </Label>
                 <Input
-                  id="cigsPerDay"
-                  type="number"
-                  placeholder="Enter cigarettes per day (0 if non-smoker)"
+                  id='cigsPerDay'
+                  type='number'
+                  placeholder='Enter cigarettes per day (0 if non-smoker)'
                   {...register("cigsPerDay", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.cigsPerDay && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.cigsPerDay.message}
                   </p>
                 )}
@@ -514,31 +518,31 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 4: Systolic BP (Input) and BP Medication (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.7 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="sysBP"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='sysBP'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <TrendingUp className="h-6 w-6 text-orange-500" />
+                  <TrendingUp className='h-6 w-6 ' />
                   Systolic BP (mmHg)
                 </Label>
                 <Input
-                  id="sysBP"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter systolic BP"
+                  id='sysBP'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter systolic BP'
                   {...register("sysBP", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.sysBP && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.sysBP.message}
                   </p>
                 )}
@@ -546,48 +550,48 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.8 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <Pill className="h-6 w-6 text-blue-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <Pill className='h-6 w-6 ' />
                   Are you on BP medication?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("bpMeds", value)}
-                  className="flex gap-8 pt-2"
+                  className='flex gap-8 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="yes"
-                      id="bpMeds-yes"
-                      className="h-5 w-5 border-2"
+                      value='yes'
+                      id='bpMeds-yes'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="bpMeds-yes"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='bpMeds-yes'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Yes
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="no"
-                      id="bpMeds-no"
-                      className="h-5 w-5 border-2"
+                      value='no'
+                      id='bpMeds-no'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="bpMeds-no"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='bpMeds-no'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       No
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.bpMeds && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.bpMeds.message}
                   </p>
                 )}
@@ -595,31 +599,31 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 5: Diastolic BP (Input) and Stroke History (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 0.9 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="diaBP"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='diaBP'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Activity className="h-6 w-6 text-blue-500" />
+                  <Activity className='h-6 w-6 ' />
                   Diastolic BP (mmHg)
                 </Label>
                 <Input
-                  id="diaBP"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter diastolic BP"
+                  id='diaBP'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter diastolic BP'
                   {...register("diaBP", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.diaBP && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.diaBP.message}
                   </p>
                 )}
@@ -627,48 +631,48 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.0 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <Zap className="h-6 w-6 text-red-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <Zap className='h-6 w-6 ' />
                   Have you ever had a stroke?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("prevalentStroke", value)}
-                  className="flex gap-8 pt-2"
+                  className='flex gap-8 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="yes"
-                      id="prevalentStroke-yes"
-                      className="h-5 w-5 border-2"
+                      value='yes'
+                      id='prevalentStroke-yes'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="prevalentStroke-yes"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='prevalentStroke-yes'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Yes
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="no"
-                      id="prevalentStroke-no"
-                      className="h-5 w-5 border-2"
+                      value='no'
+                      id='prevalentStroke-no'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="prevalentStroke-no"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='prevalentStroke-no'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       No
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.prevalentStroke && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.prevalentStroke.message}
                   </p>
                 )}
@@ -676,31 +680,31 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 6: BMI (Input) and Hypertension (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.1 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="bmi"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='bmi'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Scale className="h-6 w-6 text-green-500" />
+                  <Scale className='h-6 w-6 ' />
                   BMI
                 </Label>
                 <Input
-                  id="bmi"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter BMI"
+                  id='bmi'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter BMI'
                   {...register("bmi", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.bmi && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.bmi.message}
                   </p>
                 )}
@@ -708,48 +712,48 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.2 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <TrendingUp className="h-6 w-6 text-yellow-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <TrendingUp className='h-6 w-6' />
                   Do you have hypertension?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("prevalentHyp", value)}
-                  className="flex gap-8 pt-2"
+                  className='flex gap-8 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="yes"
-                      id="prevalentHyp-yes"
-                      className="h-5 w-5 border-2"
+                      value='yes'
+                      id='prevalentHyp-yes'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="prevalentHyp-yes"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='prevalentHyp-yes'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Yes
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="no"
-                      id="prevalentHyp-no"
-                      className="h-5 w-5 border-2"
+                      value='no'
+                      id='prevalentHyp-no'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="prevalentHyp-no"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='prevalentHyp-no'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       No
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.prevalentHyp && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.prevalentHyp.message}
                   </p>
                 )}
@@ -757,31 +761,31 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 7: Heart Rate (Input) and Diabetes (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.3 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="heartRate"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='heartRate'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <Heart className="h-6 w-6 text-red-500" />
+                  <Heart className='h-6 w-6' />
                   Heart Rate (bpm)
                 </Label>
                 <Input
-                  id="heartRate"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter heart rate"
+                  id='heartRate'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter heart rate'
                   {...register("heartRate", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.heartRate && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.heartRate.message}
                   </p>
                 )}
@@ -789,48 +793,48 @@ export function CVDPredictionForm({
 
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.4 }}
-                className="space-y-4"
+                className='space-y-4'
               >
-                <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
-                  <TestTube className="h-6 w-6 text-indigo-600" />
+                <Label className='text-lg font-semibold flex items-center gap-3 text-gray-700'>
+                  <TestTube className='h-6 w-6' />
                   Do you have diabetes?
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("diabetes", value)}
-                  className="flex gap-8 pt-2"
+                  className='flex gap-8 pt-2'
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="yes"
-                      id="diabetes-yes"
-                      className="h-5 w-5 border-2"
+                      value='yes'
+                      id='diabetes-yes'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="diabetes-yes"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='diabetes-yes'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       Yes
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className='flex items-center space-x-3'>
                     <RadioGroupItem
-                      value="no"
-                      id="diabetes-no"
-                      className="h-5 w-5 border-2"
+                      value='no'
+                      id='diabetes-no'
+                      className='h-5 w-5 border-2'
                     />
                     <Label
-                      htmlFor="diabetes-no"
-                      className="text-base font-medium text-gray-600 cursor-pointer"
+                      htmlFor='diabetes-no'
+                      className='text-base font-medium text-gray-600 cursor-pointer'
                     >
                       No
                     </Label>
                   </div>
                 </RadioGroup>
                 {errors.diabetes && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.diabetes.message}
                   </p>
                 )}
@@ -838,31 +842,31 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 8: Glucose (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
               <motion.div
                 variants={fieldVariants}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 transition={{ delay: 1.5 }}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <Label
-                  htmlFor="glucose"
-                  className="text-lg font-semibold flex items-center gap-3 text-gray-700"
+                  htmlFor='glucose'
+                  className='text-lg font-semibold flex items-center gap-3 text-gray-700'
                 >
-                  <TestTube className="h-6 w-6 text-purple-500" />
+                  <TestTube className='h-6 w-6' />
                   Glucose level (mg/dL)
                 </Label>
                 <Input
-                  id="glucose"
-                  type="number"
-                  step="0.1"
-                  placeholder="Enter glucose level"
+                  id='glucose'
+                  type='number'
+                  step='0.1'
+                  placeholder='Enter glucose level'
                   {...register("glucose", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className='text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white'
                 />
                 {errors.glucose && (
-                  <p className="text-sm text-destructive">
+                  <p className='text-sm text-destructive'>
                     {errors.glucose.message}
                   </p>
                 )}
@@ -874,12 +878,12 @@ export function CVDPredictionForm({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.6 }}
-              className="pt-6"
+              className='pt-6'
             >
               <Button
-                type="submit"
+                type='submit'
                 disabled={isLoading || isSubmitting}
-                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transform transition-all duration-200 hover:scale-105 disabled:transform-none"
+                className='w-full h-14 text-lg font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transform transition-all duration-200 hover:scale-105 disabled:transform-none'
               >
                 {isLoading || isSubmitting ? (
                   <motion.div
@@ -889,12 +893,12 @@ export function CVDPredictionForm({
                       repeat: Infinity,
                       ease: "linear",
                     }}
-                    className="mr-2"
+                    className='mr-2'
                   >
-                    <Activity className="h-5 w-5" />
+                    <Activity className='h-5 w-5' />
                   </motion.div>
                 ) : (
-                  <Heart className="mr-2 h-5 w-5" />
+                  <Heart className='mr-2 h-5 w-5' />
                 )}
                 {isLoading || isSubmitting
                   ? "Analyzing..."

@@ -153,41 +153,41 @@ Question: ${messageContent}`;
 
   if (!user) {
     return (
-      <Card className="w-full h-96 bg-gradient-to-br from-amber-50 to-orange-100 border-2 border-amber-200 shadow-lg">
-        <CardContent className="h-full flex flex-col items-center justify-center p-8">
+      <Card className='w-full h-96 bg-white border-2 border-amber-200 shadow-lg'>
+        <CardContent className='h-full flex flex-col items-center justify-center p-8'>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-center space-y-6"
+            className='text-center space-y-6'
           >
-            <div className="relative">
-              <Bot className="h-16 w-16 text-amber-500 mx-auto" />
-              <Crown className="h-6 w-6 text-yellow-500 absolute -top-1 -right-1" />
+            <div className='relative'>
+              <Bot className='h-16 w-16 text-amber-500 mx-auto' />
+              <Crown className='h-6 w-6 text-yellow-500 absolute -top-1 -right-1' />
             </div>
-            <div className="space-y-3">
-              <h3 className="text-xl font-bold text-amber-800 flex items-center justify-center gap-2">
-                <Lock className="h-5 w-5" />
+            <div className='space-y-3'>
+              <h3 className='text-xl font-bold text-amber-800 flex items-center justify-center gap-2'>
+                <Lock className='h-5 w-5' />
                 Premium AI Health Assistant
               </h3>
-              <p className="text-amber-700 font-medium text-lg">
+              <p className='text-amber-700 font-medium text-lg'>
                 Premium AI powered chat assistant available to Logged in users
               </p>
-              <p className="text-amber-600 max-w-sm text-sm">
+              <p className='text-amber-600 max-w-sm text-sm'>
                 Get personalized health insights, recommendations, and 24/7
                 support from our advanced AI assistant.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center">
+            <div className='flex flex-col sm:flex-row gap-3 pt-4 justify-center'>
               <Link
-                to="/signup"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+                to='/signup'
+                className='bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md'
               >
                 Sign Up Now
               </Link>
               <Link
-                to="/login"
-                className="bg-white text-amber-700 border-2 border-amber-300 px-6 py-2 rounded-lg font-semibold hover:bg-amber-50 transition-all duration-300"
+                to='/login'
+                className='bg-white text-amber-700 border-2 border-amber-300 px-6 py-2 rounded-lg font-semibold hover:bg-amber-50 transition-all duration-300'
               >
                 Log In
               </Link>
@@ -199,24 +199,24 @@ Question: ${messageContent}`;
   }
 
   return (
-    <Card className="w-full h-[500px] bg-gradient-to-br from-blue-50 to-indigo-100 border-0 shadow-lg flex flex-col">
-      <CardHeader className="pb-3 flex-shrink-0">
-        <CardTitle className="text-lg font-semibold flex items-center gap-2">
+    <Card className='w-full h-[500px] bg-gradient-to-br from-yellow-50 to-orange-50 border-0 shadow-lg flex flex-col'>
+      <CardHeader className='pb-3 flex-shrink-0'>
+        <CardTitle className='text-lg font-semibold flex items-center gap-2'>
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Bot className="h-6 w-6 text-blue-600" />
+            <Bot className='h-6 w-6 text-orange-600' />
           </motion.div>
           AI Health Assistant
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col p-4 relative overflow-hidden">
+      <CardContent className='flex-1 flex flex-col p-4 relative overflow-hidden'>
         {/* Messages Container */}
         <div
           ref={messagesContainerRef}
-          className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2 scroll-smooth"
+          className='flex-1 overflow-y-auto space-y-3 mb-4 pr-2 scroll-smooth'
         >
           <AnimatePresence>
             {messages.map((message) => (
@@ -232,18 +232,18 @@ Question: ${messageContent}`;
                 <div
                   className={`max-w-[80%] p-3 rounded-lg break-words overflow-hidden ${
                     message.type === "user"
-                      ? "bg-blue-600 text-white"
+                      ? "bg-orange-600 text-white"
                       : "bg-white text-gray-800 shadow-sm"
                   }`}
                 >
-                  <div className="flex items-start gap-2">
+                  <div className='flex items-start gap-2'>
                     {message.type === "assistant" && (
-                      <Heart className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
+                      <Heart className='h-4 w-4 text-red-500 mt-0.5 flex-shrink-0' />
                     )}
                     {message.type === "user" && (
-                      <User className="h-4 w-4 text-white mt-0.5 flex-shrink-0" />
+                      <User className='h-4 w-4 text-white mt-0.5 flex-shrink-0' />
                     )}
-                    <div className="text-sm leading-relaxed whitespace-pre-wrap word-break break-words min-w-0 flex-1">
+                    <div className='text-sm leading-relaxed whitespace-pre-wrap word-break break-words min-w-0 flex-1'>
                       {message.content}
                     </div>
                   </div>
@@ -256,12 +256,12 @@ Question: ${messageContent}`;
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex justify-start"
+              className='flex justify-start'
             >
-              <div className="bg-white p-3 rounded-lg shadow-sm max-w-[80%]">
-                <div className="flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
-                  <div className="text-sm text-gray-600">AI is thinking...</div>
+              <div className='bg-white p-3 rounded-lg shadow-sm max-w-[80%]'>
+                <div className='flex items-center gap-2'>
+                  <Loader2 className='h-4 w-4 text-blue-600 animate-spin' />
+                  <div className='text-sm text-gray-600'>AI is thinking...</div>
                 </div>
               </div>
             </motion.div>
@@ -271,12 +271,12 @@ Question: ${messageContent}`;
         </div>
 
         {/* Input Section */}
-        <div className="flex gap-2 flex-shrink-0">
+        <div className='flex gap-2 flex-shrink-0'>
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ask me about your heart health..."
-            className="flex-1"
+            placeholder='Ask me about your heart health...'
+            className='flex-1'
             onKeyPress={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -288,10 +288,10 @@ Question: ${messageContent}`;
           <Button
             onClick={handleSendMessage}
             disabled={isLoading || !inputValue.trim()}
-            size="icon"
-            className="bg-blue-600 hover:bg-blue-700"
+            size='icon'
+            className='bg-orange-600 hover:bg-orange-700'
           >
-            <Send className="h-4 w-4" />
+            <Send className='h-4 w-4' />
           </Button>
         </div>
       </CardContent>
