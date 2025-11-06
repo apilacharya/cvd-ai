@@ -4,7 +4,18 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Heart, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
+import {
+  Heart,
+  Mail,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  Activity,
+  Stethoscope,
+  HeartPulse,
+  Shield,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
