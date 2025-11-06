@@ -20,27 +20,27 @@ export const Navigation = () => {
     location.pathname === "/login" || location.pathname === "/signup";
 
   return (
-    <nav className="bg-emerald-50/40 shadow-sm border-b border-emerald-100 sticky top-0 z-50 backdrop-blur-sm">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
+    <nav className='bg-emerald-50/40 shadow-sm border-b border-emerald-100 sticky top-0 z-50 backdrop-blur-sm'>
+      <div className='container mx-auto px-6 py-4'>
+        <div className='flex justify-between items-center'>
           <Link
             to={user ? "/dashboard" : "/home"}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className='flex items-center gap-3 hover:opacity-80 transition-opacity'
           >
-            <div className="h-8 w-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CVD</span>
+            <div className='h-8 w-8 bg-gradient-to-r from-green-700 to-green-900 rounded-full flex items-center justify-center'>
+              <span className='text-white font-bold text-sm'>CVD</span>
             </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className='font-bold text-xl bg-gradient-to-r from-green-700 to-green-900 bg-clip-text text-transparent'>
               Health Predictor
             </span>
           </Link>
 
           {/* Navigation for non-auth pages */}
           {!isAuthPage && (
-            <div className="flex items-center gap-6">
+            <div className='flex items-center gap-6'>
               {user ? (
                 <Link
-                  to="/dashboard"
+                  to='/dashboard'
                   className={`text-sm font-medium transition-colors ${
                     location.pathname === "/dashboard"
                       ? "text-green-600 border-b-2 border-green-600 pb-1"
@@ -51,7 +51,7 @@ export const Navigation = () => {
                 </Link>
               ) : (
                 <Link
-                  to="/home"
+                  to='/home'
                   className={`text-sm font-medium transition-colors ${
                     location.pathname === "/home"
                       ? "text-green-600 border-b-2 border-green-600 pb-1"
@@ -65,7 +65,7 @@ export const Navigation = () => {
               {user && (
                 <>
                   <Link
-                    to="/analyze"
+                    to='/analyze'
                     className={`text-sm font-medium transition-colors ${
                       location.pathname === "/analyze"
                         ? "text-green-600 border-b-2 border-green-600 pb-1"
@@ -75,7 +75,7 @@ export const Navigation = () => {
                     Analyze
                   </Link>
                   <Link
-                    to="/history"
+                    to='/history'
                     className={`text-sm font-medium transition-colors ${
                       location.pathname === "/history"
                         ? "text-green-600 border-b-2 border-green-600 pb-1"
@@ -88,30 +88,30 @@ export const Navigation = () => {
               )}
 
               {user ? (
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <User className="h-4 w-4" />
+                <div className='flex items-center gap-4'>
+                  <div className='flex items-center gap-2 text-sm text-gray-600'>
+                    <User className='h-4 w-4' />
                     <span>Hello, {user.firstName || user.email}</span>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 text-sm text-red-600 hover:text-red-700 font-medium transition-colors"
+                    className='flex items-center gap-2 text-sm text-red-600 hover:text-red-700 font-medium transition-colors'
                   >
-                    <LogOut className="h-4 w-4" />
+                    <LogOut className='h-4 w-4' />
                     Logout
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center gap-4">
+                <div className='flex items-center gap-4'>
                   <Link
-                    to="/login"
-                    className="text-sm font-medium text-gray-600 hover:text-green-600 transition-colors"
+                    to='/login'
+                    className='text-sm font-medium text-gray-600 hover:text-green-600 transition-colors'
                   >
                     Log In
                   </Link>
                   <Link
-                    to="/signup"
-                    className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-emerald-600 hover:to-teal-700 transition-all transform hover:scale-105"
+                    to='/signup'
+                    className='bg-gradient-to-r from-green-700 to-green-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-emerald-600 hover:to-teal-700 transition-all transform hover:scale-105'
                   >
                     Get Started
                   </Link>
@@ -122,15 +122,15 @@ export const Navigation = () => {
 
           {/* Navigation for auth pages */}
           {isAuthPage && (
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">
+            <div className='flex items-center gap-4'>
+              <span className='text-sm text-gray-600'>
                 {location.pathname === "/login"
                   ? "New to CVD Health?"
                   : "Already have an account?"}
               </span>
               <Link
                 to={location.pathname === "/login" ? "/signup" : "/login"}
-                className="text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
+                className='text-sm font-medium text-green-600 hover:text-green-700 transition-colors'
               >
                 {location.pathname === "/login" ? "Create Account" : "Log In"}
               </Link>

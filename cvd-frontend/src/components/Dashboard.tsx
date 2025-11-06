@@ -145,7 +145,7 @@ export function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className='bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-xl shadow-lg p-8'
+          className='bg-gradient-to-r from-green-700 to-green-800 text-white rounded-xl shadow-lg p-8'
         >
           <div className='text-center mb-12'>
             <h2 className='text-4xl font-bold mb-4'>
@@ -160,7 +160,7 @@ export function Dashboard() {
             {[
               { number: "90%+", label: "Model Accuracy", icon: TrendingUp },
               { number: "50K+", label: "Assessments", icon: Users },
-              { number: "4", label: "AI Models", icon: Activity },
+              { number: "5", label: "AI Models", icon: Activity },
               { number: "24/7", label: "AI Assistant", icon: Heart },
             ].map((stat, index) => (
               <motion.div

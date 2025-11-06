@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   return (
@@ -18,7 +19,7 @@ export default function HeroSection() {
               <div className='inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full'>
                 <Heart className='w-4 h-4 text-green-600 dark:text-green-400 mr-2' />
                 <span className='text-sm font-medium text-green-600 dark:text-green-400'>
-                  Healthcare AI for Students
+                  Healthcare AI
                 </span>
               </div>
 
@@ -38,7 +39,7 @@ export default function HeroSection() {
             </div>
 
             <div className='flex flex-col sm:flex-row gap-4'>
-              <a href='/assessment'>
+              <a href='#assessment'>
                 <Button
                   size='lg'
                   className='bg-green-600 hover:bg-green-700 text-white'
@@ -47,13 +48,15 @@ export default function HeroSection() {
                   <ArrowRight className='ml-2 w-4 h-4' />
                 </Button>
               </a>
-              <Button
-                size='lg'
-                variant='outline'
-                className='border-slate-300 dark:border-green-600 bg-transparent'
-              >
-                Learn More
-              </Button>
+              <Link to={"/signup"}>
+                <Button
+                  size='lg'
+                  variant='outline'
+                  className='border border-gray-100  bg-transparent'
+                >
+                  Register
+                </Button>
+              </Link>
             </div>
 
             {/* Stats */}
