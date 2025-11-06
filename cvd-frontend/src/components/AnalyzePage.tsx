@@ -46,15 +46,15 @@ export function AnalyzePage() {
         // Save report to database
         try {
           await cvdReportsApi.createReport({
-            userAge: data.age,
+            userAge: data.originalValues?.age || data.age,
             userGender: data.male === 1 ? "male" : "female",
             healthData: {
-              sysBP: data.sysBP,
-              diaBP: data.diaBP,
-              BMI: data.BMI,
-              heartRate: data.heartRate,
-              glucose: data.glucose,
-              totChol: data.totChol,
+              sysBP: data.originalValues?.sysBP || data.sysBP,
+              diaBP: data.originalValues?.diaBP || data.diaBP,
+              BMI: data.originalValues?.BMI || data.BMI,
+              heartRate: data.originalValues?.heartRate || data.heartRate,
+              glucose: data.originalValues?.glucose || data.glucose,
+              totChol: data.originalValues?.totChol || data.totChol,
             },
             predictionResult: {
               riskLevel,
@@ -88,6 +88,14 @@ export function AnalyzePage() {
     data: ModelPredictionInput
   ): string[] => {
     const recommendations: string[] = [];
+    
+    // Use original values for comparisons (fall back to normalized if not available)
+    const sysBP = data.originalValues?.sysBP || data.sysBP;
+    const diaBP = data.originalValues?.diaBP || data.diaBP;
+    const BMI = data.originalValues?.BMI || data.BMI;
+    const glucose = data.originalValues?.glucose || data.glucose;
+    const totChol = data.originalValues?.totChol || data.totChol;
+    const heartRate = data.originalValues?.heartRate || data.heartRate;
 
     if (riskLevel === "high") {
       recommendations.push(
@@ -96,29 +104,29 @@ export function AnalyzePage() {
       recommendations.push("Monitor your blood pressure daily");
     }
 
-    if (data.sysBP > 140 || data.diaBP > 90) {
+    if (sysBP > 140 || diaBP > 90) {
       recommendations.push(
         "Your blood pressure is elevated. Reduce sodium intake and exercise regularly"
       );
     }
 
-    if (data.BMI > 30) {
+    if (BMI > 30) {
       recommendations.push(
         "Focus on maintaining a healthy weight through diet and exercise"
       );
-    } else if (data.BMI > 25) {
+    } else if (BMI > 25) {
       recommendations.push(
         "Consider gradual weight loss through balanced nutrition"
       );
     }
 
-    if (data.glucose > 125) {
+    if (glucose > 125) {
       recommendations.push(
         "Your glucose levels are concerning. Monitor blood sugar regularly"
       );
     }
 
-    if (data.totChol > 240) {
+    if (totChol > 240) {
       recommendations.push(
         "High cholesterol detected. Consider dietary changes and consult your doctor"
       );
@@ -130,7 +138,7 @@ export function AnalyzePage() {
       );
     }
 
-    if (data.heartRate > 100) {
+    if (heartRate > 100) {
       recommendations.push(
         "Elevated heart rate detected. Practice stress management techniques"
       );

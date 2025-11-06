@@ -116,6 +116,16 @@ export interface ModelPredictionInput {
   BMI: number;
   heartRate: number;
   glucose: number;
+  // Original (denormalized) values for backend storage
+  originalValues?: {
+    age: number;
+    sysBP: number;
+    diaBP: number;
+    BMI: number;
+    heartRate: number;
+    glucose: number;
+    totChol: number;
+  };
 }
 
 interface CVDFormProps {
@@ -183,7 +193,7 @@ export function CVDPredictionForm({
           : 1;
 
       // Convert form data to API schema format with normalization
-      const formattedData = {
+      const formattedData: ModelPredictionInput = {
         male: data.gender === "male" ? 1 : 0, // Binary: 0 or 1
         age: normalizeToRange(
           data.age,
@@ -231,6 +241,16 @@ export function CVDPredictionForm({
           featureRanges.glucose.min,
           featureRanges.glucose.max
         ),
+        // Store original denormalized values for backend validation
+        originalValues: {
+          age: data.age,
+          sysBP: data.sysBP,
+          diaBP: data.diaBP,
+          BMI: data.bmi,
+          heartRate: data.heartRate,
+          glucose: data.glucose,
+          totChol: data.totChol,
+        },
       };
 
       console.log("Original form data:", data);
