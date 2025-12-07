@@ -20,7 +20,7 @@
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import "dotenv/config";
-import type { CVDReport, User } from "../types/index";
+import type { CVDReport, User } from "../types/index.js";
 
 export interface HealthContext {
   riskPercentage?: number; // CVD risk percentage (0-100)

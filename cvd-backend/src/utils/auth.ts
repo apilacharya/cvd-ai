@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { Response } from "express";
-import type { UserDocument } from "../models/User";
-import type { ApiResponse, AuthPayload } from "../types/index";
+import type { UserDocument } from "../models/User.js";
+import type { ApiResponse, AuthPayload } from "../types/index.js";
 
 export const generateToken = (id: string): string => {
   if (!process.env.JWT_SECRET) {

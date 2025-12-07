@@ -6,13 +6,13 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 
 // Import routes
-import authRoutes from "./routes/auth";
-import reportRoutes from "./routes/reports";
-import aiRoutes from "./routes/ai";
+import authRoutes from "./routes/auth.js";
+import reportRoutes from "./routes/reports.js";
+import aiRoutes from "./routes/ai.js";
 
 // Import middleware
-import { errorHandler } from "./middleware/errorHandler";
-import { authenticateToken } from "./middleware/auth";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { authenticateToken } from "./middleware/auth.js";
 
 // Load environment variables
 dotenv.config();
@@ -33,7 +33,7 @@ app.use("/api/", limiter);
 // CORS configuration
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
   })
 );
@@ -92,7 +92,7 @@ const connectDB = async (): Promise<void> => {
   }
 };
 // Start server and connect to DB if configured
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
   try {

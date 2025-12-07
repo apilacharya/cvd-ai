@@ -2,13 +2,13 @@ import express, { Router } from "express";
 import {
   authenticateToken,
   type AuthenticatedRequest,
-} from "../middleware/auth";
+} from "../middleware/auth.js";
 import {
   streamAIHealthResponse,
   type HealthContext,
   validateHealthContext,
-} from "../services/aiHealthAgent";
-import { CVDReport } from "../models/CVDReport";
+} from "../services/aiHealthAgent.js";
+import { CVDReport } from "../models/CVDReport.js";
 
 const router: Router = express.Router();
 

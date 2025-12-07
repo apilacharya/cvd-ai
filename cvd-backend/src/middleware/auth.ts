@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { Request, Response, NextFunction } from "express";
-import { User } from "../models/User";
-import type { AuthPayload, ApiResponse } from "../types/index";
+import { User } from "../models/User.js";
+import type { AuthPayload, ApiResponse } from "../types/index.js";
 
 export interface AuthenticatedRequest extends Request {
   user?: any;

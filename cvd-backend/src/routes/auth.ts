@@ -1,13 +1,13 @@
 import express, { Request, Router } from "express";
-import { User } from "../models/User";
-import { createSendToken } from "../utils/auth";
-import { asyncHandler } from "../middleware/errorHandler";
-import { validateRegistration, validateLogin } from "../middleware/validation";
+import { User } from "../models/User.js";
+import { createSendToken } from "../utils/auth.js";
+import { asyncHandler } from "../middleware/errorHandler.js";
+import { validateRegistration, validateLogin } from "../middleware/validation.js";
 import type {
   UserCreateInput,
   UserLoginInput,
   ApiResponse,
-} from "../types/index";
+} from "../types/index.js";
 
 const router: Router = express.Router();
 

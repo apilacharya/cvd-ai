@@ -1,9 +1,9 @@
 import express, { Request, Router } from "express";
-import { CVDReport } from "../models/CVDReport";
-import { authenticateToken } from "../middleware/auth";
-import { asyncHandler } from "../middleware/errorHandler";
-import { validateCVDReport } from "../middleware/validation";
-import type { CVDReportCreateInput, ApiResponse } from "../types/index";
+import { CVDReport } from "../models/CVDReport.js";
+import { authenticateToken } from "../middleware/auth.js";
+import { asyncHandler } from "../middleware/errorHandler.js";
+import { validateCVDReport } from "../middleware/validation.js";
+import type { CVDReportCreateInput, ApiResponse } from "../types/index.js";
 
 interface AuthenticatedRequest extends Request {
   user?: any;
