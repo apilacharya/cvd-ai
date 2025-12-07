@@ -1,4 +1,4 @@
-import express, { Request } from "express";
+import express, { Request, Router } from "express";
 import { User } from "../models/User";
 import { createSendToken } from "../utils/auth";
 import { asyncHandler } from "../middleware/errorHandler";
@@ -9,7 +9,7 @@ import type {
   ApiResponse,
 } from "../types/index";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // @desc    Register a new user
 // @route   POST /api/auth/register

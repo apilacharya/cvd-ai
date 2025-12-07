@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   authenticateToken,
   type AuthenticatedRequest,
@@ -10,7 +10,7 @@ import {
 } from "../services/aiHealthAgent";
 import { CVDReport } from "../models/CVDReport";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // POST /api/ai/chat - Streaming chat with dynamic context
 router.post(

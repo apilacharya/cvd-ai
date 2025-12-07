@@ -1,4 +1,4 @@
-import express, { Request } from "express";
+import express, { Request, Router } from "express";
 import { CVDReport } from "../models/CVDReport";
 import { authenticateToken } from "../middleware/auth";
 import { asyncHandler } from "../middleware/errorHandler";
@@ -9,7 +9,7 @@ interface AuthenticatedRequest extends Request {
   user?: any;
 }
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // @desc    Create new CVD report
 // @route   POST /api/reports
