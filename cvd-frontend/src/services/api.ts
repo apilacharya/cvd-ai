@@ -8,7 +8,7 @@ import type {
 } from "../types/auth";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
+  import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export class ApiError extends Error {
   public status: number;
@@ -42,7 +42,7 @@ const apiRequest = async <T = any>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${API_BASE_URL}/api${endpoint}`;
   const token = getToken();
 
   const config: RequestInit = {
