@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Activity, HeartPulse, Stethoscope, Shield } from "lucide-react";
+import {
+  ArrowLeft,
+  Activity,
+  HeartPulse,
+  Stethoscope,
+  Shield,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { CVDPredictionForm } from "@/components/CVDPredictionForm";
 import type { ModelPredictionInput } from "@/components/CVDPredictionForm";
@@ -88,7 +94,7 @@ export function AnalyzePage() {
     data: ModelPredictionInput
   ): string[] => {
     const recommendations: string[] = [];
-    
+
     // Use original values for comparisons (fall back to normalized if not available)
     const sysBP = data.originalValues?.sysBP || data.sysBP;
     const diaBP = data.originalValues?.diaBP || data.diaBP;
@@ -163,15 +169,15 @@ export function AnalyzePage() {
         <div className="absolute top-[4%] left-[2%] opacity-16">
           <HeartPulse className="w-20 h-20 text-red-200" />
         </div>
-        
+
         <div className="absolute top-[18%] right-[11%] opacity-13">
           <Stethoscope className="w-18 h-18 text-emerald-200" />
         </div>
-        
+
         <div className="absolute top-[51%] left-[7%] opacity-15">
           <Activity className="w-22 h-22 text-teal-200" />
         </div>
-        
+
         <div className="absolute top-[89%] left-[3%] opacity-14">
           <Shield className="w-18 h-18 text-blue-200" />
         </div>
@@ -215,7 +221,7 @@ export function AnalyzePage() {
             <div className="absolute inset-y-0 left-1/2 w-4 bg-red-100 transform -translate-x-1/2 rounded-sm"></div>
           </div>
         </div>
-        
+
         <div className="absolute top-[93%] left-[16%] opacity-12">
           <div className="relative w-14 h-14">
             <div className="absolute inset-x-0 top-1/2 h-4 bg-emerald-200 transform -translate-y-1/2 rounded-sm"></div>
