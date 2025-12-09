@@ -7,8 +7,7 @@ import type {
   ApiResponse,
 } from "../types/auth";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export class ApiError extends Error {
   public status: number;
@@ -200,7 +199,8 @@ interface ModelResult {
 }
 
 // Python ML API Base URL
-const ML_API_BASE_URL = import.meta.env.VITE_ML_API_URL || "http://localhost:8001";
+const ML_API_BASE_URL =
+  import.meta.env.VITE_ML_API_URL || "http://localhost:8001";
 
 // CVD Prediction API
 export const cvdPredictionApi = {
