@@ -200,7 +200,7 @@ interface ModelResult {
 }
 
 // Python ML API Base URL
-const ML_API_BASE_URL = "http://localhost:8000";
+const ML_API_BASE_URL = import.meta.env.VITE_ML_API_URL || "http://localhost:8001";
 
 // CVD Prediction API
 export const cvdPredictionApi = {
