@@ -2,7 +2,10 @@ import express, { Request, Router } from "express";
 import { User } from "../models/User.js";
 import { createSendToken } from "../utils/auth.js";
 import { asyncHandler } from "../middleware/errorHandler.js";
-import { validateRegistration, validateLogin } from "../middleware/validation.js";
+import {
+  validateRegistration,
+  validateLogin,
+} from "../middleware/validation.js";
 import type {
   UserCreateInput,
   UserLoginInput,
