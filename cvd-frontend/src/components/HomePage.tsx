@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Heart, Activity, Users, Shield, TrendingUp } from "lucide-react";
 import { CVDPredictionForm } from "@/components/CVDPredictionForm";
@@ -15,6 +15,7 @@ interface ModelResult {
 }
 
 export function HomePage() {
+  const navigate = useNavigate();
   const [showForm] = useState(false);
   const [predictionResults, setPredictionResults] = useState<
     ModelResult[] | null
@@ -357,7 +358,7 @@ export function HomePage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                window.location.href = "/signup";
+                navigate("/signup");
               }}
               className='bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-all duration-200'
             >
