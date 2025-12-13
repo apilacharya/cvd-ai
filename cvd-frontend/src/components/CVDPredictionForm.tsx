@@ -253,9 +253,6 @@ export function CVDPredictionForm({
         },
       };
 
-      console.log("Original form data:", data);
-      console.log("Normalized data (range: -1 to 1):", formattedData);
-
       await onSubmit(formattedData);
     } catch (error) {
       console.error("Form submission error:", error);

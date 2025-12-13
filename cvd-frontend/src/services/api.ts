@@ -101,6 +101,9 @@ export const authApi = {
 
     if (response.data?.token) {
       setToken(response.data.token);
+      if (response.data?.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
     }
 
     return response;
@@ -116,9 +119,11 @@ export const authApi = {
       method: "POST",
       body: JSON.stringify(credentials),
     });
-    console.log(response);
-    if (response.token) {
-      setToken(response.token);
+    if (response.data?.token) {
+      setToken(response.data.token);
+      if (response.data?.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
     }
 
     return response;
@@ -132,6 +137,7 @@ export const authApi = {
       });
     } finally {
       removeToken();
+      localStorage.removeItem("user");
     }
   },
 

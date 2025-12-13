@@ -28,9 +28,7 @@ export function HomePage() {
     setError(null);
 
     try {
-      console.log("Submitting form data:", formData);
       const results = await cvdPredictionApi.predictWithAllModels(formData);
-      console.log("Prediction results:", results);
 
       // Set Random Forest as the best model by reordering results
       const reorderedResults = results.sort((a, b) => {
@@ -59,18 +57,18 @@ export function HomePage() {
 
   // Default homepage for non-authenticated users (original hero section)
   return (
-    <div className='min-h-screen bg-gradient-to-br from-green-50 to-emerald-100'>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className='bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 text-white relative overflow-hidden'
+        className="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 text-white relative overflow-hidden"
       >
         {/* Decorative background elements */}
-        <div className='absolute inset-0 opacity-10'>
-          <div className='absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl'></div>
-          <div className='absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl'></div>
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
         {/* hero section */}
         <HeroSection />
@@ -244,14 +242,14 @@ export function HomePage() {
       </motion.section>
 
       {/* Main Content */}
-      <section className='container mx-auto px-6 py-12'>
-        <div className='grid grid-cols-1 lg:grid-cols-6 gap-6'>
+      <section className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
           {/* Form Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className='lg:col-span-4'
+            className="lg:col-span-4"
           >
             <CVDPredictionForm
               onSubmit={handleFormSubmit}
@@ -264,7 +262,7 @@ export function HomePage() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className='lg:col-span-2 space-y-6'
+            className="lg:col-span-2 space-y-6"
           >
             {/* AI Assistant - Premium Feature for Logged Users */}
             <AIHealthAssistant />
@@ -285,19 +283,19 @@ export function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className='bg-gray-900 text-white py-16'
+        className="bg-gray-900 text-white py-16"
       >
-        <div className='container mx-auto px-6'>
-          <div className='text-center mb-12'>
-            <h2 className='text-4xl font-bold mb-4'>
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">
               Trusted by Healthcare Professionals
             </h2>
-            <p className='text-xl text-gray-300'>
+            <p className="text-xl text-gray-300">
               Our AI models are trained on extensive medical datasets
             </p>
           </div>
 
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { number: "90%+", label: "Model Accuracy", icon: TrendingUp },
               { number: "50K+", label: "Assessments", icon: Users },
@@ -310,13 +308,13 @@ export function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className='text-center'
+                className="text-center"
               >
-                <stat.icon className='h-12 w-12 mx-auto mb-4 text-emerald-400' />
-                <div className='text-4xl font-bold text-emerald-400 mb-2'>
+                <stat.icon className="h-12 w-12 mx-auto mb-4 text-emerald-400" />
+                <div className="text-4xl font-bold text-emerald-400 mb-2">
                   {stat.number}
                 </div>
-                <div className='text-lg'>{stat.label}</div>
+                <div className="text-lg">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -329,18 +327,18 @@ export function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className='bg-gradient-to-r from-green-800 to-green-900 text-white py-16'
+        className="bg-gradient-to-r from-green-800 to-green-900 text-white py-16"
       >
-        <div className='container mx-auto px-6 text-center'>
-          <h2 className='text-4xl font-bold mb-6'>
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-6">
             Take Control of Your Heart Health Today
           </h2>
-          <p className='text-xl mb-8 max-w-2xl mx-auto'>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
             Get started with your personalized cardiovascular risk assessment
             and receive AI-powered health insights.
           </p>
 
-          <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -349,7 +347,7 @@ export function HomePage() {
                   behavior: "smooth",
                 });
               }}
-              className='bg-white text-green-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-emerald-50 transition-colors duration-200'
+              className="bg-white text-green-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-emerald-50 transition-colors duration-200"
             >
               Start Your Assessment
             </motion.button>
@@ -360,7 +358,7 @@ export function HomePage() {
               onClick={() => {
                 navigate("/signup");
               }}
-              className='bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-all duration-200'
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-all duration-200"
             >
               Create Account for History
             </motion.button>

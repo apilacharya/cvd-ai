@@ -77,12 +77,19 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Check for existing token on mount
+  // Check for existing token and user on mount
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      // You could verify the token here or get user info
-      // For now, we'll just assume the token is valid
+    const storedUser = localStorage.getItem("user");
+    if (token && storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        dispatch({ type: "AUTH_SUCCESS", payload: user });
+      } catch (error) {
+        console.error("Failed to parse stored user:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 

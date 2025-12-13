@@ -42,12 +42,9 @@ export function HistoricalDataPage() {
       try {
         // Fetch historical reports from backend using dedicated history endpoint
         const response = await cvdReportsApi.getHistory();
-        console.log("Fetched historical data:", response);
 
         // Extract reports from response
         const reportsData = response.data?.reports || [];
-
-        console.log("Reports data:", reportsData);
 
         const transformedRecords: HistoricalRecord[] = reportsData.map(
           (report: CVDReport) => ({
@@ -67,7 +64,6 @@ export function HistoricalDataPage() {
           })
         );
 
-        console.log("Transformed records:", transformedRecords);
         setRecords(transformedRecords);
       } catch (err) {
         console.error("Failed to fetch historical data:", err);
@@ -84,7 +80,6 @@ export function HistoricalDataPage() {
     try {
       await cvdReportsApi.deleteReport(recordId);
       setRecords((prev) => prev.filter((record) => record.id !== recordId));
-      console.log("Deleted record:", recordId);
     } catch (err) {
       console.error("Failed to delete record:", err);
       alert("Failed to delete record. Please try again.");
@@ -143,15 +138,15 @@ export function HistoricalDataPage() {
         <div className="absolute top-[4%] left-[2%] opacity-16">
           <HeartPulse className="w-20 h-20 text-red-200" />
         </div>
-        
+
         <div className="absolute top-[18%] right-[11%] opacity-13">
           <Stethoscope className="w-18 h-18 text-emerald-200" />
         </div>
-        
+
         <div className="absolute top-[51%] left-[7%] opacity-15">
           <Activity className="w-22 h-22 text-teal-200" />
         </div>
-        
+
         <div className="absolute top-[89%] left-[3%] opacity-14">
           <Shield className="w-18 h-18 text-blue-200" />
         </div>
@@ -195,7 +190,7 @@ export function HistoricalDataPage() {
             <div className="absolute inset-y-0 left-1/2 w-4 bg-red-100 transform -translate-x-1/2 rounded-sm"></div>
           </div>
         </div>
-        
+
         <div className="absolute top-[93%] left-[16%] opacity-12">
           <div className="relative w-14 h-14">
             <div className="absolute inset-x-0 top-1/2 h-4 bg-emerald-200 transform -translate-y-1/2 rounded-sm"></div>

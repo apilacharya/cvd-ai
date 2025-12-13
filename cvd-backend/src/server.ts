@@ -87,7 +87,6 @@ const connectDB = async (): Promise<void> => {
     }
 
     const conn = await mongoose.connect(process.env.MONGODB_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error("Database connection error:", error);
     process.exit(1);
@@ -101,14 +100,11 @@ const startServer = async () => {
     if (process.env.MONGODB_URI) {
       await connectDB();
     } else {
-      console.warn(
-        "MongoDB connection disabled - AI routes will work but auth routes need database"
-      );
+      // MongoDB connection disabled - AI routes will work but auth routes need database
     }
 
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+      // Server started successfully
     });
   } catch (error) {
     console.error("Failed to start server:", error);

@@ -26,9 +26,7 @@ export function AnalyzePage() {
     setError(null);
 
     try {
-      console.log("Submitting form data:", data);
       const results = await cvdPredictionApi.predictWithAllModels(data);
-      console.log("Prediction results:", results);
       setPredictionResults(results);
 
       // Find Random Forest model result (the best model)
@@ -73,7 +71,6 @@ export function AnalyzePage() {
               },
             },
           });
-          console.log("Report saved successfully");
         } catch (saveError) {
           console.error("Failed to save report:", saveError);
           // Don't show error to user as they still got predictions
