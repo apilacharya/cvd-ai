@@ -50,11 +50,10 @@ router.post(
       }
 
       // Set headers for streaming
-      res.setHeader("Content-Type", "text/plain");
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.setHeader("Transfer-Encoding", "chunked");
       res.setHeader("Cache-Control", "no-cache");
       res.setHeader("Connection", "keep-alive");
-      res.setHeader("Access-Control-Allow-Origin", "*");
 
       const streamResult = await streamAIHealthResponse(message, context);
 
@@ -124,11 +123,10 @@ router.post(
       }
 
       // Set headers for streaming
-      res.setHeader("Content-Type", "text/plain");
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.setHeader("Transfer-Encoding", "chunked");
       res.setHeader("Cache-Control", "no-cache");
       res.setHeader("Connection", "keep-alive");
-      res.setHeader("Access-Control-Allow-Origin", "*");
 
       const streamResult = await streamAIHealthResponse(message, context);
 

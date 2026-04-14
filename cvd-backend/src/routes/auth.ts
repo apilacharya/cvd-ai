@@ -2,6 +2,7 @@ import express, { Request, Router } from "express";
 import { User } from "../models/User.js";
 import { createSendToken } from "../utils/auth.js";
 import { asyncHandler } from "../middleware/errorHandler.js";
+import { authenticateToken } from "../middleware/auth.js";
 import {
   validateRegistration,
   validateLogin,
@@ -102,14 +103,17 @@ router.post("/logout", (_req, res: express.Response<ApiResponse>) => {
 // @desc    Check if user is authenticated
 // @route   GET /api/auth/me
 // @access  Private
-router.get("/me", async (req: any, res: express.Response<ApiResponse>) => {
-  // This will be called after auth middleware
-  res.status(200).json({
-    status: "success",
-    data: {
-      user: req.user.toJSON(),
-    },
-  });
-});
+router.get(
+  "/me",
+  authenticateToken,
+  async (req: any, res: express.Response<ApiResponse>) => {
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: req.user.toJSON(),
+      },
+    });
+  }
+);
 
 export default router;

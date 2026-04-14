@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, Heart, Loader2, Crown, Lock } from "lucide-react";
+import { Send, Bot, User, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,7 +48,8 @@ export function AIHealthAssistant({ cvdResults }: AIHealthAssistantProps) {
   // Welcome message with CVD context if available
   useEffect(() => {
     if (user && messages.length === 0) {
-      const welcomeContent = `Hi welcome! 👋`;
+      const welcomeContent =
+        "Welcome. I can help you understand your cardiovascular risk results and next steps.";
 
       const welcomeMessage: Message = {
         id: "welcome",
@@ -85,21 +86,21 @@ export function AIHealthAssistant({ cvdResults }: AIHealthAssistantProps) {
       // Prepare context with CVD results if available
       let contextMessage = messageContent;
       if (cvdResults && cvdResults.length > 0) {
-        // Always use Random Forest as the best model (default choice)
-        const randomForestModel =
-          cvdResults.find((model) => model.name === "Random Forest") ||
+        const primaryModel =
+          cvdResults.find((model) => model.name === "Support Vector Machine") ||
           cvdResults[0];
 
         contextMessage = `CVD Risk: ${
-          randomForestModel.prediction === 1 ? "High Risk" : "Low Risk"
-        } (${(randomForestModel.probabilities[1] * 100).toFixed(1)}%)
+          primaryModel.prediction === 1 ? "Risk detected" : "No immediate risk"
+        } (${(primaryModel.probabilities[1] * 100).toFixed(1)}%)
 Question: ${messageContent}`;
       }
 
       // Stream AI response
       const token = localStorage.getItem("token");
-      const backendUrl =
-        import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const backendUrl = (
+        import.meta.env.VITE_API_URL || "http://localhost:8000"
+      ).replace(/\/$/, "");
       const response = await fetch(`${backendUrl}/api/ai/chat`, {
         method: "POST",
         headers: {
@@ -154,61 +155,48 @@ Question: ${messageContent}`;
 
   if (!user) {
     return (
-      <Card className="w-full h-96 bg-white border-2 border-amber-200 shadow-lg">
+      <Card className="w-full h-96 bg-white border border-gray-200 shadow-sm">
         <CardContent className="h-full flex flex-col items-center justify-center p-8">
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center space-y-6"
-          >
-            <div className="relative">
-              <Bot className="h-16 w-16 text-amber-500 mx-auto" />
-              <Crown className="h-6 w-6 text-yellow-500 absolute -top-1 -right-1" />
+          <div className="text-center space-y-5">
+            <div>
+              <Bot className="h-12 w-12 text-gray-600 mx-auto" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-xl font-bold text-amber-800 flex items-center justify-center gap-2">
-                <Lock className="h-5 w-5" />
-                Premium AI Health Assistant
+              <h3 className="text-lg font-semibold text-gray-900">
+                Health Assistant
               </h3>
-              <p className="text-amber-700 font-medium text-lg">
-                Premium AI powered chat assistant available to Logged in users
+              <p className="text-gray-700 font-medium">
+                Sign in to chat about your assessment results.
               </p>
-              <p className="text-amber-600 max-w-sm text-sm">
-                Get personalized health insights, recommendations, and 24/7
-                support from our advanced AI assistant.
+              <p className="text-gray-500 max-w-sm text-sm">
+                You will get concise explanations and follow-up guidance based on your latest report.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center">
               <Link
                 to="/signup"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+                className="bg-gray-900 text-white px-5 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors"
               >
                 Sign Up Now
               </Link>
               <Link
                 to="/login"
-                className="bg-white text-amber-700 border-2 border-amber-300 px-6 py-2 rounded-lg font-semibold hover:bg-amber-50 transition-all duration-300"
+                className="bg-white text-gray-700 border border-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
               >
                 Log In
               </Link>
             </div>
-          </motion.div>
+          </div>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="w-full h-[500px] bg-gradient-to-br from-yellow-50 to-orange-50 border-0 shadow-lg flex flex-col">
+    <Card className="w-full h-[500px] bg-white border border-gray-200 shadow-sm flex flex-col">
       <CardHeader className="pb-3 flex-shrink-0">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <Bot className="h-6 w-6 text-orange-600" />
-          </motion.div>
+          <Bot className="h-5 w-5 text-gray-700" />
           AI Health Assistant
         </CardTitle>
       </CardHeader>
@@ -233,14 +221,12 @@ Question: ${messageContent}`;
                 <div
                   className={`max-w-[80%] p-3 rounded-lg break-words overflow-hidden ${
                     message.type === "user"
-                      ? "bg-orange-600 text-white"
-                      : "bg-white text-gray-800 shadow-sm"
+                      ? "bg-gray-900 text-white"
+                      : "bg-gray-100 text-gray-800"
                   }`}
                 >
                   <div className="flex items-start gap-2">
-                    {message.type === "assistant" && (
-                      <Heart className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                    )}
+                    {message.type === "assistant" && <Bot className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />}
                     {message.type === "user" && (
                       <User className="h-4 w-4 text-white mt-0.5 flex-shrink-0" />
                     )}
@@ -259,10 +245,10 @@ Question: ${messageContent}`;
               animate={{ opacity: 1, y: 0 }}
               className="flex justify-start"
             >
-              <div className="bg-white p-3 rounded-lg shadow-sm max-w-[80%]">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <div className="flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
-                  <div className="text-sm text-gray-600">AI is thinking...</div>
+                  <Loader2 className="h-4 w-4 text-gray-600 animate-spin" />
+                  <div className="text-sm text-gray-600">Generating response...</div>
                 </div>
               </div>
             </motion.div>
@@ -290,7 +276,7 @@ Question: ${messageContent}`;
             onClick={handleSendMessage}
             disabled={isLoading || !inputValue.trim()}
             size="icon"
-            className="bg-orange-600 hover:bg-orange-700"
+            className="bg-gray-900 hover:bg-gray-800"
           >
             <Send className="h-4 w-4" />
           </Button>

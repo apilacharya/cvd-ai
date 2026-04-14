@@ -92,7 +92,7 @@
   }
 
   .heart-pulse {
-    animation: heartbeat 1.5s ease-in-out infinite;
+    animation: none;
   }
 
   @keyframes heartbeat {
@@ -106,7 +106,7 @@
   }
 
   .floating {
-    animation: floating 3s ease-in-out infinite;
+    animation: none;
   }
 
   @keyframes floating {

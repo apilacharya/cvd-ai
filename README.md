@@ -111,8 +111,3 @@ make train
 make evaluate
 make ml-api
 ```
-
-## Notes for Reviewers
-
-- The full-stack structure is intentional: it demonstrates both model development and production-facing integration.
-- Existing training and API modules are preserved; `src/` provides cleaner, maintainable entry points without breaking current flows.

@@ -272,36 +272,30 @@ export function CVDPredictionForm({
     >
       {/* <Card className='w-full max-w-2xl mx-auto shadow-xl border-0 bg-gradient-to-br from-emerald-50/40 via-green-50/30 to-teal-50/40'> */}
       <Card
-        className="w-full max-w-2xl mx-auto shadow-xl border-0 bg-white"
+        className="w-full max-w-4xl mx-auto shadow-md border border-gray-200 bg-white"
         id="assessment"
       >
         <CardHeader className="text-center pb-8">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mx-auto mb-4"
-          >
+          <div className="mx-auto mb-4">
             <div className="relative">
-              <Heart className="h-16 w-16 text-emerald-500 mx-auto heart-pulse" />
-              <Activity className="h-8 w-8 text-green-500 absolute -bottom-2 -right-2 animate-bounce" />
+              <Heart className="h-14 w-14 text-emerald-600 mx-auto" />
             </div>
-          </motion.div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-            User Recent Health Data
+          </div>
+          <CardTitle className="text-2xl font-semibold text-gray-900">
+            Health Assessment Form
           </CardTitle>
           <p className="text-muted-foreground mt-2">
-            Please provide accurate information for the best prediction results
+            Enter your current health details for risk analysis.
           </p>
         </CardHeader>
 
-        <CardContent className="p-8 pt-10">
+        <CardContent className="p-6 pt-6">
           <form
             onSubmit={handleSubmit(handleFormSubmit)}
-            className="space-y-10"
+            className="space-y-6"
           >
             {/* Row 1: Gender (Radio) and Age (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -311,7 +305,7 @@ export function CVDPredictionForm({
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
                   <User className="h-6 w-6 " />
-                  What is your gender?
+                  Gender
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("gender", value)}
@@ -376,14 +370,14 @@ export function CVDPredictionForm({
                   className="text-lg font-semibold flex items-center gap-3 text-gray-700"
                 >
                   <Timer className="h-6 w-6" />
-                  What is your age?
+                  Age
                 </Label>
                 <Input
                   id="age"
                   type="number"
                   placeholder="Enter your age"
                   {...register("age", { valueAsNumber: true })}
-                  className="text-lg py-3 h-12 border-2 border-gray-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-lg font-medium bg-white"
+                  className="h-11 border border-gray-300 focus:border-green-600 rounded-md bg-white"
                 />
                 {errors.age && (
                   <p className="text-sm text-destructive">
@@ -394,7 +388,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 2: Education (Select) and Cholesterol (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -404,11 +398,11 @@ export function CVDPredictionForm({
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
                   <BookOpen className="h-6 w-6" />
-                  What is your education level?
+                  Education level
                 </Label>
                 <select
                   {...register("education")}
-                  className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-lg font-medium focus:border-green-500 focus:ring-4 focus:ring-green-200 focus:outline-none"
+                  className="h-11 w-full rounded-md border border-gray-300 bg-white px-3 focus:border-green-600 focus:outline-none"
                 >
                   <option value="">Select your education level</option>
                   {educationOptions.map((option) => (
@@ -455,7 +449,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 3: Current Smoker (Radio) and Cigarettes Per Day (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -465,7 +459,7 @@ export function CVDPredictionForm({
               >
                 <Label className="text-lg font-semibold flex items-center gap-3 text-gray-700">
                   <Cigarette className="h-6 w-6 " />
-                  Are you a current smoker?
+                  Current smoker
                 </Label>
                 <RadioGroup
                   onValueChange={(value) => setValue("currentSmoker", value)}
@@ -535,7 +529,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 4: Systolic BP (Input) and BP Medication (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -616,7 +610,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 5: Diastolic BP (Input) and Stroke History (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -697,7 +691,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 6: BMI (Input) and Hypertension (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -778,7 +772,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 7: Heart Rate (Input) and Diabetes (Radio) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"
@@ -859,7 +853,7 @@ export function CVDPredictionForm({
             </div>
 
             {/* Row 8: Glucose (Input) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 variants={fieldVariants}
                 initial="hidden"

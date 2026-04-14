@@ -30,10 +30,10 @@ export function HomePage() {
     try {
       const results = await cvdPredictionApi.predictWithAllModels(formData);
 
-      // Set Random Forest as the best model by reordering results
+      // Keep primary model first for consistent display
       const reorderedResults = results.sort((a, b) => {
-        if (a.name === "Random Forest") return -1;
-        if (b.name === "Random Forest") return 1;
+        if (a.name === "Support Vector Machine") return -1;
+        if (b.name === "Support Vector Machine") return 1;
         return 0;
       });
 

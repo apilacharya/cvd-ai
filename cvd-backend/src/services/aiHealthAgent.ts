@@ -50,7 +50,6 @@ STRICT GUIDELINES:
 - Always remind users that your advice is for informational purposes only
 - Encourage consulting healthcare professionals for medical decisions
 - Keep responses concise (max 300 words) and encouraging
-- Use heart emojis when appropriate ❤️
 
 FOCUS AREAS INCLUDE:
 - Heart disease prevention and risk factors
@@ -79,7 +78,7 @@ FOCUS AREAS INCLUDE:
       systemPrompt += `\n\nUSE THIS RISK INFORMATION to provide more relevant and personalized advice. Reference their specific risk percentage when appropriate, but always emphasize that this is educational information only and they should consult healthcare professionals for medical decisions.`;
     } else {
       // If no risk percentage is provided, require it before giving advice
-      systemPrompt += `\n\nIMPORTANT: No CVD risk assessment has been provided for this user. You should respond with: "To provide you with personalized cardiovascular health guidance, I need your CVD risk assessment first. Please complete our heart disease risk analysis form, and then I'll be able to give you tailored advice based on your specific risk level. ❤️"`;
+      systemPrompt += `\n\nIMPORTANT: No CVD risk assessment has been provided for this user. You should respond with: "To provide personalized cardiovascular guidance, I need your CVD risk assessment first. Please complete the heart disease risk analysis form, and then I can give tailored advice based on your risk level."`;
     }
 
     const result = await streamText({
