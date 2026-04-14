@@ -1,3 +1,4 @@
+# Root Python requirements for the ML pipeline and FastAPI model service
 fastapi==0.119.1
 uvicorn==0.38.0
 pydantic==2.12.3
