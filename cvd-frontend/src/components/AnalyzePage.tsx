@@ -29,14 +29,13 @@ export function AnalyzePage() {
       const results = await cvdPredictionApi.predictWithAllModels(data);
       setPredictionResults(results);
 
-      // Find Random Forest model result (the best model)
-      const randomForestModel = results.find(
-        (model: any) => model.name === "Random Forest"
-      );
+      const primaryModel =
+        results.find((model: any) => model.name === "Support Vector Machine") ||
+        results[0];
 
-      if (randomForestModel && user) {
+      if (primaryModel && user) {
         // Calculate risk level based on probability
-        const riskProbability = randomForestModel.probabilities[1];
+        const riskProbability = primaryModel.probabilities[1];
         let riskLevel: "low" | "medium" | "high" = "low";
         if (riskProbability >= 0.7) {
           riskLevel = "high";
@@ -64,10 +63,10 @@ export function AnalyzePage() {
               riskLevel,
               riskScore: riskProbability * 100,
               recommendations,
-              modelUsed: "Random Forest",
+              modelUsed: primaryModel.name,
               additionalInfo: {
                 allModels: results,
-                confidence: randomForestModel.probabilities[1],
+                confidence: primaryModel.probabilities[1],
               },
             },
           });
@@ -290,7 +289,7 @@ export function AnalyzePage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="container mx-auto max-w-[1600px] px-4 py-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -321,13 +320,13 @@ export function AnalyzePage() {
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Form Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-4"
+            className="lg:col-span-8"
           >
             <CVDPredictionForm
               onSubmit={handleFormSubmit}
@@ -340,7 +339,7 @@ export function AnalyzePage() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-2 flex flex-col gap-12"
+            className="lg:col-span-4 flex flex-col gap-10"
           >
             {/* AI Health Assistant */}
             <div className="flex-shrink-0">

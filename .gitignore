@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Logs and temp
+*.log
+*.tmp
+
+# Model artifacts and heavy data (keep canonical artifacts tracked if needed)
+*.joblib
+*.h5
+*.onnx
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# IDE
+.idea/
+.vscode/
+
+Agents.md

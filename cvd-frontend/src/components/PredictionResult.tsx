@@ -103,7 +103,7 @@ export function PredictionResult({
         <Card className="bg-gradient-to-br from-gray-50 to-slate-100 border-0 shadow-lg">
           <CardContent className="p-8">
             <div className="flex flex-col items-center justify-center space-y-4">
-              <Heart className="h-16 w-16 text-gray-400 floating" />
+              <Heart className="h-16 w-16 text-gray-400" />
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">
                   No Results Yet
@@ -120,10 +120,10 @@ export function PredictionResult({
     );
   }
 
-  // Use Random Forest as the primary model for risk calculation (best model by default)
-  const randomForestModel =
-    results.find((model) => model.name === "Random Forest") || results[0];
-  const primaryRiskProbability = randomForestModel.probabilities[1];
+  const primaryModel =
+    results.find((model) => model.name === "Support Vector Machine") ||
+    results[0];
+  const primaryRiskProbability = primaryModel.probabilities[1];
   const riskInfo = getRiskLevel(primaryRiskProbability);
 
   return (
@@ -141,14 +141,14 @@ export function PredictionResult({
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
             <Heart
-              className={`h-16 w-16 mx-auto mb-4 heart-pulse ${riskInfo.color}`}
+              className={`h-16 w-16 mx-auto mb-4 ${riskInfo.color}`}
             />
           </motion.div>
           <CardTitle className="text-2xl font-bold">
             Cardiovascular Risk Assessment
           </CardTitle>
           <p className="text-sm text-gray-600">
-            Based on Random Forest (Best Model)
+            Based on {primaryModel.name}
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -191,19 +191,16 @@ export function PredictionResult({
         </CardContent>
       </Card>
 
-      {/* Random Forest - Best Model Highlight */}
+      {/* Primary model highlight */}
       {(() => {
-        const randomForestResult = results.find(
-          (model) => model.name === "Random Forest"
-        );
-        if (!randomForestResult) return null;
+        if (!primaryModel) return null;
 
         return (
           <Card className="bg-gradient-to-br from-emerald-50 to-green-100 border-2 border-emerald-300 shadow-lg">
             <CardHeader>
               <CardTitle className="text-lg font-semibold flex items-center gap-2">
                 <Award className="h-6 w-6 text-emerald-600" />
-                Best Model Recommendation: Random Forest
+                Primary Model: {primaryModel.name}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -211,41 +208,40 @@ export function PredictionResult({
                 <div className="text-center">
                   <div
                     className={`text-3xl font-bold ${
-                      randomForestResult.prediction === 1
+                      primaryModel.prediction === 1
                         ? "text-red-600"
                         : "text-green-600"
                     } mb-2`}
                   >
-                    {randomForestResult.prediction === 1
+                    {primaryModel.prediction === 1
                       ? "CVD Risk Detected"
                       : "No CVD Risk"}
                   </div>
                   <div className="text-lg text-gray-700">
                     Risk Probability:{" "}
                     <span className="font-semibold">
-                      {(randomForestResult.probabilities[1] * 100).toFixed(1)}%
+                      {(primaryModel.probabilities[1] * 100).toFixed(1)}%
                     </span>
                   </div>
                   <p className="text-sm text-gray-600 mt-2">
-                    Random Forest achieved the highest accuracy in our testing
-                    and is our most trusted model for CVD prediction.
+                    This model is currently used as the primary signal for risk interpretation.
                   </p>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
                     className={`h-3 rounded-full ${
-                      randomForestResult.probabilities[1] >= 0.8
+                      primaryModel.probabilities[1] >= 0.8
                         ? "bg-red-500"
-                        : randomForestResult.probabilities[1] >= 0.6
+                        : primaryModel.probabilities[1] >= 0.6
                         ? "bg-orange-500"
-                        : randomForestResult.probabilities[1] >= 0.4
+                        : primaryModel.probabilities[1] >= 0.4
                         ? "bg-yellow-500"
-                        : randomForestResult.probabilities[1] >= 0.2
+                        : primaryModel.probabilities[1] >= 0.2
                         ? "bg-blue-500"
                         : "bg-green-500"
                     }`}
                     style={{
-                      width: `${randomForestResult.probabilities[1] * 100}%`,
+                      width: `${primaryModel.probabilities[1] * 100}%`,
                     }}
                   />
                 </div>
@@ -291,7 +287,7 @@ export function PredictionResult({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className={`p-4 rounded-lg border-2 ${
-                  model.name === "Random Forest"
+                  model.name === primaryModel.name
                     ? "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-200"
                     : model.prediction === 1
                     ? "border-red-500 bg-red-50"
@@ -302,7 +298,7 @@ export function PredictionResult({
                   <div>
                     <h4 className="font-semibold text-lg flex items-center gap-2">
                       {model.name}
-                      {model.name === "Random Forest" && (
+                      {model.name === primaryModel.name && (
                         <Award className="h-5 w-5 text-emerald-600" />
                       )}
                       {model.prediction === 0 ? (
@@ -314,9 +310,9 @@ export function PredictionResult({
                     <p className="text-sm text-gray-600">
                       Prediction:{" "}
                       {model.prediction === 1 ? "CVD Risk" : "No CVD Risk"}
-                      {model.name === "Random Forest" && (
+                      {model.name === primaryModel.name && (
                         <span className="ml-2 text-emerald-600 font-medium">
-                          (Best Model)
+                          (Primary Model)
                         </span>
                       )}
                     </p>

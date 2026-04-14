@@ -12,7 +12,6 @@ import aiRoutes from "./routes/ai.js";
 
 // Import middleware
 import { errorHandler } from "./middleware/errorHandler.js";
-import { authenticateToken } from "./middleware/auth.js";
 
 // Load environment variables
 dotenv.config();
@@ -33,9 +32,13 @@ const limiter = rateLimit({
 app.use("/api/", limiter);
 
 // CORS configuration
+const configuredOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(",").map((origin) => origin.trim())
+  : ["http://localhost:3000", "http://localhost:5173"];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: configuredOrigins,
     credentials: true,
   })
 );
@@ -48,16 +51,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/ai", aiRoutes);
-
-// Protected route for getting current user
-app.get("/api/auth/me", authenticateToken, (req: any, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      user: req.user.toJSON(),
-    },
-  });
-});
 
 // Health check endpoint
 app.get("/api/health", (_req, res) => {

@@ -7,7 +7,10 @@ import type {
   ApiResponse,
 } from "../types/auth";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(
+  /\/$/,
+  ""
+);
 
 export class ApiError extends Error {
   public status: number;
@@ -20,6 +23,8 @@ export class ApiError extends Error {
     this.data = data;
   }
 }
+
+type AuthResponse = ApiResponse<{ user: User }> & { token?: string };
 
 // Get stored token
 export const getToken = (): string | null => {
@@ -91,19 +96,18 @@ export const authApi = {
   // Register new user
   register: async (
     userData: UserCreateInput
-  ): Promise<ApiResponse<{ user: User; token: string }>> => {
-    const response = await apiRequest<
-      ApiResponse<{ user: User; token: string }>
-    >("/auth/register", {
+  ): Promise<AuthResponse> => {
+    const response = await apiRequest<AuthResponse>("/auth/register", {
       method: "POST",
       body: JSON.stringify(userData),
     });
 
-    if (response.data?.token) {
-      setToken(response.data.token);
-      if (response.data?.user) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-      }
+    const token = response.token;
+    if (token) {
+      setToken(token);
+    }
+    if (response.data?.user) {
+      localStorage.setItem("user", JSON.stringify(response.data.user));
     }
 
     return response;
@@ -112,18 +116,17 @@ export const authApi = {
   // Login user
   login: async (
     credentials: UserLoginInput
-  ): Promise<ApiResponse<{ user: User; token: string }>> => {
-    const response = await apiRequest<
-      ApiResponse<{ user: User; token: string }>
-    >("/auth/login", {
+  ): Promise<AuthResponse> => {
+    const response = await apiRequest<AuthResponse>("/auth/login", {
       method: "POST",
       body: JSON.stringify(credentials),
     });
-    if (response.data?.token) {
-      setToken(response.data.token);
-      if (response.data?.user) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-      }
+    const token = response.token;
+    if (token) {
+      setToken(token);
+    }
+    if (response.data?.user) {
+      localStorage.setItem("user", JSON.stringify(response.data.user));
     }
 
     return response;
@@ -142,8 +145,8 @@ export const authApi = {
   },
 
   // Get current user profile
-  getProfile: async (): Promise<ApiResponse<User>> => {
-    return apiRequest<ApiResponse<User>>("/auth/profile");
+  getProfile: async (): Promise<ApiResponse<{ user: User }>> => {
+    return apiRequest<ApiResponse<{ user: User }>>("/auth/me");
   },
 };
 
@@ -206,7 +209,10 @@ interface ModelResult {
 
 // Python ML API Base URL
 const ML_API_BASE_URL =
-  import.meta.env.VITE_ML_API_URL || "http://localhost:8001";
+  (import.meta.env.VITE_ML_API_URL || "http://localhost:8001").replace(
+    /\/$/,
+    ""
+  );
 
 // CVD Prediction API
 export const cvdPredictionApi = {
@@ -224,7 +230,14 @@ export const cvdPredictionApi = {
     });
 
     if (!response.ok) {
-      throw new Error(`ML API Error: ${response.statusText}`);
+      const errorPayload = await response
+        .json()
+        .catch(() => ({ message: response.statusText }));
+      throw new ApiError(
+        errorPayload.message || `ML API Error: ${response.statusText}`,
+        response.status,
+        errorPayload
+      );
     }
 
     return response.json();
